@@ -4,12 +4,12 @@ import { MatButton, MatFabButton } from "@angular/material/button";
 import { Router } from "@angular/router";
 import { FetchService } from "../../services/fetch.service";
 import { Register } from "../../interfaces/interfaces";
-import {MatIcon} from "@angular/material/icon";
+import { MatIcon } from "@angular/material/icon";
 
   @Component({
   selector: 'app-import-data',
   standalone: true,
-    imports: [CommonModule, MatButton, MatFabButton, MatIcon],
+  imports: [CommonModule, MatButton, MatFabButton, MatIcon],
   templateUrl: './import-data.component.html',
   styleUrls: ['./import-data.component.scss', '../../styles/table.scss']
 })
@@ -70,8 +70,8 @@ export class ImportDataComponent implements OnInit {
   }
 
   async importData() {
-    // TODO: POST on database
-    this.#fetch.updateSignal(this.formatData(this.tableData))
+    const dataToPost = this.formatData(this.tableData)
+    await this.#fetch.post(dataToPost)
     await this.#router.navigate(['/home'])
   }
 

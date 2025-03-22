@@ -1,8 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { ErrorInterface, Register } from "../interfaces/interfaces";
+import {ErrorInterface, Register, SuccessPostInterface} from "../interfaces/interfaces";
 import { HttpClient } from "@angular/common/http";
 import { environment } from '../../environments/environment';
-import { catchError, map, of } from "rxjs"
+import { catchError, firstValueFrom, map, of } from "rxjs"
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,16 @@ export class FetchService {
   #data = signal<Register[]>([])
 
   #http = inject(HttpClient)
+
+  async post(data: Register[]) {
+
+    const response = await firstValueFrom(
+      this.#http.post<SuccessPostInterface | ErrorInterface>(`${environment.API_URL}${environment.SALE}`, data)
+    )
+
+    console.log('response', response)
+
+  }
 
   async qrCode<T>() {
     return this.#http.get<{ status: number, object: T }>(`${environment.API_URL}${environment.WHATSAPP}`)

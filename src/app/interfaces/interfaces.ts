@@ -9,4 +9,5 @@ export interface Register {
   withdrawnDate?: number | string,
 }
 
-export interface ErrorInterface { status: number, errorMessage: string }
+export interface SuccessPostInterface { status: number, message: string }
+export interface ErrorInterface { status: number, error: string }
