@@ -1,7 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { io, Socket } from 'socket.io-client';
+import { Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
-import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +13,7 @@ export class WebSocketService {
   getQrCode(): Observable<string> {
     return new Observable(observer => {
       this.#socket.on('qr', (qr: string) => {
+        console.log(qr)
         observer.next(qr);
       });
 
@@ -25,6 +25,7 @@ export class WebSocketService {
   getReadyStatus(): Observable<string> {
     return new Observable(observer => {
       this.#socket.on('ready', (message: string) => {
+        console.log(message)
         observer.next(message);
       });
 

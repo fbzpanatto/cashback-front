@@ -2,28 +2,26 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FetchService } from "../../services/fetch.service";
 import { firstValueFrom } from "rxjs";
 import { WebSocketService } from "../../services/web-socket.service";
-import { NgOptimizedImage } from "@angular/common";
+import QRCode from "qrcode";
 
 @Component({
   selector: 'app-whatsapp',
-  imports: [
-    NgOptimizedImage
-  ],
+  imports: [],
   templateUrl: './whatsapp.component.html',
   styleUrl: './whatsapp.component.scss'
 })
 export class WhatsappComponent implements OnInit {
 
-  qrCodeUrl: string = '';
+  qrCode?: string
   isReady: boolean = false;
 
   #socket = inject(WebSocketService)
   #fetch = inject(FetchService)
 
-  ngOnInit() {
-    // Captura o QR Code do WebSocket
-    this.#socket.getQrCode().subscribe(qr => {
-      this.qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${qr}`;
+  async ngOnInit() {
+
+    this.#socket.getQrCode().subscribe(async (qr) => {
+      this.qrCode = await QRCode.toDataURL(qr)
     });
 
     this.#socket.getReadyStatus().subscribe(() => {
@@ -31,7 +29,7 @@ export class WhatsappComponent implements OnInit {
     });
   }
 
-  async qrCode() {
+  async qrCodeFn() {
     const response = await firstValueFrom(await this.#fetch.qrCode<string>())
     if(typeof response != 'string' && response === null) { return }
 

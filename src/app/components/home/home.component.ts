@@ -30,7 +30,7 @@ export class HomeComponent {
         title: 'Relatórios',
         backgroundColor: 'transparent',
         icon: 'icon',
-        style: { backgroundColor: '#cdd313', color: '#fff', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'},
+        style: { backgroundColor: '#dcae18', color: '#fff', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'},
         link: '/report'
       },
       {
