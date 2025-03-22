@@ -6,8 +6,6 @@
 <!--    </button>-->
 
     @if(!isReady) {
-      <h3>Escaneie o QR Code para conectar-se ao WhatsApp</h3>
-
       @if(qrCodeUrl){
         <img [ngSrc]="qrCodeUrl" alt="QR Code do WhatsApp" width="300" height="300">
       }@else {
