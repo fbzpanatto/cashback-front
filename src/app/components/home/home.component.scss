@@ -1,0 +1,50 @@
+@use "../../styles/variables.scss" as *;
+
+.home-wrapper {
+  height: calc(100vh - $topBarHeight);
+
+  .options-container {
+    display: flex;
+    flex-direction: column;
+    height: inherit;
+    gap: 4vmin;
+    padding: 8vmin;
+
+    .light-shadow {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .option {
+      flex: 1;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: row;
+
+      :hover {
+        cursor: pointer;
+      }
+
+      .left-side, .right-side {
+        flex: 1;
+        padding: 2vmin;
+        justify-items: center;
+        align-items: center;
+        height: 100%;
+        display: flex;
+        font-weight: lighter;
+
+        h6 {
+          font-weight: lighter;
+        }
+      }
+
+      .left-side {
+        justify-content: center;
+      }
+
+      .right-side {
+        justify-content: flex-start;
+      }
+    }
+  }
+}

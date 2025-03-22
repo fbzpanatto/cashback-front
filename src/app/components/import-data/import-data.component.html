@@ -1,0 +1,48 @@
+<div class="import-data-wrapper">
+
+  @if(!(tableData.length > 0)) {
+    <div class="import-file-content">
+      <input #fileInput type="file" accept=".csv,.txt" (change)="onFileSelected($event)" hidden />
+      <button mat-flat-button (click)="openFileInput()">
+        <span>icon</span>
+        <span>Selecione um arquivo...</span>
+      </button>
+    </div>
+  } @else {
+    <div class="table-content">
+      <table>
+        <thead>
+        <tr>
+          <th class="sticky-left"> Id</th>
+          <th>Nome</th>
+          <th>Tel</th>
+          <th>Data Venda</th>
+          <th>Valor</th>
+          <th class="fixed-width">CashBack (%)</th>
+          <th class="fixed-width">Expiração (d)</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for(row of tableData; track $index) {
+            <tr>
+              <td class="sticky-left">{{ row.id }}</td>
+              <td>{{ row.name }}</td>
+              <td class="center">{{ row.tel }}</td>
+              <td class="center">{{ row.date | slice:0:10 }}</td>
+              <td class="center">{{ row.value | currency: 'BRL' }}</td>
+              <td class="center">
+                <input maxlength="4" [value]="row.cashback">
+              </td>
+              <td class="center">
+                <input maxlength="3" [value]="row.expiration">
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <button (click)="importData()" class="mat-fab" mat-fab>
+      <mat-icon svgIcon="save"></mat-icon>
+    </button>
+  }
+</div>

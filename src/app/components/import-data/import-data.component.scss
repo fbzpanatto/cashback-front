@@ -1,0 +1,42 @@
+@use "../../styles/variables.scss" as *;
+
+.import-data-wrapper {
+  height: calc(100vh - $topBarHeight);
+  overflow: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .import-file-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    border: 5px dotted #9fb9ff;
+    background: #eff4ff;
+    height: calc(85vh - $topBarHeight);
+    width: calc(85vw);
+    overflow: auto;
+
+    button {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+      height: 20%;
+      border-radius: 8px;
+      span:nth-child(1) {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  .mat-fab {
+    position: absolute;
+    bottom: 8vmin;
+    right: 4vmin;
+    background: #0a6bc4;
+    color: white;
+    font-size: 12pt;
+  }
+}

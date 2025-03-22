@@ -1,0 +1,14 @@
+<div class="home-wrapper">
+  <div class="options-container">
+    @for(item of menu; track item.id){
+      <div [routerLink]="[item.link]" class="option" [ngStyle]="item.style">
+        <div class="left-side">
+          <span>{{ item.icon }}</span>
+        </div>
+        <div class="right-side">
+          <h6>{{ item.title }}</h6>
+        </div>
+      </div>
+    }
+  </div>
+</div>

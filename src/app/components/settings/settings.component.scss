@@ -1,0 +1,12 @@
+@use "../../styles/variables.scss" as *;
+
+.settings-wrapper {
+  height: calc(100vh - $topBarHeight);
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: inherit;
+    gap: 4vmin;
+    padding: 8vmin;
+  }
+}

@@ -1,0 +1,41 @@
+@use '../../styles/variables.scss' as *;
+
+.top-bar-wrapper {
+  background-color: #fff;
+  display: flex;
+  height: $topBarHeight;
+  box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #d2d2d2;
+  position: sticky;
+  top: 0;
+  left: 0;
+
+  .box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+
+    &.left-side {
+      display: flex;
+      justify-content: flex-start;
+      padding-left: 6vmin;
+
+      mat-icon[svgIcon="home"] {
+      }
+    }
+
+    &.center {
+      display: flex;
+      justify-content: center;
+    }
+
+    &.right-side {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 6vmin;
+
+      mat-icon[svgIcon="exit_to_app"] {
+      }
+    }
+  }
+}

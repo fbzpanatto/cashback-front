@@ -1,0 +1,55 @@
+<div class="report-wrapper">
+
+  <div class="filter-container">
+    <div class="input-container">
+      <input [formControl]="search" id="textSearch" type="text" placeholder="nome ou telefone...">
+      <mat-icon class="search" svgIcon="search"></mat-icon>
+      <mat-icon class="backspace" svgIcon="backspace" (click)="clearSearch()"></mat-icon>
+    </div>
+  </div>
+
+  <div class="table-content">
+    <table>
+      <thead>
+      <tr>
+        <th class="sticky-left"> Id</th>
+        <th>Nome</th>
+        <th>Tel</th>
+        <th>Data Venda</th>
+        <th class="center">Data Expiração</th>
+        <th>Valor</th>
+        <th class="fixed-width">CashBack (%)</th>
+        <th>Valor CashBack</th>
+        <th>Data Utilização</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for(row of filtered(); track $index) {
+          <tr>
+            <td class="sticky-left">{{ row.id }}</td>
+            <td>{{ row.name }}</td>
+            <td class="center">{{ row.tel }}</td>
+            <td class="center">{{ row.date }}</td>
+            <td class="center">{{ row.expiration }}</td>
+            <td class="center">{{ row.value | currency: 'BRL' }}</td>
+            <td class="center">{{ row.cashback }}</td>
+            <td class="center">{{ row.value | cashBack: row.cashback | currency: 'BRL' }}</td>
+            <td #cashBackStatus [id]="row.id" class="center pointer" (click)="withdrawnDate(row)">{{ row.withdrawnDate | cashBackStatus: currentDate: row.expiration }}</td>
+          </tr>
+        }
+      <tr class="total-line">
+        <td class="sticky-left center">-</td>
+        <td class="center">-</td>
+        <td class="center">-</td>
+        <td class="center">-</td>
+        <td class="center">-</td>
+        <td class="center">{{ filtered() | totalSells | currency: 'BRL' }}</td>
+        <td class="center">-</td>
+        <td class="center">{{ filtered() | totalCashBacks | currency: 'BRL' }}</td>
+        <td class="center">-</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

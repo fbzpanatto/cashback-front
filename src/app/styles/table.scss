@@ -1,0 +1,88 @@
+@use "variables.scss" as *;
+
+.table-content {
+  position: relative;
+  top: 0;
+  overflow: auto;
+  height: calc(100vh - $topBarHeight);
+  width: 100vw;
+
+  table {
+    width: 100%;
+    background: #eff4ff;
+    thead {
+      position: sticky;
+      top: 0;
+      left: 0;
+      background: #0a6bc4;
+      z-index: 1;
+      font-size: 12pt;
+
+      tr {
+        th {
+          color: #fff;
+          padding: 8px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          &.sticky-left {
+            position: sticky;
+            left: 0;
+            background: #0a6bc4;
+          }
+          &.fixed-width {
+            width: 100px;
+          }
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          font-weight: lighter;
+          border-bottom: 1px solid #bdcede;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          color: #444;
+          font-size: 10pt;
+          padding: 6px;
+
+          &:has(input) {
+            padding: 0 6px;
+          }
+
+          &.pointer {
+            &:hover {
+              cursor: pointer;
+            }
+          }
+
+          &.sticky-left {
+            position: sticky;
+            left: 0;
+            background: #eff4ff;
+          }
+          &.center {
+            text-align: center;
+          }
+          &.right {
+            text-align: right;
+          }
+          input {
+            &:hover {
+              cursor: pointer;
+            }
+            width: 100%;
+            padding: 8px;
+          }
+        }
+
+        &.total-line {
+          td {
+            font-weight: bold;
+            background: #dee7ff;
+          }
+        }
+      }
+    }
+  }
+}
