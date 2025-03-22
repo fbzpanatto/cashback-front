@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection, LOCALE_ID, inject, Injectable, ENVIRONMENT_INITIALIZER } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection, LOCALE_ID, inject, Injectable, provideEnvironmentInitializer} from '@angular/core';
 import { provideRouter, withViewTransitions } from '@angular/router';
 import { registerLocaleData } from '@angular/common';
 import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
@@ -10,6 +10,9 @@ import localePt from '@angular/common/locales/pt';
 import localePtExtra from '@angular/common/locales/extra/pt';
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
+import {io, Socket} from "socket.io-client";
+import {environment} from "../environments/environment";
+import {WebSocketService} from "./services/web-socket.service";
 
 
 registerLocaleData(localePt, 'pt-BR');
@@ -82,7 +85,14 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withViewTransitions()),
     provideHttpClient(withInterceptorsFromDi()),
+    provideEnvironmentInitializer(() => { inject(Initializers).init() }),
     { provide: LOCALE_ID, useValue: 'pt-BR' },
-    { provide: ENVIRONMENT_INITIALIZER, multi: true, useValue: () => inject(Initializers).init() },
+    {
+      provide: Socket,
+      useFactory: () => io(environment.API_URL),
+    },
+
+    // Provide WebSocketService
+    WebSocketService,
   ]
 };

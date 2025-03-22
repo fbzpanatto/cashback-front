@@ -1,8 +1,22 @@
 <div class="whatsapp-wrapper">
   <div class="whatsapp-content">
-    <button mat-flat-button (click)="qrCode()">
-      <span>icon</span>
-      <span>Obter qrCode</span>
-    </button>
+<!--    <button mat-flat-button (click)="qrCode()">-->
+<!--      <span>icon</span>-->
+<!--      <span>Obter qrCode</span>-->
+<!--    </button>-->
+
+    @if(!isReady) {
+      <h3>Escaneie o QR Code para conectar-se ao WhatsApp</h3>
+
+      @if(qrCodeUrl){
+        <img [ngSrc]="qrCodeUrl" alt="QR Code do WhatsApp" width="300" height="300">
+      }@else {
+        <p>Aguardando QR Code...</p>
+      }
+    }@else{
+      <h3>WhatsApp Conectado!</h3>
+      <p>Agora você pode enviar mensagens pelo sistema.</p>
+    }
+
   </div>
 </div>
