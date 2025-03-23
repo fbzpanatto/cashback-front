@@ -1,19 +1,31 @@
 import { inject, Injectable, signal } from '@angular/core';
-import {ErrorInterface, Register, SuccessPostInterface} from "../interfaces/interfaces";
+import { ErrorInterface, Sale, SuccessGetInterface, SuccessPostInterface } from "../interfaces/interfaces";
 import { HttpClient } from "@angular/common/http";
 import { environment } from '../../environments/environment';
-import { catchError, firstValueFrom, map, of } from "rxjs"
+import { firstValueFrom } from "rxjs"
+import { SalesSignalService } from "./sales-signal.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FetchService {
 
-  #data = signal<Register[]>([])
-
   #http = inject(HttpClient)
+  #sales = inject(SalesSignalService)
 
-  async post(data: Register[]) {
+  async get() {
+    const response = await firstValueFrom(
+      this.#http.get<SuccessGetInterface | ErrorInterface>(`${environment.API_URL}${environment.SALE}`),
+    )
+
+    if(response.status != 200 && (response as ErrorInterface).error) {
+      return console.error('errorHandler', response)
+    }
+
+    this.#sales.updateSignal((response as SuccessGetInterface).data)
+  }
+
+  async post(data: Sale[]) {
 
     const response = await firstValueFrom(
       this.#http.post<SuccessPostInterface | ErrorInterface>(`${environment.API_URL}${environment.SALE}`, data)
@@ -22,36 +34,4 @@ export class FetchService {
     console.log('response', response)
 
   }
-
-  async qrCode<T>() {
-    return this.#http.get<{ status: number, object: T }>(`${environment.API_URL}${environment.WHATSAPP}`)
-      .pipe(
-        map((res) => res.object),
-        catchError((err: ErrorInterface) => this.errorHandler(err))
-      );
-  }
-
-  errorHandler(error: ErrorInterface) {
-    console.log(error)
-    return of(null)
-  }
-
-  async update(id: string, fields: Partial<Register>) {
-
-    const index = this.#data().findIndex(element => element.id === id);
-
-    if (index > -1) {
-      const newArray = [
-        ...this.#data().slice(0, index),
-        { ...this.#data()[index], ...fields },
-        ...this.#data().slice(index + 1)
-      ];
-
-      this.updateSignal(newArray)
-    }
-  }
-
-  get data(){ return this.#data.asReadonly() }
-
-  updateSignal(data: Register[]) { this.#data.update((_) => [...data]) }
 }

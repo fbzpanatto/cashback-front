@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { MatButton, MatFabButton } from "@angular/material/button";
 import { Router } from "@angular/router";
 import { FetchService } from "../../services/fetch.service";
-import { Register } from "../../interfaces/interfaces";
+import { Sale } from "../../interfaces/interfaces";
 import { MatIcon } from "@angular/material/icon";
 
   @Component({
@@ -16,7 +16,7 @@ import { MatIcon } from "@angular/material/icon";
 export class ImportDataComponent implements OnInit {
 
   @ViewChild('fileInput') fileInput!: ElementRef;
-  tableData: Register[] = [];
+  tableData: Sale[] = [];
 
   #defaultCashBack?: number
   #defaultExpiration?: number
@@ -54,16 +54,16 @@ export class ImportDataComponent implements OnInit {
     this.tableData = content
       .split('\n')
       .filter(row => row.trim() !== '')
-      .reduce((acc: Register[], prev) => {
+      .reduce((acc: Sale[], prev) => {
         const el = prev.split(';')
         acc.push({
-          id: el[0].trim(),
-          name: el[1].trim(),
-          tel: el[2].trim(),
-          date: el[3].trim(),
-          value: el[4].trim(),
+          saleId: el[0].trim(),
+          clientName: el[1].trim(),
+          clientPhone: el[2].trim(),
+          saleDate: el[3].trim(),
+          saleValue: el[4].trim(),
           cashback: this.defaultCashBack,
-          expiration: this.defaultExpiration
+          defaultExpiration: this.defaultExpiration
         })
         return acc
       }, [])
@@ -75,22 +75,22 @@ export class ImportDataComponent implements OnInit {
     await this.#router.navigate(['/home'])
   }
 
-  formatData(data: Register[]) {
+  formatData(data: Sale[]) {
     return this.setExpirationDate(data)
   }
 
-  setExpirationDate(data: Register[]) {
+  setExpirationDate(data: Sale[]) {
     return data.map(item => {
-      const dateParts = item.date.split('/'); // Assuming format is "DD/MM/YYYY"
+      const dateParts = (item.saleDate as string).split('/'); // Assuming format is "DD/MM/YYYY"
       const fullDate = new Date(`${dateParts[1]}/${dateParts[0]}/${dateParts[2]}`);
 
-      if (item.expiration) {
-        fullDate.setDate(fullDate.getDate() + Number(item.expiration)); // Add expiration days
+      if (item.defaultExpiration) {
+        fullDate.setDate(fullDate.getDate() + Number(item.defaultExpiration)); // Add expiration days
       }
 
-      const expiration = `${fullDate.getDate().toString().padStart(2, '0')}/${(fullDate.getMonth() + 1).toString().padStart(2, '0')}/${fullDate.getFullYear()}`;
+      const cashbackExpiration = `${fullDate.getDate().toString().padStart(2, '0')}/${(fullDate.getMonth() + 1).toString().padStart(2, '0')}/${fullDate.getFullYear()}`;
 
-      return { ...item, expiration };
+      return { ...item, cashbackExpiration };
     });
   }
 

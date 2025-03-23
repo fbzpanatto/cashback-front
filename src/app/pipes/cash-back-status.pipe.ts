@@ -1,7 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-type generic = string | number | undefined
-
 const DATE_REGEX = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/
 enum DATE_PARTS { year = 2, month = 1, day = 0 }
 
@@ -11,7 +9,7 @@ enum DATE_PARTS { year = 2, month = 1, day = 0 }
 })
 export class CashBackStatusPipe implements PipeTransform {
 
-  transform(withdrawn: generic, currentDate: string, expiration: generic) {
+  transform(withdrawn: Date | string | null | undefined, currentDate: string, expiration: Date | string | null | undefined) {
 
     if(DATE_REGEX.test(String(withdrawn) ?? '')) {
       return withdrawn as string;

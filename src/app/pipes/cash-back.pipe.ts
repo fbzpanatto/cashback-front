@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CashBackPipe implements PipeTransform {
 
-  transform(value: string, cashBack: number | undefined) {
+  transform(value: number | string, cashBack: number | undefined) {
     return (Number(value) * (cashBack ?? 0.05))
   }
 }

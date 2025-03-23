@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Register } from "../interfaces/interfaces";
+import { Sale } from "../interfaces/interfaces";
 import { CashBackPipe } from "./cash-back.pipe";
 import { CashBackStatusPipe } from "./cash-back-status.pipe";
 import { CashBackStatus } from "../enum/enum";
@@ -10,7 +10,7 @@ import { CashBackStatus } from "../enum/enum";
 })
 export class TotalCashBacksPipe implements PipeTransform {
 
-  transform(arr: Register[] | undefined) {
+  transform(arr: Sale[] | undefined) {
 
     const cashBackStatusPipe = new CashBackStatusPipe()
 
@@ -18,7 +18,7 @@ export class TotalCashBacksPipe implements PipeTransform {
 
     return arr?.reduce((acc, prev) => {
 
-      const condition = cashBackStatusPipe.transform(prev.withdrawnDate, this.currentDate, prev.expiration)
+      const condition = cashBackStatusPipe.transform(prev.withdrawnDate, this.currentDate, prev.cashbackExpiration)
 
       if(condition === CashBackStatus.expired) {
         return acc
@@ -29,7 +29,7 @@ export class TotalCashBacksPipe implements PipeTransform {
       }
 
       else {
-        const result = acc + Number(total.transform(prev.value, prev.cashback))
+        const result = acc + Number(total.transform(prev.saleValue, prev.cashback))
         return result
       }
     }, 0)

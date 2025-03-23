@@ -1,6 +1,6 @@
-import { Component, computed, ElementRef, inject, viewChildren } from '@angular/core';
+import { Component, computed, ElementRef, inject, OnInit, viewChildren } from '@angular/core';
 import { FetchService } from "../../services/fetch.service";
-import { Register } from "../../interfaces/interfaces";
+import { Sale } from "../../interfaces/interfaces";
 import { CashBackPipe } from "../../pipes/cash-back.pipe";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { TotalCashBacksPipe } from "../../pipes/total-cash-backs.pipe";
@@ -11,6 +11,7 @@ import { CashBackStatusPipe } from "../../pipes/cash-back-status.pipe";
 import { CashBackStatus } from "../../enum/enum";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { debounceTime, distinctUntilChanged, startWith } from "rxjs";
+import { SalesSignalService } from "../../services/sales-signal.service";
 
 @Component({
   selector: 'app-report',
@@ -19,21 +20,25 @@ import { debounceTime, distinctUntilChanged, startWith } from "rxjs";
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss', '../../styles/table.scss']
 })
-export class ReportComponent {
+export class ReportComponent implements OnInit {
 
   #fetch = inject(FetchService)
+  #sales = inject(SalesSignalService)
   #search: FormControl = new FormControl("")
 
   searchSignal = toSignal(this.#search.valueChanges.pipe(startWith(""), debounceTime(400), distinctUntilChanged()))
   cashBackStatus = viewChildren<ElementRef<HTMLTableCellElement>>('cashBackStatus')
 
-  async withdrawnDate(item: Register) {
+  async ngOnInit() {
+    await this.#fetch.get()
+  }
 
-    const value = this.cashBackStatus().find(el => el.nativeElement.id === item.id)?.nativeElement.innerText
+  async withdrawnDate(item: Sale) {
 
-    // TODO: Save on database
-    if(item.withdrawnDate === undefined && value === CashBackStatus.valid) {
-      await this.#fetch.update(item.id, { withdrawnDate: this.currentDate })
+    const value = this.cashBackStatus().find(el => String(el.nativeElement.id) === String(item.saleId))?.nativeElement.innerText
+
+    if(item.withdrawnDate === null && value === CashBackStatus.valid) {
+      await this.#sales.updateSale(item.saleId, { withdrawnDate: this.currentDate })
       return
     }
   }
@@ -58,12 +63,12 @@ export class ReportComponent {
 
   get filtered() {
     return computed(() => this.data().filter(el => {
-      return el.name.toLowerCase().trim().includes(this.searchSignal()?.toLowerCase().trim()) ||
-        el.tel.toLowerCase().trim().includes(this.searchSignal()?.toLowerCase().trim())
+      return el.clientName.toLowerCase().trim().includes(this.searchSignal()?.toLowerCase().trim()) ||
+        el.clientPhone.toLowerCase().trim().includes(this.searchSignal()?.toLowerCase().trim())
     }))
   }
 
   get data() {
-    return this.#fetch.data
+    return this.#sales.data
   }
 }

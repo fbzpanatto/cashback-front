@@ -16,7 +16,6 @@ export class WhatsappComponent implements OnInit {
   isReady: boolean = false;
 
   #socket = inject(WebSocketService)
-  #fetch = inject(FetchService)
 
   async ngOnInit() {
 
@@ -27,13 +26,5 @@ export class WhatsappComponent implements OnInit {
     this.#socket.getReadyStatus().subscribe(() => {
       this.isReady = true;
     });
-  }
-
-  async qrCodeFn() {
-    const response = await firstValueFrom(await this.#fetch.qrCode<string>())
-    if(typeof response != 'string' && response === null) { return }
-
-    console.log('qrCode()', response)
-
   }
 }
