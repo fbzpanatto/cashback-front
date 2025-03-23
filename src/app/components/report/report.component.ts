@@ -26,8 +26,8 @@ export class ReportComponent implements OnInit {
   #sales = inject(SalesSignalService)
   #search: FormControl = new FormControl("")
 
-  searchSignal = toSignal(this.#search.valueChanges.pipe(startWith(""), debounceTime(400), distinctUntilChanged()))
   cashBackStatus = viewChildren<ElementRef<HTMLTableCellElement>>('cashBackStatus')
+  searchSignal = toSignal(this.#search.valueChanges.pipe(startWith(""), debounceTime(400), distinctUntilChanged()))
 
   async ngOnInit() {
     await this.#fetch.get()

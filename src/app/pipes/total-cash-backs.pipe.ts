@@ -12,13 +12,13 @@ export class TotalCashBacksPipe implements PipeTransform {
 
   transform(arr: Sale[] | undefined) {
 
-    const cashBackStatusPipe = new CashBackStatusPipe()
+    const status = new CashBackStatusPipe()
 
     const total = new CashBackPipe()
 
     return arr?.reduce((acc, prev) => {
 
-      const condition = cashBackStatusPipe.transform(prev.withdrawnDate, this.currentDate, prev.cashbackExpiration)
+      const condition = status.transform(prev.withdrawnDate, this.currentDate, prev.cashbackExpiration)
 
       if(condition === CashBackStatus.expired) { return acc }
 
