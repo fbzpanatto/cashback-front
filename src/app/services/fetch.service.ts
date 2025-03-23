@@ -18,7 +18,7 @@ export class FetchService {
       this.#http.get<SuccessGetInterface | ErrorInterface>(`${environment.API_URL}${environment.SALE}`),
     )
 
-    if(response.status != 200 && (response as ErrorInterface).error) {
+    if((response as ErrorInterface).error) {
       return console.error('errorHandler', response)
     }
 
@@ -31,7 +31,8 @@ export class FetchService {
       this.#http.post<SuccessPostInterface | ErrorInterface>(`${environment.API_URL}${environment.SALE}`, data)
     )
 
-    console.log('response', response)
-
+    if((response as ErrorInterface).error) {
+      return console.error('errorHandler', response)
+    }
   }
 }
