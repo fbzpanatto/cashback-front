@@ -1,6 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FetchService } from "../../services/fetch.service";
-import { firstValueFrom } from "rxjs";
 import { WebSocketService } from "../../services/web-socket.service";
 import QRCode from "qrcode";
 
