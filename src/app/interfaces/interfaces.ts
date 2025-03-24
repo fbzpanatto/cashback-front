@@ -13,8 +13,8 @@ export interface Sale {
 
 export interface Parameter {
   id: number,
-  cashback: number,
-  expiration_day: number
+  cashback: number | string | null | undefined,
+  expiration_day: number | string | null | undefined
 }
 
 export interface SuccessGetSaleInterface { status: number, data: Sale[] }
