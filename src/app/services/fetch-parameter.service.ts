@@ -14,7 +14,7 @@ export class FetchParameterService {
   async getParameter() {
 
     const response = await firstValueFrom(
-      this.#http.get<SuccessGetParameterInterface | ErrorInterface>(`${environment.API_URL}${environment.PARAMETER}/2`),
+      this.#http.get<SuccessGetParameterInterface | ErrorInterface>(`${environment.API_URL}${environment.PARAMETER}`),
     )
 
     if((response as ErrorInterface).error) {
