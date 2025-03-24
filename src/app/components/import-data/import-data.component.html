@@ -4,7 +4,7 @@
     <div class="import-file-content">
       <input #fileInput type="file" accept=".csv,.txt" (change)="onFileSelected($event)" hidden />
       <button mat-flat-button (click)="openFileInput()">
-        <span>icon</span>
+        <mat-icon svgIcon="post_add"></mat-icon>
         <span>Selecione um arquivo...</span>
       </button>
     </div>

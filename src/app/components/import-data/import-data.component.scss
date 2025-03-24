@@ -21,7 +21,8 @@
 
     button {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      align-items: center;
       width: 80%;
       height: 20%;
       border-radius: 8px;
