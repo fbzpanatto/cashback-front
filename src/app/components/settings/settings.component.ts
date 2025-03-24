@@ -4,7 +4,8 @@ import { MatIcon } from "@angular/material/icon";
 import { SettingsFields } from "../../enum/enum";
 import { MatButton } from "@angular/material/button";
 import { MatFormField, MatInput, MatLabel } from "@angular/material/input";
-import {ToolbarTitleService} from "../../services/toolbar-title.service";
+import { ToolbarTitleService} from "../../services/toolbar-title.service";
+import { decimalValidator, isNumber } from "../../validators/validators";
 
 @Component({
   selector: 'app-settings',
@@ -28,8 +29,12 @@ export class SettingsComponent {
   #toolBarService = inject(ToolbarTitleService)
 
   form = this.#fb.group({
-    cashbackPercentage: ['', Validators.required],
-    expirationDays: ['', Validators.required],
+    cashbackPercentage: ['', {
+      validators: [Validators.required, isNumber(), decimalValidator()]
+    }],
+    expirationDays: ['', {
+      validators: [Validators.required, Validators.maxLength(3), isNumber()],
+    }],
   })
 
   constructor() {

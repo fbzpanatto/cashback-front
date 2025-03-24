@@ -6,14 +6,14 @@
 
         <div class="input-container">
           <mat-form-field appearance="outline" class="flx-1">
-            <mat-label>Cashback</mat-label>
-            <input matInput placeholder="cashback em porcentagem" [formControlName]="cashbackPercentageFieldName">
+            <mat-label>Cashback(%)</mat-label>
+            <input maxlength="6" matInput placeholder="cashback em porcentagem" [formControlName]="cashbackPercentageFieldName">
           </mat-form-field>
         </div>
 
         <div class="input-container">
           <mat-form-field appearance="outline" class="flx-1">
-            <mat-label>Expiração</mat-label>
+            <mat-label>Expiração(dias)</mat-label>
             <input maxlength="3" matInput placeholder="expiração em dias" [formControlName]="expirationDaysFieldName">
           </mat-form-field>
         </div>
