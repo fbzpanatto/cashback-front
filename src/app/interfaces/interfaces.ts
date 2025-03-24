@@ -11,7 +11,14 @@ export interface Sale {
   defaultExpiration?: number | null,
 }
 
-export interface SuccessGetInterface { status: number, data: Sale[] }
+export interface Parameter {
+  id: number,
+  cashback: number,
+  expiration_day: number
+}
+
+export interface SuccessGetSaleInterface { status: number, data: Sale[] }
+export interface SuccessGetParameterInterface { status: number, data: Parameter }
 export interface SuccessPostInterface { status: number, message: string }
 export interface SuccessPutInterface { status: number, message: string }
 export interface ErrorInterface { status: number, error: string }

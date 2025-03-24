@@ -1,5 +1,5 @@
 import { Component, computed, ElementRef, inject, OnInit, viewChildren } from '@angular/core';
-import { FetchService } from "../../services/fetch.service";
+import { FetchSaleService } from "../../services/fetch-sale.service";
 import { Sale } from "../../interfaces/interfaces";
 import { CashBackPipe } from "../../pipes/cash-back.pipe";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
@@ -26,7 +26,7 @@ import {ToolbarTitleService} from "../../services/toolbar-title.service";
 export class ReportComponent implements OnInit {
 
   #toolBarService = inject(ToolbarTitleService)
-  #fetch = inject(FetchService)
+  #fetch = inject(FetchSaleService)
   #sales = inject(SalesSignalService)
   #search: FormControl = new FormControl("")
 

@@ -2,7 +2,7 @@ import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core'
 import { CommonModule } from "@angular/common";
 import { MatButton, MatFabButton } from "@angular/material/button";
 import { Router } from "@angular/router";
-import { FetchService } from "../../services/fetch.service";
+import { FetchSaleService } from "../../services/fetch-sale.service";
 import { Sale } from "../../interfaces/interfaces";
 import { MatIcon } from "@angular/material/icon";
 import {ToolbarTitleService} from "../../services/toolbar-title.service";
@@ -25,7 +25,7 @@ export class ImportDataComponent implements OnInit {
   #toolBarService = inject(ToolbarTitleService)
 
   #router = inject(Router);
-  #fetch = inject(FetchService)
+  #fetch = inject(FetchSaleService)
 
   constructor() {
     this.#toolBarService.updateTitle(this.title)
