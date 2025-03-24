@@ -3,9 +3,14 @@ export enum CashBackStatus {
   expired = 'Expirado'
 }
 
-export enum DATE_PARTS {
+export enum DateParts {
   year = 2,
   month = 1,
   day = 0
+}
+
+export enum SettingsFields {
+  cashbackPercentage ='cashbackPercentage',
+  expirationDays = 'expirationDays'
 }
 

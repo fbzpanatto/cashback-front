@@ -20,7 +20,7 @@ import { MatIconButton } from "@angular/material/button";
   standalone: true,
   imports: [CashBackPipe, ReactiveFormsModule, TotalCashBacksPipe, TotalSellsPipe, CurrencyPipe, MatIcon, CashBackStatusPipe, MatIconButton],
   templateUrl: './report.component.html',
-  styleUrls: ['./report.component.scss', '../../styles/table.scss']
+  styleUrls: ['./report.component.scss', '../../styles/table.scss', '../../styles/input.scss']
 })
 export class ReportComponent implements OnInit {
 
@@ -46,17 +46,11 @@ export class ReportComponent implements OnInit {
     }
   }
 
-  async reload() {
-    await this.#fetch.get()
-  }
+  async reload() { await this.#fetch.get() }
 
-  clearSearch(): void {
-    this.#search.patchValue('')
-  }
+  clearSearch(): void { this.#search.patchValue('') }
 
-  get search() {
-    return this.#search
-  }
+  get search() { return this.#search }
 
   get filtered() {
     return computed(() => this.data().filter(el => {
@@ -65,11 +59,7 @@ export class ReportComponent implements OnInit {
     }))
   }
 
-  get data() {
-    return this.#sales.data
-  }
+  get data() { return this.#sales.data }
 
-  get currentDate() {
-    return currentDateFn()
-  }
+  get currentDate() { return currentDateFn() }
 }
