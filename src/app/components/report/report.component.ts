@@ -14,6 +14,7 @@ import { debounceTime, distinctUntilChanged, startWith } from "rxjs";
 import { SalesSignalService } from "../../services/sales-signal.service";
 import { currentDateFn } from "../../utils/utils";
 import { MatIconButton } from "@angular/material/button";
+import {ToolbarTitleService} from "../../services/toolbar-title.service";
 
 @Component({
   selector: 'app-report',
@@ -24,12 +25,17 @@ import { MatIconButton } from "@angular/material/button";
 })
 export class ReportComponent implements OnInit {
 
+  #toolBarService = inject(ToolbarTitleService)
   #fetch = inject(FetchService)
   #sales = inject(SalesSignalService)
   #search: FormControl = new FormControl("")
 
   cashBackStatus = viewChildren<ElementRef<HTMLTableCellElement>>('cashBackStatus')
   searchSignal = toSignal(this.#search.valueChanges.pipe(startWith(""), debounceTime(400), distinctUntilChanged()))
+
+  constructor() {
+    this.#toolBarService.updateTitle(this.title)
+  }
 
   async ngOnInit() {
     await this.#fetch.get()
@@ -57,6 +63,10 @@ export class ReportComponent implements OnInit {
       return el.clientName.toLowerCase().trim().includes(this.searchSignal()?.toLowerCase().trim()) ||
         el.clientPhone.toLowerCase().trim().includes(this.searchSignal()?.toLowerCase().trim())
     }))
+  }
+
+  get title() {
+    return 'Relatório'
   }
 
   get data() { return this.#sales.data }

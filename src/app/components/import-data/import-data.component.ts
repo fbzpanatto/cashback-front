@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { FetchService } from "../../services/fetch.service";
 import { Sale } from "../../interfaces/interfaces";
 import { MatIcon } from "@angular/material/icon";
+import {ToolbarTitleService} from "../../services/toolbar-title.service";
 
   @Component({
   selector: 'app-import-data',
@@ -21,8 +22,14 @@ export class ImportDataComponent implements OnInit {
   #defaultCashBack?: number
   #defaultExpiration?: number
 
+  #toolBarService = inject(ToolbarTitleService)
+
   #router = inject(Router);
   #fetch = inject(FetchService)
+
+  constructor() {
+    this.#toolBarService.updateTitle(this.title)
+  }
 
   ngOnInit(): void {
     this.defaultCashBack = this.#defaultCashBack ?? 0.05
@@ -92,6 +99,10 @@ export class ImportDataComponent implements OnInit {
 
       return { ...item, cashbackExpiration };
     });
+  }
+
+  get title() {
+    return 'Importar'
   }
 
   get defaultExpiration() { return this.#defaultExpiration }

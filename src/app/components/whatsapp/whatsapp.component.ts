@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { WebSocketService } from "../../services/web-socket.service";
 import QRCode from "qrcode";
+import {ToolbarTitleService} from "../../services/toolbar-title.service";
 
 @Component({
   selector: 'app-whatsapp',
@@ -13,7 +14,13 @@ export class WhatsappComponent implements OnInit {
   qrCode?: string
   isReady: boolean = false;
 
+  #toolBarService = inject(ToolbarTitleService)
+
   #socket = inject(WebSocketService)
+
+  constructor() {
+    this.#toolBarService.updateTitle(this.title)
+  }
 
   async ngOnInit() {
 
@@ -24,5 +31,9 @@ export class WhatsappComponent implements OnInit {
     this.#socket.getReadyStatus().subscribe(() => {
       this.isReady = true;
     });
+  }
+
+  get title() {
+    return 'Whatsapp';
   }
 }

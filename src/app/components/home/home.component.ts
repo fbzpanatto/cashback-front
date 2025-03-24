@@ -1,7 +1,7 @@
-import {Component, inject} from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
-import {ToolbarTitleService} from "../../services/toolbar-title.service";
+import { ToolbarTitleService } from "../../services/toolbar-title.service";
 
 @Component({
   selector: 'app-home',
@@ -38,7 +38,7 @@ export class HomeComponent {
       },
       {
         id: 2,
-        title: 'Relatórios',
+        title: 'Relatório',
         backgroundColor: 'transparent',
         icon: 'icon',
         style: { backgroundColor: '#dcae18', color: '#fff', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'},
