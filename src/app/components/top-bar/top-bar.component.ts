@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { MatIcon } from "@angular/material/icon";
 import { MatIconButton } from "@angular/material/button";
+import { ToolbarTitleService } from "../../services/toolbar-title.service";
 
 @Component({
   selector: 'app-top-bar',
@@ -12,5 +13,9 @@ import { MatIconButton } from "@angular/material/button";
   styleUrl: './top-bar.component.scss'
 })
 export class TopBarComponent {
+
+  #toolBarTitle = inject(ToolbarTitleService)
+
+  get toolBarTitle() { return this.#toolBarTitle.title }
 
 }

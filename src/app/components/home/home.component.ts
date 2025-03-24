@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
+import {ToolbarTitleService} from "../../services/toolbar-title.service";
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,16 @@ import { RouterLink } from "@angular/router";
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+
+  #toolBarService = inject(ToolbarTitleService)
+
+  constructor() {
+    this.#toolBarService.updateTitle(this.title)
+  }
+
+  get title() {
+    return 'Início'
+  }
 
 
   get menu() {
