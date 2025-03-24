@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatIcon } from "@angular/material/icon";
-import { SettingsFields } from "../../enum/enum";
 import { MatButton } from "@angular/material/button";
 import { MatFormField, MatInput, MatLabel } from "@angular/material/input";
 import { ToolbarTitleService} from "../../services/toolbar-title.service";
@@ -44,19 +43,7 @@ export class SettingsComponent {
   onSubmit() {
   }
 
-  clearField(name: string) {
+  get title() { return 'Parâmetros' }
 
-  }
-
-  get title() {
-    return 'Parâmetros'
-  }
-
-  get cashbackPercentageFieldName() {
-    return SettingsFields.cashbackPercentage;
-  }
-
-  get expirationDaysFieldName() {
-    return SettingsFields.expirationDays;
-  }
+  get formIsValid() { return this.form.valid }
 }
