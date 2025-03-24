@@ -5,7 +5,8 @@ import { Router } from "@angular/router";
 import { FetchSaleService } from "../../services/fetch-sale.service";
 import { Sale } from "../../interfaces/interfaces";
 import { MatIcon } from "@angular/material/icon";
-import {ToolbarTitleService} from "../../services/toolbar-title.service";
+import { ToolbarTitleService } from "../../services/toolbar-title.service";
+import { FetchParameterService } from "../../services/fetch-parameter.service";
 
   @Component({
   selector: 'app-import-data',
@@ -19,8 +20,10 @@ export class ImportDataComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
   tableData: Sale[] = [];
 
-  #defaultCashBack?: number
-  #defaultExpiration?: number
+  #defaultCashBack?: number | string | null
+  #defaultExpiration?: number | string | null
+
+  #parameterFetchService = inject(FetchParameterService);
 
   #toolBarService = inject(ToolbarTitleService)
 
@@ -31,9 +34,13 @@ export class ImportDataComponent implements OnInit {
     this.#toolBarService.updateTitle(this.title)
   }
 
-  ngOnInit(): void {
-    this.defaultCashBack = this.#defaultCashBack ?? 0.05
-    this.defaultExpiration = this.#defaultExpiration ?? 60
+  async ngOnInit() {
+    const data = await this.#parameterFetchService.getParameter()
+
+    if(data) {
+      this.defaultExpiration = data.expiration_day
+      this.defaultCashBack = data.cashback
+    }
   }
 
   openFileInput() {
@@ -69,8 +76,8 @@ export class ImportDataComponent implements OnInit {
           clientPhone: el[2].trim(),
           saleDate: el[3].trim(),
           saleValue: el[4].trim(),
-          cashback: this.defaultCashBack,
-          defaultExpiration: this.defaultExpiration
+          cashback: Number(this.defaultCashBack),
+          defaultExpiration: Number(this.defaultExpiration)
         })
         return acc
       }, [])
@@ -106,8 +113,8 @@ export class ImportDataComponent implements OnInit {
   }
 
   get defaultExpiration() { return this.#defaultExpiration }
-  set defaultExpiration(value: number | undefined) { this.#defaultExpiration = value }
+  set defaultExpiration(value: number | string | null | undefined) { this.#defaultExpiration = value }
 
   get defaultCashBack() { return this.#defaultCashBack }
-  set defaultCashBack(value: number | undefined) { this.#defaultCashBack = value }
+  set defaultCashBack(value: number | string | null | undefined) { this.#defaultCashBack = value }
 }
