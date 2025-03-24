@@ -7,11 +7,13 @@ import { Sale } from "../../interfaces/interfaces";
 import { MatIcon } from "@angular/material/icon";
 import { ToolbarTitleService } from "../../services/toolbar-title.service";
 import { FetchParameterService } from "../../services/fetch-parameter.service";
+import {TotalCashBacksPipe} from "../../pipes/total-cash-backs.pipe";
+import {TotalSellsPipe} from "../../pipes/total-sells.pipe";
 
   @Component({
   selector: 'app-import-data',
   standalone: true,
-  imports: [CommonModule, MatButton, MatFabButton, MatIcon],
+    imports: [CommonModule, MatButton, MatFabButton, MatIcon, TotalCashBacksPipe, TotalSellsPipe],
   templateUrl: './import-data.component.html',
   styleUrls: ['./import-data.component.scss', '../../styles/table.scss']
 })

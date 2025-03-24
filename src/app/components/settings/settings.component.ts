@@ -7,6 +7,7 @@ import { ToolbarTitleService} from "../../services/toolbar-title.service";
 import { decimalValidator, isNumber } from "../../validators/validators";
 import { FetchParameterService } from "../../services/fetch-parameter.service";
 import { windowFn } from "../../utils/utils";
+import { Parameter } from "../../interfaces/interfaces";
 
 @Component({
   selector: 'app-settings',
@@ -29,6 +30,7 @@ export class SettingsComponent implements OnInit {
   #fb = inject(FormBuilder);
   #toolBarService = inject(ToolbarTitleService);
   #parameterFetchService = inject(FetchParameterService);
+  #originalValues?: Parameter
 
   form = this.#fb.group({
     cashbackPercentage: ['', {
@@ -45,13 +47,23 @@ export class SettingsComponent implements OnInit {
 
   async ngOnInit() {
     const data = await this.#parameterFetchService.getParameter()
+
     if(data) {
+      this.#originalValues = data
       this.parameterId = data.id;
       this.form.setValue({
         cashbackPercentage: String(data.cashback),
         expirationDays: String(data.expiration_day)
       })
     }
+  }
+
+  resetValues() {
+    this.form.markAsPristine()
+    this.form.setValue({
+      cashbackPercentage: String(this.#originalValues?.cashback),
+      expirationDays: String(this.#originalValues?.expiration_day)
+    })
   }
 
   async onSubmit() {
@@ -67,6 +79,8 @@ export class SettingsComponent implements OnInit {
   get title() { return 'Parâmetros' }
 
   get formIsValid() { return this.form.valid }
+
+  get formIsPristine() { return this.form.pristine }
 
   get parameterId() {
     return this.#parameterId

@@ -28,10 +28,19 @@
           padding: 8px;
           white-space: nowrap;
           text-overflow: ellipsis;
+
+          border-top: 1px solid #bdcede;
+          border-left: 1px solid #bdcede;
+
+          &:nth-child(2) {
+            border-left: none;
+          }
+
           &.sticky-left {
             position: sticky;
             left: 0;
             background: #0a6bc4;
+            border-right: 1px solid #bdcede;
           }
           &.fixed-width {
             width: 100px;
@@ -66,6 +75,7 @@
             position: sticky;
             left: 0;
             background: #eff4ff;
+            border-right: 1px solid #bdcede;
           }
           &.center {
             text-align: center;
@@ -80,12 +90,17 @@
             width: 100%;
             padding: 8px;
           }
+
+          &:nth-child(2) {
+            border-left: none;
+          }
         }
 
         &.total-line {
           td {
             font-weight: bold;
             background: #dee7ff;
+            border-bottom: 1px solid #bdcede;
           }
         }
       }
