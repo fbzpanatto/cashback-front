@@ -3,7 +3,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from "@angu
 import { MatIcon } from "@angular/material/icon";
 import { SettingsFields } from "../../enum/enum";
 import { MatButton } from "@angular/material/button";
-import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
+import { MatFormField, MatInput, MatLabel } from "@angular/material/input";
 
 @Component({
   selector: 'app-settings',
