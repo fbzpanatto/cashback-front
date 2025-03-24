@@ -16,3 +16,7 @@ export function currentDateFn() {
 
   return `${day}/${month}/${year}`
 }
+
+export function windowFn() {
+  return window;
+}

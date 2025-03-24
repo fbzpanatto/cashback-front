@@ -72,8 +72,4 @@ export class ReportComponent implements OnInit {
   get currentDate() {
     return currentDateFn()
   }
-
-  get windowWrapper() {
-    return window;
-  }
 }
