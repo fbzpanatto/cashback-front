@@ -108,9 +108,7 @@ export class ImportDataComponent implements OnInit {
     });
   }
 
-  get title() {
-    return 'Importar'
-  }
+  get title() { return 'Importar' }
 
   get defaultExpiration() { return this.#defaultExpiration }
   set defaultExpiration(value: number | string | null | undefined) { this.#defaultExpiration = value }
