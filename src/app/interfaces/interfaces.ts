@@ -13,4 +13,5 @@ export interface Sale {
 
 export interface SuccessGetInterface { status: number, data: Sale[] }
 export interface SuccessPostInterface { status: number, message: string }
+export interface SuccessPutInterface { status: number, message: string }
 export interface ErrorInterface { status: number, error: string }

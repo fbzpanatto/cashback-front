@@ -14,7 +14,15 @@
     padding: 4vmin;
     background: #eff4ff;
     display: flex;
-    flex-wrap: wrap;
+    gap: 16px;
+
+    mat-icon[svgIcon="search"],
+    mat-icon[svgIcon="sync"] {
+      top: 8px;
+      left: 8px;
+      position: absolute;
+      color: #444;
+    }
 
     .input-container {
       position: relative;
@@ -40,13 +48,6 @@
           transition: 180ms ease-in;
           border-bottom: 1px solid #2880d3;
         }
-      }
-
-      mat-icon[svgIcon="search"] {
-        top: 8px;
-        left: 8px;
-        position: absolute;
-        color: #444;
       }
 
       mat-icon[svgIcon="backspace"] {

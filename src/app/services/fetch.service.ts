@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ErrorInterface, Sale, SuccessGetInterface, SuccessPostInterface } from "../interfaces/interfaces";
+import {ErrorInterface, Sale, SuccessGetInterface, SuccessPostInterface, SuccessPutInterface} from "../interfaces/interfaces";
 import { HttpClient } from "@angular/common/http";
 import { environment } from '../../environments/environment';
 import { firstValueFrom } from "rxjs"
@@ -29,6 +29,17 @@ export class FetchService {
 
     const response = await firstValueFrom(
       this.#http.post<SuccessPostInterface | ErrorInterface>(`${environment.API_URL}${environment.SALE}`, data)
+    )
+
+    if((response as ErrorInterface).error) {
+      return console.error('errorHandler', response)
+    }
+  }
+
+  async put(saleId: number | string, data: Partial<Sale>) {
+
+    const response = await firstValueFrom(
+      this.#http.put<SuccessPutInterface | ErrorInterface>(`${environment.API_URL}${environment.SALE}/${saleId}`, data)
     )
 
     if((response as ErrorInterface).error) {

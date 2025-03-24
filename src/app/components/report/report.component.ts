@@ -12,11 +12,13 @@ import { CashBackStatus } from "../../enum/enum";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { debounceTime, distinctUntilChanged, startWith } from "rxjs";
 import { SalesSignalService } from "../../services/sales-signal.service";
+import { currentDateFn } from "../../utils/utils";
+import { MatIconButton } from "@angular/material/button";
 
 @Component({
   selector: 'app-report',
   standalone: true,
-  imports: [CashBackPipe, ReactiveFormsModule, TotalCashBacksPipe, TotalSellsPipe, CurrencyPipe, MatIcon, CashBackStatusPipe],
+  imports: [CashBackPipe, ReactiveFormsModule, TotalCashBacksPipe, TotalSellsPipe, CurrencyPipe, MatIcon, CashBackStatusPipe, MatIconButton],
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss', '../../styles/table.scss']
 })
@@ -39,22 +41,17 @@ export class ReportComponent implements OnInit {
 
     if(item.withdrawnDate === null && value === CashBackStatus.valid) {
       await this.#sales.updateSale(item.saleId, { withdrawnDate: this.currentDate })
+      await this.#fetch.put(item.saleId, { withdrawnDate: this.currentDate })
       return
     }
   }
 
-  clearSearch(): void {
-    this.#search.patchValue('')
+  async reload() {
+    await this.#fetch.get()
   }
 
-  get currentDate() {
-
-    const newDate = new Date()
-    const day = newDate.getDate().toString().padStart(2, '0');
-    const month = (newDate.getMonth() + 1).toString().padStart(2, '0');
-    const year = newDate.getFullYear();
-
-    return `${day}/${month}/${year}`
+  clearSearch(): void {
+    this.#search.patchValue('')
   }
 
   get search() {
@@ -70,5 +67,13 @@ export class ReportComponent implements OnInit {
 
   get data() {
     return this.#sales.data
+  }
+
+  get currentDate() {
+    return currentDateFn()
+  }
+
+  get windowWrapper() {
+    return window;
   }
 }

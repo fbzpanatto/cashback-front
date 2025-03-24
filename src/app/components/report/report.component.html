@@ -6,22 +6,25 @@
       <mat-icon class="search" svgIcon="search"></mat-icon>
       <mat-icon class="backspace" svgIcon="backspace" (click)="clearSearch()"></mat-icon>
     </div>
+    <button mat-icon-button (click)="reload()">
+      <mat-icon svgIcon="sync"></mat-icon>
+    </button>
   </div>
 
   <div class="table-content">
     <table>
       <thead>
-      <tr>
-        <th class="sticky-left"> Id</th>
-        <th>Nome</th>
-        <th>Tel</th>
-        <th>Data Venda</th>
-        <th class="center">Data Expiração</th>
-        <th>Valor</th>
-        <th class="fixed-width">CashBack (%)</th>
-        <th>Valor CashBack</th>
-        <th>Data Utilização</th>
-      </tr>
+        <tr>
+          <th class="sticky-left"> Id</th>
+          <th>Nome</th>
+          <th>Tel</th>
+          <th>Data Venda</th>
+          <th class="center">Data Expiração</th>
+          <th>Valor</th>
+          <th class="fixed-width">CashBack (%)</th>
+          <th>Valor CashBack</th>
+          <th>Data Utilização</th>
+        </tr>
       </thead>
       <tbody>
         @for(row of filtered(); track $index) {
