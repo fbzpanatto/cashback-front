@@ -83,6 +83,16 @@ export class ImportDataComponent implements OnInit {
       }, [])
   }
 
+  setNewCashBack(row: Sale, cashback: number | string) {
+    const element = this.tableData.find(element => element.saleId === row.saleId)
+    if(element) { element.cashback = Number(cashback) }
+  }
+
+  setNewExpirationDay(row: Sale, defaultExpiration: number | string) {
+    const element = this.tableData.find(element => element.saleId === row.saleId)
+    if(element) { element.defaultExpiration = Number(defaultExpiration) }
+  }
+
   async importData() {
     const dataToPost = this.formatData(this.tableData)
     await this.#fetch.post(dataToPost)

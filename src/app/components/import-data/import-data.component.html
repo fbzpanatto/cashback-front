@@ -31,10 +31,10 @@
               <td class="center">{{ row.saleDate }}</td>
               <td class="center">{{ row.saleValue | currency: 'BRL' }}</td>
               <td class="center">
-                <input maxlength="4" [value]="row.cashback">
+                <input #cashbackInput (blur)="setNewCashBack(row, cashbackInput.value)" maxlength="4" [value]="row.cashback">
               </td>
               <td class="center">
-                <input maxlength="3" [value]="row.defaultExpiration">
+                <input #expirationInput (blur)="setNewExpirationDay(row, expirationInput.value)" maxlength="3" [value]="row.defaultExpiration">
               </td>
             </tr>
           }
