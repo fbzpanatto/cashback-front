@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { firstValueFrom} from "rxjs";
-import {ErrorInterface, Parameter, SuccessGetParameterInterface, SuccessPutInterface} from "../interfaces/interfaces";
+import { ErrorInterface, Parameter, SuccessGetParameterInterface, SuccessPutInterface } from "../interfaces/interfaces";
 import { environment } from "../../environments/environment";
 
 @Injectable({
@@ -14,7 +14,7 @@ export class FetchParameterService {
   async getParameter() {
 
     const response = await firstValueFrom(
-      this.#http.get<SuccessGetParameterInterface | ErrorInterface>(`${environment.API_URL}${environment.PARAMETER}/1`),
+      this.#http.get<SuccessGetParameterInterface | ErrorInterface>(`${environment.API_URL}${environment.PARAMETER}/2`),
     )
 
     if((response as ErrorInterface).error) {
