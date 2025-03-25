@@ -13,9 +13,9 @@ export class WebSocketService {
   getQrCode(): Observable<string> {
     return new Observable(observer => {
       this.socket.on('qr', (qr: string) => {
+        console.log('qr:', qr);
         observer.next(qr); // Envia o QR Code para quem estiver inscrito
       });
-
       return () => this.socket.disconnect();
     });
   }
