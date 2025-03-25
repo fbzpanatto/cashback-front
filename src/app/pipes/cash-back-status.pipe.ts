@@ -1,9 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { DATE_REGEX, dateTime } from "../utils/utils";
 
-type generic = string | number | undefined
-
-const DATE_REGEX = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/
-enum DATE_PARTS { year = 2, month = 1, day = 0 }
+type TypesForDate = Date | string | null | undefined
 
 @Pipe({
   name: 'cashBackStatus',
@@ -11,20 +9,15 @@ enum DATE_PARTS { year = 2, month = 1, day = 0 }
 })
 export class CashBackStatusPipe implements PipeTransform {
 
-  transform(withdrawn: generic, currentDate: string, expiration: generic) {
+  transform(withdrawn: TypesForDate, currentDate: string, expiration: TypesForDate) {
 
     if(DATE_REGEX.test(String(withdrawn) ?? '')) {
       return withdrawn as string;
     }
 
-    const expirationDateGetTime = this.getTime(expiration as string)
-    const currentDateGetTime = this.getTime(currentDate)
+    const expirationDateGetTime = dateTime(expiration as string)
+    const currentDateGetTime = dateTime(currentDate)
 
     return expirationDateGetTime < currentDateGetTime ? 'Expirado' : 'Válido'
-  }
-
-  getTime(param: string | number){
-    const date = String(param).split('/');
-    return new Date(Number(date[DATE_PARTS.year]), Number(date[DATE_PARTS.month]) - 1, Number(date[DATE_PARTS.day])).getTime();
   }
 }

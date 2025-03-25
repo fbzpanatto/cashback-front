@@ -6,35 +6,38 @@
       <mat-icon class="search" svgIcon="search"></mat-icon>
       <mat-icon class="backspace" svgIcon="backspace" (click)="clearSearch()"></mat-icon>
     </div>
+    <button mat-icon-button (click)="reload()">
+      <mat-icon svgIcon="sync"></mat-icon>
+    </button>
   </div>
 
   <div class="table-content">
     <table>
       <thead>
-      <tr>
-        <th class="sticky-left"> Id</th>
-        <th>Nome</th>
-        <th>Tel</th>
-        <th>Data Venda</th>
-        <th class="center">Data Expiração</th>
-        <th>Valor</th>
-        <th class="fixed-width">CashBack (%)</th>
-        <th>Valor CashBack</th>
-        <th>Data Utilização</th>
-      </tr>
+        <tr>
+          <th class="sticky-left"> Id</th>
+          <th>Nome</th>
+          <th>Tel</th>
+          <th>Data Venda</th>
+          <th class="center">Data Expiração</th>
+          <th>Valor</th>
+          <th class="fixed-width">CashBack (%)</th>
+          <th>Valor CashBack</th>
+          <th>Data Utilização</th>
+        </tr>
       </thead>
       <tbody>
         @for(row of filtered(); track $index) {
           <tr>
-            <td class="sticky-left">{{ row.id }}</td>
-            <td>{{ row.name }}</td>
-            <td class="center">{{ row.tel }}</td>
-            <td class="center">{{ row.date }}</td>
-            <td class="center">{{ row.expiration }}</td>
-            <td class="center">{{ row.value | currency: 'BRL' }}</td>
+            <td class="sticky-left">{{ row.saleId }}</td>
+            <td>{{ row.clientName }}</td>
+            <td class="center">{{ row.clientPhone }}</td>
+            <td class="center">{{ row.saleDate }}</td>
+            <td class="center">{{ row.cashbackExpiration }}</td>
+            <td class="center">{{ row.saleValue | currency: 'BRL' }}</td>
             <td class="center">{{ row.cashback }}</td>
-            <td class="center">{{ row.value | cashBack: row.cashback | currency: 'BRL' }}</td>
-            <td #cashBackStatus [id]="row.id" class="center pointer" (click)="withdrawnDate(row)">{{ row.withdrawnDate | cashBackStatus: currentDate: row.expiration }}</td>
+            <td class="center">{{ row.saleValue | cashBack: row.cashback | currency: 'BRL' }}</td>
+            <td #cashBackStatus [id]="row.saleId" class="center pointer" (click)="withdrawnDate(row)">{{ row.withdrawnDate | cashBackStatus: currentDate: row.cashbackExpiration }}</td>
           </tr>
         }
       <tr class="total-line">

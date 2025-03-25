@@ -4,7 +4,7 @@
     <div class="import-file-content">
       <input #fileInput type="file" accept=".csv,.txt" (change)="onFileSelected($event)" hidden />
       <button mat-flat-button (click)="openFileInput()">
-        <span>icon</span>
+        <mat-icon svgIcon="post_add"></mat-icon>
         <span>Selecione um arquivo...</span>
       </button>
     </div>
@@ -25,19 +25,28 @@
         <tbody>
           @for(row of tableData; track $index) {
             <tr>
-              <td class="sticky-left">{{ row.id }}</td>
-              <td>{{ row.name }}</td>
-              <td class="center">{{ row.tel }}</td>
-              <td class="center">{{ row.date | slice:0:10 }}</td>
-              <td class="center">{{ row.value | currency: 'BRL' }}</td>
+              <td class="sticky-left">{{ row.saleId }}</td>
+              <td>{{ row.clientName }}</td>
+              <td class="center">{{ row.clientPhone }}</td>
+              <td class="center">{{ row.saleDate }}</td>
+              <td class="center">{{ row.saleValue | currency: 'BRL' }}</td>
               <td class="center">
-                <input maxlength="4" [value]="row.cashback">
+                <input #cashbackInput (blur)="setNewCashBack(row, cashbackInput.value)" maxlength="4" [value]="row.cashback">
               </td>
               <td class="center">
-                <input maxlength="3" [value]="row.expiration">
+                <input #expirationInput (blur)="setNewExpirationDay(row, expirationInput.value)" maxlength="3" [value]="row.defaultExpiration">
               </td>
             </tr>
           }
+          <tr class="total-line">
+            <td class="sticky-left center">-</td>
+            <td class="center">-</td>
+            <td class="center">-</td>
+            <td class="center">-</td>
+            <td class="center">{{ tableData | totalSells | currency: 'BRL' }}</td>
+            <td class="center">-</td>
+            <td class="center">-</td>
+          </tr>
         </tbody>
       </table>
     </div>

@@ -14,52 +14,7 @@
     padding: 4vmin;
     background: #eff4ff;
     display: flex;
-    flex-wrap: wrap;
-
-    .input-container {
-      position: relative;
-      width: 100%;
-
-      input {
-        width: inherit;
-        outline: none;
-        padding: 8px 40px 8px 40px;
-        font-style: italic;
-        color: #444;
-        letter-spacing: .08rem;
-        font-weight: lighter;
-        border-bottom: 1px solid #bdcede;
-        background: #f8f8f8;
-        transition: 180ms ease-out;
-
-        &::placeholder {
-          color: #a1a1a1;
-        }
-
-        &:hover {
-          transition: 180ms ease-in;
-          border-bottom: 1px solid #2880d3;
-        }
-      }
-
-      mat-icon[svgIcon="search"] {
-        top: 8px;
-        left: 8px;
-        position: absolute;
-        color: #444;
-      }
-
-      mat-icon[svgIcon="backspace"] {
-        top: 8px;
-        right: 8px;
-        position: absolute;
-        color: #ff0099;
-
-        &:hover {
-          cursor: pointer;
-        }
-      }
-    }
+    gap: 16px;
   }
 
   .table-content {

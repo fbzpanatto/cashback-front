@@ -15,9 +15,14 @@
     border-radius: 16px;
     border: 5px dotted #87ff8a;
     background: #bfffc1;
-    height: calc(85vh - $topBarHeight);
-    width: calc(85vw);
+    height: 400px;
+    width: 400px;
     overflow: auto;
+
+    img {
+      height: 200px;
+      width: 200px;
+    }
 
     button {
       display: flex;

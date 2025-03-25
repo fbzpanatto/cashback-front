@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
+import { ToolbarTitleService } from "../../services/toolbar-title.service";
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,16 @@ import { RouterLink } from "@angular/router";
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+
+  #toolBarService = inject(ToolbarTitleService)
+
+  constructor() {
+    this.#toolBarService.updateTitle(this.title)
+  }
+
+  get title() {
+    return 'Início'
+  }
 
 
   get menu() {
@@ -27,10 +38,10 @@ export class HomeComponent {
       },
       {
         id: 2,
-        title: 'Relatórios',
+        title: 'Relatório',
         backgroundColor: 'transparent',
         icon: 'icon',
-        style: { backgroundColor: '#cdd313', color: '#fff', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'},
+        style: { backgroundColor: '#dcae18', color: '#fff', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'},
         link: '/report'
       },
       {

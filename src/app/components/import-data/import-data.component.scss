@@ -21,7 +21,8 @@
 
     button {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      align-items: center;
       width: 80%;
       height: 20%;
       border-radius: 8px;
@@ -33,8 +34,8 @@
 
   .mat-fab {
     position: absolute;
-    bottom: 8vmin;
-    right: 4vmin;
+    bottom: 2vmin;
+    right: 2vmin;
     background: #0a6bc4;
     color: white;
     font-size: 12pt;

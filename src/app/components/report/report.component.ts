@@ -1,6 +1,6 @@
-import { Component, computed, ElementRef, inject, viewChildren } from '@angular/core';
-import { FetchService } from "../../services/fetch.service";
-import { Register } from "../../interfaces/interfaces";
+import { Component, computed, ElementRef, inject, OnInit, viewChildren } from '@angular/core';
+import { FetchSaleService } from "../../services/fetch-sale.service";
+import { Sale } from "../../interfaces/interfaces";
 import { CashBackPipe } from "../../pipes/cash-back.pipe";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { TotalCashBacksPipe } from "../../pipes/total-cash-backs.pipe";
@@ -11,59 +11,65 @@ import { CashBackStatusPipe } from "../../pipes/cash-back-status.pipe";
 import { CashBackStatus } from "../../enum/enum";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { debounceTime, distinctUntilChanged, startWith } from "rxjs";
+import { SalesSignalService } from "../../services/sales-signal.service";
+import { currentDateFn } from "../../utils/utils";
+import { MatIconButton } from "@angular/material/button";
+import {ToolbarTitleService} from "../../services/toolbar-title.service";
 
 @Component({
   selector: 'app-report',
   standalone: true,
-  imports: [CashBackPipe, ReactiveFormsModule, TotalCashBacksPipe, TotalSellsPipe, CurrencyPipe, MatIcon, CashBackStatusPipe],
+  imports: [CashBackPipe, ReactiveFormsModule, TotalCashBacksPipe, TotalSellsPipe, CurrencyPipe, MatIcon, CashBackStatusPipe, MatIconButton],
   templateUrl: './report.component.html',
-  styleUrls: ['./report.component.scss', '../../styles/table.scss']
+  styleUrls: ['./report.component.scss', '../../styles/table.scss', '../../styles/input.scss']
 })
-export class ReportComponent {
+export class ReportComponent implements OnInit {
 
-  #fetch = inject(FetchService)
+  #toolBarService = inject(ToolbarTitleService)
+  #fetch = inject(FetchSaleService)
+  #sales = inject(SalesSignalService)
   #search: FormControl = new FormControl("")
 
-  searchSignal = toSignal(this.#search.valueChanges.pipe(startWith(""), debounceTime(400), distinctUntilChanged()))
   cashBackStatus = viewChildren<ElementRef<HTMLTableCellElement>>('cashBackStatus')
+  searchSignal = toSignal(this.#search.valueChanges.pipe(startWith(""), debounceTime(400), distinctUntilChanged()))
 
-  async withdrawnDate(item: Register) {
+  constructor() {
+    this.#toolBarService.updateTitle(this.title)
+  }
 
-    const value = this.cashBackStatus().find(el => el.nativeElement.id === item.id)?.nativeElement.innerText
+  async ngOnInit() {
+    await this.#fetch.get()
+  }
 
-    // TODO: Save on database
-    if(item.withdrawnDate === undefined && value === CashBackStatus.valid) {
-      await this.#fetch.update(item.id, { withdrawnDate: this.currentDate })
+  async withdrawnDate(item: Sale) {
+
+    const value = this.cashBackStatus().find(el => String(el.nativeElement.id) === String(item.saleId))?.nativeElement.innerText
+
+    if(item.withdrawnDate === null && value === CashBackStatus.valid) {
+      await this.#sales.updateSale(item.saleId, { withdrawnDate: this.currentDate })
+      await this.#fetch.put(item.saleId, { withdrawnDate: this.currentDate })
       return
     }
   }
 
-  clearSearch(): void {
-    this.#search.patchValue('')
-  }
+  async reload() { await this.#fetch.get() }
 
-  get currentDate() {
+  clearSearch(): void { this.#search.patchValue('') }
 
-    const newDate = new Date()
-    const day = newDate.getDate().toString().padStart(2, '0');
-    const month = (newDate.getMonth() + 1).toString().padStart(2, '0');
-    const year = newDate.getFullYear();
-
-    return `${day}/${month}/${year}`
-  }
-
-  get search() {
-    return this.#search
-  }
+  get search() { return this.#search }
 
   get filtered() {
     return computed(() => this.data().filter(el => {
-      return el.name.toLowerCase().trim().includes(this.searchSignal()?.toLowerCase().trim()) ||
-        el.tel.toLowerCase().trim().includes(this.searchSignal()?.toLowerCase().trim())
+      return el.clientName.toLowerCase().trim().includes(this.searchSignal()?.toLowerCase().trim()) ||
+        el.clientPhone.toLowerCase().trim().includes(this.searchSignal()?.toLowerCase().trim())
     }))
   }
 
-  get data() {
-    return this.#fetch.data
+  get title() {
+    return 'Relatório'
   }
+
+  get data() { return this.#sales.data }
+
+  get currentDate() { return currentDateFn() }
 }

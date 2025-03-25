@@ -2,7 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { ErrorInterface, Register } from "../interfaces/interfaces";
 import { HttpClient } from "@angular/common/http";
 import { environment } from '../../environments/environment';
-import { catchError, map, of } from "rxjs"
+import { catchError, map, of } from "rxjs";
 
 @Injectable({
   providedIn: 'root'

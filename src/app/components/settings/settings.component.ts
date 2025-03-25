@@ -1,12 +1,92 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { MatIcon } from "@angular/material/icon";
+import { MatButton } from "@angular/material/button";
+import { MatFormField, MatInput, MatLabel } from "@angular/material/input";
+import { ToolbarTitleService} from "../../services/toolbar-title.service";
+import { decimalValidator, isNumber } from "../../validators/validators";
+import { FetchParameterService } from "../../services/fetch-parameter.service";
+import { windowFn } from "../../utils/utils";
+import { Parameter } from "../../interfaces/interfaces";
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [],
+  imports: [
+    FormsModule,
+    MatIcon,
+    ReactiveFormsModule,
+    MatButton,
+    MatFormField,
+    MatLabel,
+    MatInput,
+  ],
   templateUrl: './settings.component.html',
-  styleUrl: './settings.component.scss'
+  styleUrls: ['./settings.component.scss', '../../styles/input.scss']
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnInit {
 
+  #parameterId?: number;
+  #fb = inject(FormBuilder);
+  #toolBarService = inject(ToolbarTitleService);
+  #parameterFetchService = inject(FetchParameterService);
+  #originalValues?: Parameter
+
+  form = this.#fb.group({
+    cashbackPercentage: ['', {
+      validators: [Validators.required, isNumber(), decimalValidator()]
+    }],
+    expirationDays: ['', {
+      validators: [Validators.required, Validators.maxLength(3), isNumber()],
+    }],
+  })
+
+  constructor() {
+    this.#toolBarService.updateTitle(this.title)
+  }
+
+  async ngOnInit() {
+    const data = await this.#parameterFetchService.getParameter()
+
+    if(data) {
+      this.#originalValues = data
+      this.parameterId = data.id;
+      this.form.setValue({
+        cashbackPercentage: String(data.cashback),
+        expirationDays: String(data.expiration_day)
+      })
+    }
+  }
+
+  resetValues() {
+    this.form.markAsPristine()
+    this.form.setValue({
+      cashbackPercentage: String(this.#originalValues?.cashback),
+      expirationDays: String(this.#originalValues?.expiration_day)
+    })
+  }
+
+  async onSubmit() {
+    const data = this.form.value
+    await this.#parameterFetchService.putParameter({
+      id: this.parameterId as number,
+      cashback: data.cashbackPercentage ,
+      expiration_day: data.expirationDays
+    })
+    windowFn().location.reload()
+  }
+
+  get title() { return 'Parâmetros' }
+
+  get formIsValid() { return this.form.valid }
+
+  get formIsPristine() { return this.form.pristine }
+
+  get parameterId() {
+    return this.#parameterId
+  }
+
+  set parameterId(parameterId: number | undefined) {
+    this.#parameterId = parameterId
+  }
 }

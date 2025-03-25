@@ -1,25 +1,39 @@
-import { Component, inject } from '@angular/core';
-import { MatButton } from "@angular/material/button";
-import { FetchService } from "../../services/fetch.service";
-import { firstValueFrom } from "rxjs";
+import { Component, inject, OnInit } from '@angular/core';
+import { WebSocketService } from "../../services/web-socket.service";
+import QRCode from "qrcode";
+import {ToolbarTitleService} from "../../services/toolbar-title.service";
 
 @Component({
   selector: 'app-whatsapp',
-  imports: [
-    MatButton
-  ],
+  imports: [],
   templateUrl: './whatsapp.component.html',
   styleUrl: './whatsapp.component.scss'
 })
-export class WhatsappComponent {
+export class WhatsappComponent implements OnInit {
 
-  #fetch = inject(FetchService)
+  qrCode?: string
+  isReady: boolean = false;
 
-  async qrCode() {
-    const response = await firstValueFrom(await this.#fetch.qrCode<string>())
-    if(typeof response != 'string' && response === null) { return }
+  #toolBarService = inject(ToolbarTitleService)
 
-    console.log('qrCode()', response)
+  #socket = inject(WebSocketService)
 
+  constructor() {
+    this.#toolBarService.updateTitle(this.title)
+  }
+
+  async ngOnInit() {
+
+    this.#socket.getQrCode().subscribe(async (qr) => {
+      this.qrCode = await QRCode.toDataURL(qr)
+    });
+
+    this.#socket.getReadyStatus().subscribe(() => {
+      this.isReady = true;
+    });
+  }
+
+  get title() {
+    return 'Whatsapp';
   }
 }

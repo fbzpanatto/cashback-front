@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Register } from "../interfaces/interfaces";
+import { Sale } from "../interfaces/interfaces";
 
 @Pipe({
   name: 'totalSells',
@@ -7,11 +7,11 @@ import { Register } from "../interfaces/interfaces";
 })
 export class TotalSellsPipe implements PipeTransform {
 
-  transform(arr?: Register[]) {
+  transform(arr?: Sale[]) {
 
     return arr?.reduce((acc, prev) => {
 
-      acc += Number(prev.value);
+      acc += Number(prev.saleValue);
 
       return acc
     }, 0)
