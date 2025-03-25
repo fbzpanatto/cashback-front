@@ -18,7 +18,8 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(fullPath, '/index.html'));
 });
 
-const PORT = 4200;
+const PORT = parseInt(process.env['PORT'] as string) || 4200;
+
 app.listen(PORT, () => {
   console.log(`🚀 Angular app running on port ${PORT}`);
 });
