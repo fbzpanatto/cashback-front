@@ -8,13 +8,17 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = parseInt(process.env['PORT'] || '4200');
-const API_URL = 'cashback-node.up.railway.app'
+
+// IMPORTANTE: Configure a URL completa da API com HTTPS
+const API_URL = 'https://cashback-node.up.railway.app';
 
 // Configuração do proxy para API
 app.use('/api', createProxyMiddleware({
   target: API_URL,
   changeOrigin: true,
-  pathRewrite: { '^/api': '' }
+  pathRewrite: { '^/api': '' },
+  logger: console,
+  secure: true, // Importante para HTTPS
 }));
 
 // Servir arquivos estáticos do Angular
@@ -30,8 +34,9 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Frontend rodando em: http://localhost:${PORT}`);
+  console.log(`🚀 Frontend rodando na porta: ${PORT}`);
   console.log(`🔗 Conectado à API: ${API_URL}`);
+  console.log(`🌐 Acesse: https://cashback-front.up.railway.app`);
 });
 
 
