@@ -17,6 +17,11 @@ export interface Parameter {
   expiration_day: number | string | null | undefined
 }
 
+export interface Message {
+  phone: string,
+  message: string
+}
+
 export interface SuccessGetSaleInterface { status: number, data: Sale[] }
 export interface SuccessGetParameterInterface { status: number, data: Parameter }
 export interface SuccessPostInterface { status: number, message: string }
