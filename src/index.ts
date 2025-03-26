@@ -10,7 +10,7 @@ const app = express();
 const PORT = parseInt(process.env['PORT'] || '4200');
 
 // IMPORTANTE: Configure a URL completa da API com HTTPS
-const API_URL = 'https://cashback-node.up.railway.app';
+const API_URL = 'cashbacknode25.up.railway.app';
 
 // Configuração do proxy para API
 app.use('/api', createProxyMiddleware({
