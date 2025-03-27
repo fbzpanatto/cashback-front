@@ -10,6 +10,7 @@ const app = express();
 const PORT = parseInt(process.env['PORT'] || '4200');
 
 const API_URL = 'https://app-cashback.up.railway.app/';
+// const API_URL = 'http://localhost:3000';
 
 app.use('/api', createProxyMiddleware({
   target: API_URL,
