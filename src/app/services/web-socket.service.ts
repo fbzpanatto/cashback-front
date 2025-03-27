@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class WebSocketService {
 
-  private socket = io('https://cashbacknode25.up.railway.app/')
+  private socket = io('https://app-cashback.up.railway.app/')
   // private socket = io('http://localhost:3333');
 
   // Escuta o evento "qr" do WebSocket para receber o QR Code
