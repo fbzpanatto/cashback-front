@@ -3,13 +3,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-
-    "build-ex": "npx tsc",
-    "start-ex": "node dist/index.js",
-
     "ng": "ng",
-    "start": "npm run start-ex",
-    "build": "ng build --configuration=production && npm run build-ex",
+    "start": "ng serve",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
