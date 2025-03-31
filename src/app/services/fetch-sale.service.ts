@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import {ErrorInterface, Sale, SuccessGetSaleInterface, SuccessPostInterface, SuccessPutInterface} from "../interfaces/interfaces";
+import { ErrorI, Sale, SuccessGetSaleI, SuccessPostI, SuccessPutI } from "../interfaces/interfaces";
 import { HttpClient } from "@angular/common/http";
 import { environment } from '../../environments/environment';
 import { firstValueFrom } from "rxjs"
@@ -15,23 +15,23 @@ export class FetchSaleService {
 
   async get() {
     const response = await firstValueFrom(
-      this.#http.get<SuccessGetSaleInterface | ErrorInterface>(`${environment.API_URL}${environment.SALE}`),
+      this.#http.get<SuccessGetSaleI | ErrorI>(`${environment.API_URL}${environment.SALE}`),
     )
 
-    if((response as ErrorInterface).error) {
+    if((response as ErrorI).error) {
       return console.error('errorHandler', response)
     }
 
-    this.#sales.updateSignal((response as SuccessGetSaleInterface).data)
+    this.#sales.updateSignal((response as SuccessGetSaleI).data)
   }
 
   async post(data: Sale[]) {
 
     const response = await firstValueFrom(
-      this.#http.post<SuccessPostInterface | ErrorInterface>(`${environment.API_URL}${environment.SALE}`, data)
+      this.#http.post<SuccessPostI | ErrorI>(`${environment.API_URL}${environment.SALE}`, data)
     )
 
-    if((response as ErrorInterface).error) {
+    if((response as ErrorI).error) {
       return console.error('errorHandler', response)
     }
   }
@@ -39,10 +39,10 @@ export class FetchSaleService {
   async put(saleId: number | string, data: Partial<Sale>) {
 
     const response = await firstValueFrom(
-      this.#http.put<SuccessPutInterface | ErrorInterface>(`${environment.API_URL}${environment.SALE}/${saleId}`, data)
+      this.#http.put<SuccessPutI | ErrorI>(`${environment.API_URL}${environment.SALE}/${saleId}`, data)
     )
 
-    if((response as ErrorInterface).error) {
+    if((response as ErrorI).error) {
       return console.error('errorHandler', response)
     }
   }

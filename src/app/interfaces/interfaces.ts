@@ -11,19 +11,29 @@ export interface Sale {
   defaultExpiration?: number | null,
 }
 
+export interface Action {
+  id: number,
+  day: number,
+  active: number,
+  createdAt: string,
+  updatedAt: string,
+}
+
 export interface Parameter {
   id: number,
   cashback: number | string | null | undefined,
   expiration_day: number | string | null | undefined
 }
 
-export interface Message {
-  phone: string,
-  message: string
+export interface TextMessage {
+  id: number,
+  text: string | null | undefined,
 }
 
-export interface SuccessGetSaleInterface { status: number, data: Sale[] }
-export interface SuccessGetParameterInterface { status: number, data: Parameter }
-export interface SuccessPostInterface { status: number, message: string }
-export interface SuccessPutInterface { status: number, message: string }
-export interface ErrorInterface { status: number, error: string }
+export interface SuccessGetSaleI { status: number, data: Sale[] }
+export interface SuccessGetActionI { status: number, data: Action[] }
+export interface SuccessGetParameterI { status: number, data: Parameter }
+export interface SuccessGetTxtMessageI { status: number, data: TextMessage }
+export interface SuccessPostI { status: number, message: string }
+export interface SuccessPutI { status: number, message: string }
+export interface ErrorI { status: number, error: string }

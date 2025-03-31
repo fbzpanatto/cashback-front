@@ -1,38 +1,23 @@
 <div class="settings-wrapper">
   <div class="container">
-    <form [formGroup]="form" (submit)="onSubmit()">
 
-      <div class="inputs-container">
+    <div class="form-selector">
+      @for(item of formSelector; track  item.id) {
+        <button mat-ripple mat-flat-button (click)="setForm(item)">{{item.title}}</button>
+      }
+    </div>
+      @switch (selectedOption) {
+        @case(1) {
+          <app-cashback></app-cashback>
+        }
 
-        <div class="input-container">
-          <mat-form-field appearance="outline" class="flx-1">
-            <mat-label>Cashback(%)</mat-label>
-            <input maxlength="6" matInput placeholder="cashback em porcentagem" formControlName="cashbackPercentage">
-          </mat-form-field>
-        </div>
+        @case(2) {
+          <app-action></app-action>
+        }
 
-        <div class="input-container">
-          <mat-form-field appearance="outline" class="flx-1">
-            <mat-label>Expiração(dias)</mat-label>
-            <input maxlength="3" matInput placeholder="expiração em dias" formControlName="expirationDays">
-          </mat-form-field>
-        </div>
-      </div>
-
-      <div class="form-actions">
-
-        <div class="top-pad">
-          <button (click)="resetValues()" mat-raised-button type="button">
-            <span>Cancelar</span>
-            <mat-icon svgIcon="cancel"></mat-icon>
-          </button>
-          <button mat-raised-button type="submit" [disabled]="!formIsValid || formIsPristine">
-            <mat-icon svgIcon="save"></mat-icon>
-            <span>Salvar</span>
-          </button>
-        </div>
-      </div>
-
-    </form>
+        @case(3) {
+          <app-text-message></app-text-message>
+        }
+      }
   </div>
 </div>

@@ -18,6 +18,10 @@ mat-icon[svgIcon="edit"] {
       width: 100%;
       padding: 8px;
     }
+
+    textarea {
+      min-height: 20vh;
+    }
   }
 
   input {
