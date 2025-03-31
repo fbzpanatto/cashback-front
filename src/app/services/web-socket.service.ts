@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
 import { Observable } from 'rxjs';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
 
-  private socket = io('http://54.226.255.81:3000/');
+  private socket = io(environment.API_URL);
 
   // Escuta o evento "qr" do WebSocket para receber o QR Code
   getQrCode(): Observable<string> {
