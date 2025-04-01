@@ -1,0 +1,28 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+  <fieldset>
+    <legend>Mensagem</legend>
+    <div class="inputs-container">
+
+      <div class="input-container">
+        <mat-form-field>
+          <textarea formControlName="message" matInput placeholder="Mesangem que será enviada para seus clientes..."></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-actions">
+
+      <div class="top-pad">
+        <button (click)="resetValues()" mat-raised-button type="button">
+          <span>Cancelar</span>
+          <mat-icon svgIcon="cancel"></mat-icon>
+        </button>
+        <button mat-raised-button type="submit" [disabled]="!formIsValid || formIsPristine">
+          <mat-icon svgIcon="save"></mat-icon>
+          <span>Salvar</span>
+        </button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+
