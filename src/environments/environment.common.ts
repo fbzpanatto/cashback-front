@@ -4,5 +4,6 @@ export const ENVIRONMENT_COMMON = {
   SALE: "sale",
   PARAMETER: "parameter",
   ACTION: "action",
-  MESSAGE: "message"
+  MESSAGE: "message",
+  LOGIN: "login",
 }

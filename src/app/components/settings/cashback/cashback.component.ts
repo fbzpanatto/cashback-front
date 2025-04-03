@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
-import { decimalValidator, isNumber } from "../../../validators/validators";
+import { decimalValidator, isNumber } from "../../../utils/validators";
 import { MatFormField, MatInput, MatLabel } from "@angular/material/input";
 import { FetchParameterService } from "../../../services/fetch-parameter.service";
 import { Parameter } from "../../../interfaces/interfaces";

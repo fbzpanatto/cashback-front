@@ -30,6 +30,8 @@ export interface TextMessage {
   text: string | null | undefined,
 }
 
+export interface Credentials { email?: string | null, password?: string | null, token?: string | null }
+
 export interface SuccessGetSaleI { status: number, data: Sale[] }
 export interface SuccessGetActionI { status: number, data: Action[] }
 export interface SuccessGetParameterI { status: number, data: Parameter }
