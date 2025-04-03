@@ -1,0 +1,41 @@
+div[mat-dialog-title] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #2b387c;
+  color: #fff;
+  padding: 8px 16px;
+
+  .popup-title, .close {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .close {
+    justify-content: flex-end;
+
+    mat-icon {
+      cursor: pointer;
+    }
+  }
+}
+
+div[mat-dialog-content] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: auto;
+  padding: 10vmin 5vmin;
+  color: #444;
+}
+
+div[mat-dialog-actions] {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 16px;
+  align-items: center;
+  padding: 16px;
+  border-top: 1px solid #ccc;
+}

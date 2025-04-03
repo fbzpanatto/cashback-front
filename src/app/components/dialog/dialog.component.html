@@ -1,0 +1,44 @@
+<div mat-dialog-title>
+  <span class="popup-title">
+    <mat-icon svgIcon="info"></mat-icon>
+    <span>{{ title }}</span>
+  </span>
+  <span class="close">
+    <mat-icon svgIcon="close" (click)="close()"></mat-icon>
+  </span>
+</div>
+
+<div mat-dialog-content style="padding-top: 4vmin;">
+  <div class="popup-content">
+    <p>{{ message }}</p>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  @if (!actions) {
+    <button color="primary" mat-flat-button [mat-dialog-close]="true">
+      <mat-icon svgIcon="check"></mat-icon>
+      <span>OK</span>
+    </button>
+  } @else {
+    @if (!recuseOptions) {
+      <button mat-button [mat-dialog-close]="false">
+        <mat-icon svgIcon="close"></mat-icon>
+        <span>NÃO</span>
+      </button>
+      <button mat-flat-button color="primary" [mat-dialog-close]="true">
+        <mat-icon svgIcon="check"></mat-icon>
+        <span>SIM</span>
+      </button>
+    } @else {
+      <button color="accent" mat-flat-button [mat-dialog-close]="{ option: false }">
+        <mat-icon svgIcon="block"></mat-icon>
+        <span>RECUSAR</span>
+      </button>
+      <button mat-flat-button color="primary" [mat-dialog-close]="{ option: true }">
+        <mat-icon svgIcon="check"></mat-icon>
+        <span>ACEITAR</span>
+      </button>
+    }
+  }
+</div>

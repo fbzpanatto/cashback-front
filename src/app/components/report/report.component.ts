@@ -10,11 +10,12 @@ import { MatIcon } from "@angular/material/icon";
 import { CashBackStatusPipe } from "../../pipes/cash-back-status.pipe";
 import { CashBackStatus } from "../../enum/enum";
 import { toSignal } from "@angular/core/rxjs-interop";
-import { debounceTime, distinctUntilChanged, startWith } from "rxjs";
+import {debounceTime, distinctUntilChanged, firstValueFrom, startWith} from "rxjs";
 import { SalesSignalService } from "../../services/sales-signal.service";
 import { currentDateFn } from "../../utils/utils";
 import { MatIconButton } from "@angular/material/button";
 import { ToolbarTitleService } from "../../services/toolbar-title.service";
+import {DialogService} from "../../services/dialog.service";
 
 @Component({
   selector: 'app-report',
@@ -28,6 +29,8 @@ export class ReportComponent implements OnInit {
   #toolBarService = inject(ToolbarTitleService)
   #fetch = inject(FetchSaleService)
   #sales = inject(SalesSignalService)
+  #dialog = inject(DialogService)
+
   #search: FormControl = new FormControl("")
 
   cashBackStatus = viewChildren<ElementRef<HTMLTableCellElement>>('cashBackStatus')
@@ -56,8 +59,16 @@ export class ReportComponent implements OnInit {
 
   clearSearch(): void { this.#search.patchValue('') }
 
-  deleteSale(sale: Sale) {
-    console.log(sale)
+  async deleteSale(sale: Sale, cashBackStatus: HTMLTableCellElement) {
+
+    const text = cashBackStatus.innerText != 'Válido' && 'Expirado' ? 'utilizado em': 'com status'
+    const options = { title: 'Atenção', actions: true, message: `Deseja deletar a venda com ID ${ sale.saleId } para ${ sale.clientName } e cashback ${ text } ${ cashBackStatus.innerText } ?` }
+    const source$ = this.#dialog.open(options).afterClosed()
+
+    const result = await firstValueFrom(source$) as boolean | undefined
+    if(!result) { return }
+
+    console.log('realizando delete...')
   }
 
   get search() { return this.#search }
