@@ -45,6 +45,12 @@ export class ReportComponent implements OnInit {
     const value = this.cashBackStatus().find(el => String(el.nativeElement.id) === String(sale.saleId))?.nativeElement.innerText
 
     if(sale.withdrawnDate === null && value === CashBackStatus.valid) {
+
+      const options = { title: 'Atenção', actions: true, message: `Deseja utilizar o cashback da venda com ID ${ sale.saleId } e data de venda ${ sale.saleDate } do cliente ${ sale.clientName }` }
+      const source$ = this.#dialog.open(options).afterClosed()
+      const result = await firstValueFrom(source$) as boolean | undefined
+      if(!result) { return }
+
       await this.#sales.updateSale(sale.saleId, { withdrawnDate: this.currentDate })
       await this.#fetch.put(sale.saleId, { withdrawnDate: this.currentDate })
       return
