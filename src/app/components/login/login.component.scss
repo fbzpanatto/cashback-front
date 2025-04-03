@@ -1,0 +1,121 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+
+  .container {
+    background-color: #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    max-width: 478px;
+    width: 100%;
+    padding: 4vmin 0;
+    border-radius: 1vmin;
+    border: 1px solid #80c8ff;
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      gap: 4vmin;
+      padding: 5vmin 0;
+      h1 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #3f51b5;
+        letter-spacing: 0.1rem;
+      }
+      span {
+        display: flex;
+        justify-content: center;
+        min-width: 8vmin;
+        padding: 2vmin;
+        background-color: #444;
+        color: #fff;
+        font-size: 36px;
+        border-radius: 6px;
+      }
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 5vmin 0;
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 80%;
+        gap: 5vmin;
+
+        div {
+          position: relative;
+
+          &:last-of-type {
+            mat-icon {
+              cursor: pointer;
+            }
+          }
+
+          mat-icon {
+            position: absolute;
+            top: 50%;
+            right: 2vmin;
+            transform: translateY(-50%);
+            color: #333;
+          }
+          input {
+            width: 100%;
+            color: #333;
+            outline: none;
+            height: 36px;
+            border: none;
+            padding: 2vmin 8vmin 2vmin 2vmin;
+            border-radius: 8vmin;
+            font-size: 1rem;
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+      }
+    }
+    .footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      width: 100%;
+      gap:  16px;
+      padding: 5vmin 0;
+      button {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        align-items: center;
+        width: 80%;
+        gap: 2vmin;
+        border-radius: 8vmin;
+
+        padding-top: 2vmin;
+        padding-bottom: 2vmin;
+
+        span {
+          cursor: pointer;
+          color: #fff;
+        }
+      }
+      span {
+        color: #333;
+        cursor: pointer;
+      }
+    }
+  }
+}

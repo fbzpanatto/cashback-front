@@ -1,0 +1,54 @@
+@defer {
+  @if (resetPassToken$ | async) {
+    <div class="container mat-elevation-z4">
+      <div class="header">
+        <h1>Redefinir Senha</h1>
+      </div>
+      <div class="content">
+        <form [formGroup]="resetPasswordForm">
+          <div>
+            <input minlength="8" maxlength="8" placeholder="nova senha" formControlName="password" [type]="isPasswordType ? 'password' : 'text'" autocomplete="false">
+            <mat-icon [svgIcon]="isPasswordType? 'visibility_off' : 'visibility'" (click)="isPasswordType = !isPasswordType"></mat-icon>
+          </div>
+          <div>
+            <input minlength="8" maxlength="8" placeholder="confirme a nova senha" formControlName="confirmPassword" [type]="isPasswordType ? 'password' : 'text'"
+                   autocomplete="false">
+            <mat-icon [svgIcon]="isPasswordType? 'visibility_off' : 'visibility'" (click)="isPasswordType = !isPasswordType"></mat-icon>
+          </div>
+        </form>
+      </div>
+      <div class="footer">
+        <button mat-flat-button [disabled]="!resetPasswordForm.valid || resetPasswordForm.pristine" color="primary" (click)="confirmNewPassword()">
+          <span>Confirmar e Entrar</span>
+          <mat-icon svgIcon="login"></mat-icon>
+        </button>
+      </div>
+    </div>
+
+  } @else if(!isAuth) {
+    <div class="container mat-elevation-z4">
+      <div class="header">
+        <h1>ModaMania</h1>
+      </div>
+      <div class="content">
+        <form [formGroup]="loginForm">
+          <div>
+            <input placeholder="email" formControlName="email" autocomplete="false">
+            <mat-icon svgIcon="person"></mat-icon>
+          </div>
+          <div>
+            <input minlength="8" maxlength="8" placeholder="senha" formControlName="password" [type]="isPasswordType ? 'password' : 'text'" autocomplete="false">
+            <mat-icon [svgIcon]="isPasswordType? 'visibility_off' : 'visibility'" (click)="isPasswordType = !isPasswordType"></mat-icon>
+          </div>
+        </form>
+      </div>
+      <div class="footer">
+        <button mat-flat-button [disabled]="!loginForm.valid || loginForm.pristine" color="primary" (click)="login()">
+          <span>Entrar</span>
+          <mat-icon svgIcon="login"></mat-icon>
+        </button>
+        <button mat-button (click)="resetPassword()" [disabled]="loginForm.controls['email'].invalid">esqueceu a senha?</button>
+      </div>
+    </div>
+  }
+}
