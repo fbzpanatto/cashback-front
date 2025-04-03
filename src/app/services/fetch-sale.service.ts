@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ErrorI, Sale, SuccessGetSaleI, SuccessPostI, SuccessPutI } from "../interfaces/interfaces";
+import { ErrorI, Sale, SuccessDeleteI, SuccessGetSaleI, SuccessPostI, SuccessPutI } from "../interfaces/interfaces";
 import { HttpClient } from "@angular/common/http";
 import { environment } from '../../environments/environment';
 import { firstValueFrom } from "rxjs"
@@ -39,7 +39,18 @@ export class FetchSaleService {
   async put(saleId: number | string, data: Partial<Sale>) {
 
     const response = await firstValueFrom(
-      this.#http.put<SuccessPutI | ErrorI>(`${environment.API_URL}${environment.SALE}/${saleId}`, data)
+      this.#http.put<SuccessPutI | ErrorI>(`${environment.API_URL}${environment.SALE}/${ saleId }`, data)
+    )
+
+    if((response as ErrorI).error) {
+      return console.error('errorHandler', response)
+    }
+  }
+
+  async delete(saleId: number | string) {
+
+    const response = await firstValueFrom(
+      this.#http.delete<SuccessDeleteI | ErrorI>(`${environment.API_URL}${environment.SALE}/${ saleId }`)
     )
 
     if((response as ErrorI).error) {

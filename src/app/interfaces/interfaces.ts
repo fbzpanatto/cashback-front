@@ -36,4 +36,5 @@ export interface SuccessGetParameterI { status: number, data: Parameter }
 export interface SuccessGetTxtMessageI { status: number, data: TextMessage }
 export interface SuccessPostI { status: number, message: string }
 export interface SuccessPutI { status: number, message: string }
+export interface SuccessDeleteI { status: number, message: string }
 export interface ErrorI { status: number, error: string }

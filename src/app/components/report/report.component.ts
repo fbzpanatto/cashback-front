@@ -10,12 +10,12 @@ import { MatIcon } from "@angular/material/icon";
 import { CashBackStatusPipe } from "../../pipes/cash-back-status.pipe";
 import { CashBackStatus } from "../../enum/enum";
 import { toSignal } from "@angular/core/rxjs-interop";
-import {debounceTime, distinctUntilChanged, firstValueFrom, startWith} from "rxjs";
+import { debounceTime, distinctUntilChanged, firstValueFrom, startWith } from "rxjs";
 import { SalesSignalService } from "../../services/sales-signal.service";
 import { currentDateFn } from "../../utils/utils";
 import { MatIconButton } from "@angular/material/button";
 import { ToolbarTitleService } from "../../services/toolbar-title.service";
-import {DialogService} from "../../services/dialog.service";
+import { DialogService } from "../../services/dialog.service";
 
 @Component({
   selector: 'app-report',
@@ -26,38 +26,30 @@ import {DialogService} from "../../services/dialog.service";
 })
 export class ReportComponent implements OnInit {
 
-  #toolBarService = inject(ToolbarTitleService)
+  #dialog = inject(DialogService)
   #fetch = inject(FetchSaleService)
   #sales = inject(SalesSignalService)
-  #dialog = inject(DialogService)
+  #toolBar = inject(ToolbarTitleService)
 
   #search: FormControl = new FormControl("")
 
   cashBackStatus = viewChildren<ElementRef<HTMLTableCellElement>>('cashBackStatus')
   searchSignal = toSignal(this.#search.valueChanges.pipe(startWith(""), debounceTime(400), distinctUntilChanged()))
 
-  constructor() {
-    this.#toolBarService.updateTitle(this.title)
-  }
+  constructor() { this.#toolBar.updateTitle(this.title) }
 
-  async ngOnInit() {
-    await this.#fetch.get()
-  }
+  async ngOnInit() { await this.#fetch.get() }
 
-  async withdrawnDate(item: Sale) {
+  async setWithdrawnDate(sale: Sale) {
 
-    const value = this.cashBackStatus().find(el => String(el.nativeElement.id) === String(item.saleId))?.nativeElement.innerText
+    const value = this.cashBackStatus().find(el => String(el.nativeElement.id) === String(sale.saleId))?.nativeElement.innerText
 
-    if(item.withdrawnDate === null && value === CashBackStatus.valid) {
-      await this.#sales.updateSale(item.saleId, { withdrawnDate: this.currentDate })
-      await this.#fetch.put(item.saleId, { withdrawnDate: this.currentDate })
+    if(sale.withdrawnDate === null && value === CashBackStatus.valid) {
+      await this.#sales.updateSale(sale.saleId, { withdrawnDate: this.currentDate })
+      await this.#fetch.put(sale.saleId, { withdrawnDate: this.currentDate })
       return
     }
   }
-
-  async reload() { await this.#fetch.get() }
-
-  clearSearch(): void { this.#search.patchValue('') }
 
   async deleteSale(sale: Sale, cashBackStatus: HTMLTableCellElement) {
 
@@ -68,10 +60,15 @@ export class ReportComponent implements OnInit {
     const result = await firstValueFrom(source$) as boolean | undefined
     if(!result) { return }
 
-    console.log('realizando delete...')
+    await this.#sales.deleteSale(sale.saleId)
+    await this.#fetch.delete(sale.saleId)
   }
 
-  get search() { return this.#search }
+  async reload() { await this.#fetch.get() }
+
+  clearSearch(): void { this.#search.patchValue('') }
+
+  get data() { return this.#sales.data }
 
   get filtered() {
     return computed(() => this.data().filter(el => {
@@ -84,7 +81,7 @@ export class ReportComponent implements OnInit {
     return 'Relatório'
   }
 
-  get data() { return this.#sales.data }
+  get search() { return this.#search }
 
   get currentDate() { return currentDateFn() }
 }

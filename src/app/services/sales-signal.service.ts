@@ -23,6 +23,13 @@ export class SalesSignalService {
     }
   }
 
+  async deleteSale(saleId: number | string) {
+
+    const index = this.#salesSignal().findIndex(element => element.saleId === saleId)
+
+    this.#salesSignal().splice(index, 1)
+  }
+
   updateSignal(data: Sale[]) { this.#salesSignal.update((_) => [...data]) }
 
   get data(){ return this.#salesSignal.asReadonly() }

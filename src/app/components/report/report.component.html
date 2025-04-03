@@ -38,7 +38,7 @@
             <td class="center">{{ row.saleValue | currency: 'BRL' }}</td>
             <td class="center">{{ row.cashback }}</td>
             <td class="center">{{ row.saleValue | cashBack: row.cashback | currency: 'BRL' }}</td>
-            <td #cashBackStatus [id]="row.saleId" class="center pointer" (click)="withdrawnDate(row)">{{ row.withdrawnDate | cashBackStatus: currentDate: row.cashbackExpiration }}</td>
+            <td #cashBackStatus [id]="row.saleId" class="center pointer" (click)="setWithdrawnDate(row)">{{ row.withdrawnDate | cashBackStatus: currentDate: row.cashbackExpiration }}</td>
             <td>
               <mat-icon (click)="deleteSale(row, cashBackStatus)" style="color: #ff0099" svgIcon="delete"></mat-icon>
             </td>
