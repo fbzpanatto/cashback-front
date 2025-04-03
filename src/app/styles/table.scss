@@ -41,6 +41,7 @@
             left: 0;
             background: #0a6bc4;
             border-right: 1px solid #bdcede;
+            z-index: 3;
           }
           &.fixed-width {
             width: 100px;
@@ -56,10 +57,23 @@
           text-overflow: ellipsis;
           color: #444;
           font-size: 10pt;
-          padding: 6px;
+          padding: 10px;
 
           border-top: 1px solid #bdcede;
           border-left: 1px solid #bdcede;
+
+          &:has(mat-icon) {
+            padding: 0;
+            text-align: center;
+            position: relative;
+            mat-icon {
+              position: absolute;
+              top: 5px;
+              &:hover {
+                cursor: pointer;
+              }
+            }
+          }
 
           &:has(input) {
             padding: 0 6px;
@@ -77,9 +91,11 @@
             background: #eff4ff;
             border-right: 1px solid #bdcede;
           }
+
           &.center {
             text-align: center;
           }
+
           &.right {
             text-align: right;
           }

@@ -14,7 +14,7 @@ import { debounceTime, distinctUntilChanged, startWith } from "rxjs";
 import { SalesSignalService } from "../../services/sales-signal.service";
 import { currentDateFn } from "../../utils/utils";
 import { MatIconButton } from "@angular/material/button";
-import {ToolbarTitleService} from "../../services/toolbar-title.service";
+import { ToolbarTitleService } from "../../services/toolbar-title.service";
 
 @Component({
   selector: 'app-report',
@@ -55,6 +55,10 @@ export class ReportComponent implements OnInit {
   async reload() { await this.#fetch.get() }
 
   clearSearch(): void { this.#search.patchValue('') }
+
+  deleteSale(sale: Sale) {
+    console.log(sale)
+  }
 
   get search() { return this.#search }
 

@@ -24,6 +24,7 @@
           <th class="fixed-width">CashBack (%)</th>
           <th>Valor CashBack</th>
           <th>Data Utilização</th>
+          <th>Deletar</th>
         </tr>
       </thead>
       <tbody>
@@ -38,6 +39,9 @@
             <td class="center">{{ row.cashback }}</td>
             <td class="center">{{ row.saleValue | cashBack: row.cashback | currency: 'BRL' }}</td>
             <td #cashBackStatus [id]="row.saleId" class="center pointer" (click)="withdrawnDate(row)">{{ row.withdrawnDate | cashBackStatus: currentDate: row.cashbackExpiration }}</td>
+            <td>
+              <mat-icon (click)="deleteSale(row)" style="color: #ff0099" svgIcon="delete"></mat-icon>
+            </td>
           </tr>
         }
       <tr class="total-line">
@@ -49,6 +53,7 @@
         <td class="center">{{ filtered() | totalSells | currency: 'BRL' }}</td>
         <td class="center">-</td>
         <td class="center">{{ filtered() | totalCashBacks | currency: 'BRL' }}</td>
+        <td class="center">-</td>
         <td class="center">-</td>
       </tr>
       </tbody>

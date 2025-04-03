@@ -42,6 +42,7 @@ class Initializers {
       'colors',
       'chevron_left',
       'close',
+      'delete',
       'edit',
       'email',
       'exit_to_app',
