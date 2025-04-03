@@ -14,8 +14,12 @@ import { ToolbarTitleService } from "../../services/toolbar-title.service";
 })
 export class TopBarComponent {
 
-  #toolBarTitle = inject(ToolbarTitleService)
+  #toolBar = inject(ToolbarTitleService)
 
-  get toolBarTitle() { return this.#toolBarTitle.title }
+  get toolBarTitle() { return this.#toolBar.title }
+
+  get home() { return this.#toolBar.home }
+
+  get logout() { return this.#toolBar.logout }
 
 }

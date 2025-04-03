@@ -14,12 +14,14 @@ export class WhatsappComponent implements OnInit {
   qrCode?: string
   isReady: boolean = false;
 
-  #toolBarService = inject(ToolbarTitleService)
+  #toolBar = inject(ToolbarTitleService)
 
   #socket = inject(WebSocketService)
 
   constructor() {
-    this.#toolBarService.updateTitle(this.title)
+    this.#toolBar.updateTitle(this.title)
+    this.#toolBar.updateHome(true)
+    this.#toolBar.updateLogout(true)
   }
 
   async ngOnInit() {

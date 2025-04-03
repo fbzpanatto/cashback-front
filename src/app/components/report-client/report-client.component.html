@@ -1,0 +1,45 @@
+<div class="report-wrapper">
+  <div class="table-content">
+    <table>
+      <thead>
+        <tr>
+          <th class="sticky-left"> Id</th>
+          <th>Nome</th>
+          <th>Tel</th>
+          <th>Data Venda</th>
+          <th class="center">Data Expiração</th>
+          <th>Valor</th>
+          <th class="fixed-width">CashBack (%)</th>
+          <th>Valor CashBack</th>
+          <th>Data Utilização</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(row of data; track $index) {
+          <tr>
+            <td class="sticky-left">{{ row.saleId }}</td>
+            <td>{{ row.clientName }}</td>
+            <td class="center">{{ row.clientPhone }}</td>
+            <td class="center">{{ row.saleDate }}</td>
+            <td class="center">{{ row.cashbackExpiration }}</td>
+            <td class="center">{{ row.saleValue | currency: 'BRL' }}</td>
+            <td class="center">{{ row.cashback }}</td>
+            <td class="center">{{ row.saleValue | cashBack: row.cashback | currency: 'BRL' }}</td>
+            <td #cashBackStatus [id]="row.saleId" class="center">{{ row.withdrawnDate | cashBackStatus: currentDate: row.cashbackExpiration }}</td>
+          </tr>
+        }
+        <tr class="total-line">
+          <td class="sticky-left center">-</td>
+          <td class="center">-</td>
+          <td class="center">-</td>
+          <td class="center">-</td>
+          <td class="center">-</td>
+          <td class="center">{{ data | totalSells | currency: 'BRL' }}</td>
+          <td class="center">-</td>
+          <td class="center">{{ data | totalCashBacks | currency: 'BRL' }}</td>
+          <td class="center">-</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

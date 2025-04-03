@@ -17,10 +17,12 @@ import { MatIcon } from "@angular/material/icon";
 })
 export class HomeComponent {
 
-  #toolBarService = inject(ToolbarTitleService)
+  #toolBar = inject(ToolbarTitleService)
 
   constructor() {
-    this.#toolBarService.updateTitle(this.title)
+    this.#toolBar.updateTitle(this.title)
+    this.#toolBar.updateHome(true)
+    this.#toolBar.updateLogout(true)
   }
 
   get title() {

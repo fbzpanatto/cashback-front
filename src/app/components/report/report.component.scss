@@ -24,11 +24,18 @@
           &:hover {
             background: #bdcede;
 
+            &:last-of-type {
+              td {
+
+                &.sticky-left {
+                  background: #dee7ff;
+                }
+              }
+            }
+
             td {
-              font-size: 14px;
               color: black;
               font-style: italic;
-
               &.sticky-left {
                 background: #bdcede;
               }

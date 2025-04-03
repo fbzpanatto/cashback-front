@@ -26,13 +26,15 @@ export class ImportDataComponent implements OnInit {
 
   #parameterFetchService = inject(FetchParameterService);
 
-  #toolBarService = inject(ToolbarTitleService)
+  #toolBar = inject(ToolbarTitleService)
 
   #router = inject(Router);
   #fetch = inject(FetchSaleService)
 
   constructor() {
-    this.#toolBarService.updateTitle(this.title)
+    this.#toolBar.updateTitle(this.title)
+    this.#toolBar.updateHome(true)
+    this.#toolBar.updateLogout(true)
   }
 
   async ngOnInit() {

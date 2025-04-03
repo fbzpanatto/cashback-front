@@ -4,12 +4,14 @@ import { ImportDataComponent } from "./components/import-data/import-data.compon
 import { ReportComponent } from "./components/report/report.component";
 import { SettingsComponent } from "./components/settings/settings.component";
 import { WhatsappComponent } from "./components/whatsapp/whatsapp.component";
+import { ReportClientComponent } from "./components/report-client/report-client.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'import-data', component: ImportDataComponent },
   { path: 'report', component: ReportComponent },
+  { path: 'report-client/:id', component: ReportClientComponent },
   { path: 'whatsapp', component: WhatsappComponent },
   { path: 'settings', component: SettingsComponent },
   { path: '**', redirectTo: 'home', pathMatch: 'full' }

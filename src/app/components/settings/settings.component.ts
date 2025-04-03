@@ -21,12 +21,14 @@ import { MatRipple } from "@angular/material/core";
 })
 export class SettingsComponent {
 
-  #toolBarService = inject(ToolbarTitleService);
+  #toolBar = inject(ToolbarTitleService);
 
   #selectedOption = 1
 
   constructor() {
-    this.#toolBarService.updateTitle(this.title)
+    this.#toolBar.updateTitle(this.title)
+    this.#toolBar.updateHome(true)
+    this.#toolBar.updateLogout(true)
   }
 
   setForm(item: { id: number, title: string, selected: boolean }) {

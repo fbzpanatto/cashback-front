@@ -25,6 +25,18 @@ export class FetchSaleService {
     this.#sales.updateSignal((response as SuccessGetSaleI).data)
   }
 
+  async getSalesByClient(clientId: number) {
+    const response = await firstValueFrom(
+      this.#http.get<SuccessGetSaleI | ErrorI>(`${environment.API_URL}${environment.SALE}/${ clientId }`),
+    )
+
+    if((response as ErrorI).error) {
+      return console.error('errorHandler', response)
+    }
+
+    return (response as SuccessGetSaleI).data
+  }
+
   async post(data: Sale[]) {
 
     const response = await firstValueFrom(

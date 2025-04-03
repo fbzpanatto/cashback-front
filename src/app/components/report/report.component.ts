@@ -36,7 +36,11 @@ export class ReportComponent implements OnInit {
   cashBackStatus = viewChildren<ElementRef<HTMLTableCellElement>>('cashBackStatus')
   searchSignal = toSignal(this.#search.valueChanges.pipe(startWith(""), debounceTime(400), distinctUntilChanged()))
 
-  constructor() { this.#toolBar.updateTitle(this.title) }
+  constructor() {
+    this.#toolBar.updateTitle(this.title)
+    this.#toolBar.updateHome(true)
+    this.#toolBar.updateLogout(true)
+  }
 
   async ngOnInit() { await this.#fetch.get() }
 
