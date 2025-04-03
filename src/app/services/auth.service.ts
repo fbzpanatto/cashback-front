@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from "rxjs";
+import {Payload} from "../interfaces/interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,10 @@ export class AuthService {
 
   private _isAuthenticated = false
   private _isAuthAsObservable$ = new BehaviorSubject(this.isAuthenticated)
+
+  completeLogin(login: Payload) {
+
+  }
 
   get validToken() {
     return ''

@@ -30,6 +30,8 @@ export interface TextMessage {
   text: string | null | undefined,
 }
 
+export interface Payload { token: string, expiresIn: number, admin: boolean  }
+
 export interface Credentials { email?: string | null, password?: string | null, token?: string | null }
 
 export interface SuccessGetSaleI { status: number, data: Sale[] }
@@ -37,6 +39,7 @@ export interface SuccessGetActionI { status: number, data: Action[] }
 export interface SuccessGetParameterI { status: number, data: Parameter }
 export interface SuccessGetTxtMessageI { status: number, data: TextMessage }
 export interface SuccessPostI { status: number, message: string }
+export interface SuccessPostLogin { status: number, data: Payload }
 export interface SuccessPutI { status: number, message: string }
 export interface SuccessDeleteI { status: number, message: string }
 export interface ErrorI { status: number, error: string }

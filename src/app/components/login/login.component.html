@@ -18,7 +18,7 @@
         </form>
       </div>
       <div class="footer">
-        <button mat-flat-button [disabled]="!resetPasswordForm.valid || resetPasswordForm.pristine" color="primary" (click)="confirmNewPassword()">
+        <button mat-flat-button [disabled]="!resetPasswordForm.valid || resetPasswordFormPristine" (click)="confirmNewPassword()">
           <span>Confirmar e Entrar</span>
           <mat-icon svgIcon="login"></mat-icon>
         </button>
@@ -43,7 +43,7 @@
         </form>
       </div>
       <div class="footer">
-        <button mat-flat-button [disabled]="!loginForm.valid || loginForm.pristine" color="primary" (click)="login()">
+        <button mat-flat-button [disabled]="!loginForm.valid || loginFormPristine" color="primary" (click)="login()">
           <span>Entrar</span>
           <mat-icon svgIcon="login"></mat-icon>
         </button>

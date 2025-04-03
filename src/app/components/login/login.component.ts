@@ -1,11 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule} from "@angular/material/icon";
 import { AuthService } from "../../services/auth.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { filter, map, Observable, tap } from "rxjs";
 import { confirmPassValidation, passwordStrengthValidator } from "../../utils/validators";
-import { Credentials } from "../../interfaces/interfaces";
+import { Credentials, ErrorI, SuccessPostLogin } from "../../interfaces/interfaces";
 import { FetchLoginService } from "../../services/fetch-login.service";
 import { CommonModule } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
@@ -18,7 +18,7 @@ import { MatButtonModule } from "@angular/material/button";
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   isPasswordType = true;
 
@@ -55,12 +55,16 @@ export class LoginComponent {
   }
 
   async login() {
-    const body: { email: string; password: string } = { email: this.loginForm.value.email as string, password: this.loginForm.value.password as string };
-    await this.doLogin(body);
+    const body = { email: this.loginForm.value.email, password: this.loginForm.value.password};
+    await this.doLogin(body)
   }
 
+  // TODO: CONTINUAR DAQUI
   async doLogin(body: Credentials) {
-    const source = await this.#fetch.saveData(body)
+    const response = await this.#fetch.saveData(body)
+    if ((response as SuccessPostLogin).data?.token) {
+      this.#authService.completeLogin((response as SuccessPostLogin).data)
+    }
   }
 
   async confirmNewPassword() {
@@ -77,4 +81,12 @@ export class LoginComponent {
   get isAuth(){ return this.#authService.validToken }
 
   get lStorageW() { return localStorage }
+
+  get loginFormPristine() {
+    return this.loginForm.pristine
+  }
+
+  get resetPasswordFormPristine() {
+    return this.resetPasswordForm.pristine
+  }
 }
