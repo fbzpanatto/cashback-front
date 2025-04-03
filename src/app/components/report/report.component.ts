@@ -46,7 +46,7 @@ export class ReportComponent implements OnInit {
 
     if(sale.withdrawnDate === null && value === CashBackStatus.valid) {
 
-      const options = { title: 'Atenção', actions: true, message: `Deseja utilizar o cashback da venda com ID ${ sale.saleId } e data de venda ${ sale.saleDate } do cliente ${ sale.clientName }` }
+      const options = { title: 'Atenção', actions: true, message: `Deseja UTILIZAR o cashback da venda com ID ${ sale.saleId } e data de venda ${ sale.saleDate } do cliente ${ sale.clientName } ?` }
       const source$ = this.#dialog.open(options).afterClosed()
       const result = await firstValueFrom(source$) as boolean | undefined
       if(!result) { return }
@@ -60,7 +60,7 @@ export class ReportComponent implements OnInit {
   async deleteSale(sale: Sale, cashBackStatus: HTMLTableCellElement) {
 
     const text = cashBackStatus.innerText != 'Válido' && 'Expirado' ? 'utilizado em': 'com status'
-    const options = { title: 'Atenção', actions: true, message: `Deseja deletar a venda com ID ${ sale.saleId } para ${ sale.clientName } e cashback ${ text } ${ cashBackStatus.innerText } ?` }
+    const options = { title: 'Atenção', actions: true, message: `Deseja DELETAR a venda com ID ${ sale.saleId } para ${ sale.clientName } e cashback ${ text } ${ cashBackStatus.innerText } ?` }
     const source$ = this.#dialog.open(options).afterClosed()
 
     const result = await firstValueFrom(source$) as boolean | undefined

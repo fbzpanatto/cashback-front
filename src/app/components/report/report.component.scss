@@ -21,7 +21,18 @@
     table {
       tbody {
         tr {
-          td {
+          &:hover {
+            background: #bdcede;
+
+            td {
+              font-size: 14px;
+              color: black;
+              font-style: italic;
+
+              &.sticky-left {
+                background: #bdcede;
+              }
+            }
           }
         }
       }
