@@ -14,8 +14,9 @@ import { MatButtonModule } from "@angular/material/button";
 
 @Component({
   selector: 'app-login',
-  imports: [ CommonModule, MatCardModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatIconModule ],
+  imports: [CommonModule, MatCardModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatIconModule],
   templateUrl: './login.component.html',
+  standalone: true,
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {

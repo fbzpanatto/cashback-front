@@ -1,6 +1,12 @@
-@if(isAuthenticated | async) {
-  <div class="app-container">
-    <app-top-bar></app-top-bar>
-    <router-outlet></router-outlet>
-  </div>
-} @else { <app-login></app-login> }
+<!--@if(isAuthenticated | async) {-->
+<!--  <div class="app-container">-->
+<!--    <app-top-bar></app-top-bar>-->
+<!--    <router-outlet></router-outlet>-->
+<!--  </div>-->
+<!--} @else { <app-login></app-login> }-->
+
+
+<div class="app-container">
+  <app-top-bar></app-top-bar>
+  <router-outlet></router-outlet>
+</div>
