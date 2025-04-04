@@ -30,7 +30,7 @@ export interface TextMessage {
   text: string | null | undefined,
 }
 
-export interface Payload { token: string, expiresIn: number, admin: boolean  }
+export interface Payload { token: string, expiresIn: string, admin: boolean  }
 
 export interface Credentials { email?: string | null, password?: string | null, token?: string | null }
 

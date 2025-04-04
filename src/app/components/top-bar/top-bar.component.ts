@@ -4,6 +4,7 @@ import { RouterLink } from "@angular/router";
 import { MatIcon } from "@angular/material/icon";
 import { MatIconButton } from "@angular/material/button";
 import { ToolbarTitleService } from "../../services/toolbar-title.service";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-top-bar',
@@ -15,6 +16,11 @@ import { ToolbarTitleService } from "../../services/toolbar-title.service";
 export class TopBarComponent {
 
   #toolBar = inject(ToolbarTitleService)
+  #auth = inject(AuthService);
+
+  logoutFn() {
+    this.#auth.logout(true);
+  }
 
   get toolBarTitle() { return this.#toolBar.title }
 

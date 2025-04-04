@@ -1,9 +1,9 @@
-import {inject, Injectable} from '@angular/core';
-import {catchError, firstValueFrom, of} from "rxjs";
-import {Credentials, ErrorI, SuccessPostLogin} from "../interfaces/interfaces";
-import {environment} from "../../environments/environment";
-import {HttpClient} from "@angular/common/http";
-import {DialogService} from "./dialog.service";
+import { inject, Injectable } from '@angular/core';
+import { catchError, firstValueFrom } from "rxjs";
+import { Credentials, ErrorI, SuccessPostLogin } from "../interfaces/interfaces";
+import { environment } from "../../environments/environment";
+import { HttpClient } from "@angular/common/http";
+import { DialogService } from "./dialog.service";
 
 @Injectable({
   providedIn: 'root'

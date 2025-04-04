@@ -11,7 +11,7 @@
   </div>
   <div class="box right-side">
     @if(logout()){
-      <button mat-icon-button>
+      <button (click)="logoutFn()" mat-icon-button>
         <mat-icon svgIcon="exit_to_app"></mat-icon>
       </button>
     }

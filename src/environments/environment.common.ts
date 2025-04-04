@@ -6,4 +6,7 @@ export const ENVIRONMENT_COMMON = {
   ACTION: "action",
   MESSAGE: "message",
   LOGIN: "login",
+  TOKEN: 'token',
+  ROLE: 'role',
+  EXPIRES_IN: 'expiresIn',
 }
