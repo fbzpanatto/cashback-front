@@ -27,5 +27,4 @@ export class TopBarComponent {
   get home() { return this.#toolBar.home }
 
   get logout() { return this.#toolBar.logout }
-
 }
