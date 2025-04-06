@@ -50,8 +50,6 @@ export class AuthService {
     this.unsubscribeSubject.complete();
   }
 
-  get isAuthAsObservable$() { return this._isAuthAsObservable$.asObservable() }
-  get isAuthSubject() { return this._isAuthAsObservable$ }
   get isAuthenticated() { return this._isAuthenticated }
   set isAuthenticated(value: boolean) { this._isAuthenticated = value }
 
