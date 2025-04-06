@@ -16,11 +16,12 @@ import { currentDateFn } from "../../utils/utils";
 import { MatIconButton } from "@angular/material/button";
 import { ToolbarTitleService } from "../../services/toolbar-title.service";
 import { DialogService } from "../../services/dialog.service";
+import { TopBarComponent } from "../top-bar/top-bar.component";
 
 @Component({
   selector: 'app-report',
   standalone: true,
-  imports: [CashBackPipe, ReactiveFormsModule, TotalCashBacksPipe, TotalSellsPipe, CurrencyPipe, MatIcon, CashBackStatusPipe, MatIconButton],
+  imports: [CashBackPipe, ReactiveFormsModule, TotalCashBacksPipe, TotalSellsPipe, CurrencyPipe, MatIcon, CashBackStatusPipe, MatIconButton, TopBarComponent],
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss', '../../styles/table.scss', '../../styles/input.scss']
 })

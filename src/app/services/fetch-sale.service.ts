@@ -2,8 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import { ErrorI, Sale, SuccessDeleteI, SuccessGetSaleI, SuccessPostI, SuccessPutI } from "../interfaces/interfaces";
 import { HttpClient } from "@angular/common/http";
 import { environment } from '../../environments/environment';
-import { firstValueFrom } from "rxjs"
+import { catchError, firstValueFrom, tap } from "rxjs"
 import { SalesSignalService } from "./sales-signal.service";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -11,62 +12,63 @@ import { SalesSignalService } from "./sales-signal.service";
 export class FetchSaleService {
 
   #http = inject(HttpClient)
+  #router = inject(Router)
   #sales = inject(SalesSignalService)
 
   async get() {
-    const response = await firstValueFrom(
-      this.#http.get<SuccessGetSaleI | ErrorI>(`${environment.API_URL}${environment.SALE}`),
+    return await firstValueFrom(
+      this.#http.get<SuccessGetSaleI | ErrorI>(`${environment.API_URL}${environment.SALE}`)
+        .pipe(
+          tap(response => {
+            if((response as SuccessGetSaleI).data) { this.#sales.updateSignal((response as SuccessGetSaleI).data) }
+          }),
+          catchError(async ({error}) => {
+            if (error.status === 401) { await this.#router.navigate(['/login']) }
+            return error as ErrorI
+          })
+        )
     )
-
-    if((response as ErrorI).error) {
-      return console.error('errorHandler', response)
-    }
-
-    this.#sales.updateSignal((response as SuccessGetSaleI).data)
   }
 
   async getSalesByClient(clientId: number) {
-    const response = await firstValueFrom(
-      this.#http.get<SuccessGetSaleI | ErrorI>(`${environment.API_URL}${environment.SALE}/${ clientId }`),
+    return await firstValueFrom(
+      this.#http.get<SuccessGetSaleI | ErrorI>(`${environment.API_URL}${environment.REPORT_CLIENT}/${ clientId }`),
     )
-
-    if((response as ErrorI).error) {
-      return console.error('errorHandler', response)
-    }
-
-    return (response as SuccessGetSaleI).data
   }
 
   async post(data: Sale[]) {
-
-    const response = await firstValueFrom(
+    await firstValueFrom(
       this.#http.post<SuccessPostI | ErrorI>(`${environment.API_URL}${environment.SALE}`, data)
+        .pipe(
+          catchError(async ({error}) => {
+            if (error.status === 401) { await this.#router.navigate(['/login']) }
+            return error as ErrorI
+          })
+        )
     )
-
-    if((response as ErrorI).error) {
-      return console.error('errorHandler', response)
-    }
   }
 
   async put(saleId: number | string, data: Partial<Sale>) {
-
-    const response = await firstValueFrom(
+    await firstValueFrom(
       this.#http.put<SuccessPutI | ErrorI>(`${environment.API_URL}${environment.SALE}/${ saleId }`, data)
+        .pipe(
+          catchError(async ({error}) => {
+            if (error.status === 401) { await this.#router.navigate(['/login']) }
+            return error as ErrorI
+          })
+        )
     )
-
-    if((response as ErrorI).error) {
-      return console.error('errorHandler', response)
-    }
   }
 
   async delete(saleId: number | string) {
-
-    const response = await firstValueFrom(
+    await firstValueFrom(
       this.#http.delete<SuccessDeleteI | ErrorI>(`${environment.API_URL}${environment.SALE}/${ saleId }`)
+        .pipe(
+          catchError(async ({error}) => {
+            if (error.status === 401) { await this.#router.navigate(['/login']) }
+            return error as ErrorI
+          })
+        )
     )
-
-    if((response as ErrorI).error) {
-      return console.error('errorHandler', response)
-    }
   }
 }

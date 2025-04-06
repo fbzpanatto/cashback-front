@@ -3,16 +3,17 @@ import { CommonModule } from "@angular/common";
 import { MatButton, MatFabButton } from "@angular/material/button";
 import { Router } from "@angular/router";
 import { FetchSaleService } from "../../services/fetch-sale.service";
-import { Sale } from "../../interfaces/interfaces";
+import { Sale, SuccessGetParameterI } from "../../interfaces/interfaces";
 import { MatIcon } from "@angular/material/icon";
 import { ToolbarTitleService } from "../../services/toolbar-title.service";
 import { FetchParameterService } from "../../services/fetch-parameter.service";
 import { TotalSellsPipe } from "../../pipes/total-sells.pipe";
+import { TopBarComponent } from "../top-bar/top-bar.component";
 
   @Component({
   selector: 'app-import-data',
   standalone: true,
-    imports: [CommonModule, MatButton, MatFabButton, MatIcon, TotalSellsPipe],
+    imports: [CommonModule, MatButton, MatFabButton, MatIcon, TotalSellsPipe, TopBarComponent],
   templateUrl: './import-data.component.html',
   styleUrls: ['./import-data.component.scss', '../../styles/table.scss']
 })
@@ -38,11 +39,12 @@ export class ImportDataComponent implements OnInit {
   }
 
   async ngOnInit() {
-    const data = await this.#parameterFetchService.getParameter()
+    const response = await this.#parameterFetchService.getParameter()
 
-    if(data) {
-      this.defaultExpiration = data.expiration_day
-      this.defaultCashBack = data.cashback
+    if((response as SuccessGetParameterI).data) {
+      const { cashback, expiration_day } = (response as SuccessGetParameterI).data
+      this.defaultExpiration = expiration_day
+      this.defaultCashBack = cashback
     }
   }
 

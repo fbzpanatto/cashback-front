@@ -60,28 +60,26 @@ export class LoginComponent implements OnInit {
     await this.doLogin(body)
   }
 
-  // TODO: CONTINUAR DAQUI
   async doLogin(body: Credentials) {
-    const response = await this.#fetch.saveData(body)
+    const response = await this.#fetch.postLogin(body)
     if ((response as SuccessPostLogin).data?.token) {
       this.#authService.completeLogin((response as SuccessPostLogin).data)
     }
   }
 
   async confirmNewPassword() {
-    const source = this.#fetch.saveData({ token: this.resetToken, password: this.resetPasswordForm.value.confirmPassword })
+    const response = await this.#fetch.renewPassword({token: this.resetToken, password: this.resetPasswordForm.value.confirmPassword})
+    if (!(response as ErrorI).error) { this.#authService.completeLogin((response as SuccessPostLogin).data) }
   }
 
   async resetPassword() {
-    const resource = this.#fetch.saveData({ email: this.loginForm.value.email });
+    await this.#fetch.resetPassword({ email: this.loginForm.value.email });
   }
 
   get resetToken(){ return this.#resetToken }
   set resetToken(value: string) { this.#resetToken = value }
 
   get isAuth(){ return this.#authService.validToken }
-
-  get lStorageW() { return localStorage }
 
   get loginFormPristine() {
     return this.loginForm.pristine

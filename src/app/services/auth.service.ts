@@ -45,8 +45,7 @@ export class AuthService {
     this.storageWrapper.clear()
     this.isAuthenticated = false
     this._isAuthAsObservable$.next(this.isAuthenticated)
-    if(fromMenu) { history.replaceState({}, '', '/login') }
-
+    if(fromMenu) { this.#router.navigate(['/login']).then(_ => null)}
     this.unsubscribeSubject.next();
     this.unsubscribeSubject.complete();
   }

@@ -8,7 +8,7 @@ import { currentDateFn } from "../../utils/utils";
 import { FetchSaleService } from "../../services/fetch-sale.service";
 import { ActivatedRoute } from "@angular/router";
 import { firstValueFrom } from "rxjs";
-import { Sale } from "../../interfaces/interfaces";
+import { Sale, SuccessGetSaleI } from "../../interfaces/interfaces";
 import { ToolbarTitleService } from "../../services/toolbar-title.service";
 
 @Component({
@@ -42,7 +42,10 @@ export class ReportClientComponent implements OnInit {
     const params = await firstValueFrom(source$)
 
     const response = await this.#fetch.getSalesByClient(params['id'])
-    this.data = response as Sale[]
+
+    if((response as SuccessGetSaleI).data) {
+      this.data = (response as SuccessGetSaleI).data
+    }
   }
 
   get data() { return this.#data }

@@ -3,7 +3,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from "@angu
 import { MatFormField, MatInput } from "@angular/material/input";
 import { MatIcon } from "@angular/material/icon";
 import { MatButton } from "@angular/material/button";
-import { TextMessage } from "../../../interfaces/interfaces";
+import { SuccessGetTxtMessageI, TextMessage } from "../../../interfaces/interfaces";
 import { FetchTxtMessageService } from "../../../services/fetch-txt-message.service";
 
 @Component({
@@ -36,14 +36,15 @@ export class TextMessageComponent implements OnInit {
   })
 
   async ngOnInit() {
-    const data = await this.#txtService.getMessage()
+    const response = await this.#txtService.getMessage()
 
-    if(data) {
-      this.#original = data
-      this.messageId = data.id;
-      this.form.setValue({
-        message: String(data.text)
-      })
+    if((response as SuccessGetTxtMessageI).data) {
+
+      const { id, text } = (response as SuccessGetTxtMessageI).data
+
+      this.#original = { id, text };
+      this.messageId = id;
+      this.form.setValue({ message: String(text) })
     }
   }
 

@@ -3,7 +3,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from "@angu
 import { decimalValidator, isNumber } from "../../../utils/validators";
 import { MatFormField, MatInput, MatLabel } from "@angular/material/input";
 import { FetchParameterService } from "../../../services/fetch-parameter.service";
-import { Parameter } from "../../../interfaces/interfaces";
+import {Parameter, SuccessGetParameterI} from "../../../interfaces/interfaces";
 import { MatButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
 
@@ -40,14 +40,15 @@ export class CashbackComponent implements OnInit {
   })
 
   async ngOnInit() {
-    const data = await this.#parameterFetchService.getParameter()
+    const response = await this.#parameterFetchService.getParameter()
 
-    if(data) {
-      this.#original = data
-      this.parameterId = data.id;
+    if((response as SuccessGetParameterI).data) {
+      const { id, cashback, expiration_day } = (response as SuccessGetParameterI).data
+      this.#original = { id, cashback, expiration_day }
+      this.parameterId = id;
       this.form.setValue({
-        cashbackPercentage: String(data.cashback),
-        expirationDays: String(data.expiration_day)
+        cashbackPercentage: String(cashback),
+        expirationDays: String(expiration_day)
       })
     }
   }

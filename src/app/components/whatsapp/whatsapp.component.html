@@ -1,10 +1,7 @@
+<app-top-bar></app-top-bar>
+
 <div class="whatsapp-wrapper">
   <div class="whatsapp-content">
-<!--    <button mat-flat-button (click)="qrCode()">-->
-<!--      <span>icon</span>-->
-<!--      <span>Obter qrCode</span>-->
-<!--    </button>-->
-
     @if(!isReady) {
       @if(qrCode){
         <img [src]="qrCode" alt="QR Code do WhatsApp" width="300" height="300">

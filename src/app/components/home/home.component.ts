@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { ToolbarTitleService } from "../../services/toolbar-title.service";
 import { MatIcon } from "@angular/material/icon";
+import {TopBarComponent} from "../top-bar/top-bar.component";
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,8 @@ import { MatIcon } from "@angular/material/icon";
   imports: [
     CommonModule,
     RouterLink,
-    MatIcon
+    MatIcon,
+    TopBarComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

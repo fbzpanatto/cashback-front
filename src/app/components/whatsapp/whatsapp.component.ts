@@ -2,10 +2,13 @@ import { Component, inject, OnInit } from '@angular/core';
 import { WebSocketService } from "../../services/web-socket.service";
 import { ToolbarTitleService } from "../../services/toolbar-title.service";
 import QRCode from "qrcode";
+import {TopBarComponent} from "../top-bar/top-bar.component";
 
 @Component({
   selector: 'app-whatsapp',
-  imports: [],
+  imports: [
+    TopBarComponent
+  ],
   templateUrl: './whatsapp.component.html',
   styleUrl: './whatsapp.component.scss'
 })
