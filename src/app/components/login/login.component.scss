@@ -14,7 +14,7 @@
     width: 100%;
     padding: 4vmin 0;
     border-radius: 1vmin;
-    border: 1px solid #333;
+    box-shadow: 2px 2px 4px #cbcbcb;
 
     .header {
       display: flex;
@@ -24,6 +24,13 @@
       width: 100%;
       gap: 4vmin;
       padding: 5vmin 0;
+
+      .login {
+        font-size: 160px;
+        height: 160px;
+        width: 160px;
+      }
+
       h1 {
         font-size: 2rem;
         font-weight: bold;
