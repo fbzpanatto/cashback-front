@@ -7,7 +7,14 @@
     }
   </div>
   <div class="box center">
-    <p>{{ toolBarTitle() }}</p>
+    @if(!home()){
+      <div class="center1">
+        <mat-icon class="custom-svg" svgIcon="path1"></mat-icon>
+      </div>
+    }
+    <div class="center2">
+      <p>{{ toolBarTitle() }}</p>
+    </div>
   </div>
   <div class="box right-side">
     @if(logout()){

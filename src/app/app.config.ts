@@ -68,6 +68,8 @@ class Initializers {
       'undo',
       'visibility',
       'visibility_off',
+      'path1',
+      'path2'
     ]
   }
 

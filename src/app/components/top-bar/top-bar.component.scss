@@ -9,8 +9,14 @@
   position: sticky;
   top: 0;
   left: 0;
-
+  align-items: center;
   z-index: 10;
+
+  .custom-svg {
+    width: 48px;
+    height: 48px;
+    font-size: 48px;
+  }
 
   .box {
     flex: 1;
@@ -29,6 +35,21 @@
     &.center {
       display: flex;
       justify-content: center;
+      gap: 16px;
+
+      .center1 {
+        width: 48px;
+      }
+
+      .center2 {
+        width: fit-content;
+        white-space: nowrap;
+        p {
+          color: #333;
+          letter-spacing: 0.05rem;
+          font-weight: 500;
+        }
+      }
     }
 
     &.right-side {

@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CashBackPipe } from "../../pipes/cash-back.pipe";
 import { CashBackStatusPipe } from "../../pipes/cash-back-status.pipe";
-import { CurrencyPipe } from "@angular/common";
+import {CurrencyPipe, SlicePipe} from "@angular/common";
 import { TotalCashBacksPipe } from "../../pipes/total-cash-backs.pipe";
 import { TotalSellsPipe } from "../../pipes/total-sells.pipe";
 import { currentDateFn } from "../../utils/utils";
@@ -10,6 +10,7 @@ import { ActivatedRoute } from "@angular/router";
 import { firstValueFrom } from "rxjs";
 import { Sale, SuccessGetSaleI } from "../../interfaces/interfaces";
 import { ToolbarTitleService } from "../../services/toolbar-title.service";
+import { TopBarComponent } from "../top-bar/top-bar.component";
 
 @Component({
   selector: 'app-report-client',
@@ -18,10 +19,12 @@ import { ToolbarTitleService } from "../../services/toolbar-title.service";
     CashBackStatusPipe,
     CurrencyPipe,
     TotalCashBacksPipe,
-    TotalSellsPipe
+    TotalSellsPipe,
+    TopBarComponent,
+    SlicePipe
   ],
   templateUrl: './report-client.component.html',
-  styleUrls: ['../report/report.component.scss', '../../styles/table.scss', '../../styles/input.scss']
+  styleUrls: ['../report/report.component.scss', '../../styles/table.scss', '../../styles/input.scss', './report-client.component.scss']
 })
 export class ReportClientComponent implements OnInit {
 
@@ -55,6 +58,6 @@ export class ReportClientComponent implements OnInit {
   get currentDate() { return currentDateFn() }
 
   get title() {
-    return 'Cashbacks'
+    return 'Meus Cashbacks'
   }
 }
