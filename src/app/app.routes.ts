@@ -12,7 +12,7 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'import-data', component: ImportDataComponent },
   { path: 'report', component: ReportComponent },
-  { path: 'report-client/:id', component: ReportClientComponent },
+  { path: 'client/:id', component: ReportClientComponent },
   { path: 'whatsapp', component: WhatsappComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'login', component: LoginComponent },
