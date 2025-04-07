@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { catchError, firstValueFrom } from "rxjs";
 import { ErrorI, Parameter, SuccessGetParameterI, SuccessPutI } from "../interfaces/interfaces";
 import { environment } from "../../environments/environment";
-import { Router } from "@angular/router";
+import { ErrorHandlerService } from "./error-handler.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,18 +11,13 @@ import { Router } from "@angular/router";
 export class FetchParameterService {
 
   #http = inject(HttpClient)
-  #router = inject(Router)
+  #errorHandler = inject(ErrorHandlerService)
 
   async getParameter() {
     return await firstValueFrom(
       this.#http.get<SuccessGetParameterI | ErrorI>(`${environment.API_URL}${environment.PARAMETER}`)
         .pipe(
-          catchError(async ({error}) => {
-            if (error.status === 401) {
-              await this.#router.navigate(['/login']);
-            }
-            return error as ErrorI
-          })
+          catchError(async ({error}) => await this.#errorHandler.handler(error))
         )
     )
   }
@@ -31,10 +26,7 @@ export class FetchParameterService {
     await firstValueFrom(
       this.#http.put<SuccessPutI | ErrorI>(`${environment.API_URL}${environment.PARAMETER}/${parameter.id}`, parameter)
         .pipe(
-          catchError(async ({error}) => {
-            if (error.status === 401) { await this.#router.navigate(['/login']) }
-            return error as ErrorI
-          })
+          catchError(async ({error}) => await this.#errorHandler.handler(error))
         )
     )
   }

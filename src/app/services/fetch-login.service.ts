@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { catchError, firstValueFrom } from "rxjs";
+import { catchError, firstValueFrom, tap } from "rxjs";
 import { Credentials, ErrorI, SuccessPostLogin } from "../interfaces/interfaces";
 import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
@@ -17,12 +17,12 @@ export class FetchLoginService {
     return await firstValueFrom(
       this.#http.post<SuccessPostLogin>(`${environment.API_URL}${environment.LOGIN}`, body)
         .pipe(
-          catchError(async ({error}) => {
-            if (error.status === 401) {
-              const source$ = this.#dialog.open({title: 'Alerta', message: 'Credenciais inválidas', actions: false}).afterClosed()
+          catchError(async ({ error: object }) => {
+            if (object.status === 401) {
+              const source$ = this.#dialog.open({title: 'Alerta', message: object.error, actions: false}).afterClosed()
               await firstValueFrom(source$)
             }
-            return error as ErrorI
+            return object as ErrorI
           })
         )
     )
@@ -32,12 +32,12 @@ export class FetchLoginService {
     return await firstValueFrom(
       this.#http.post<SuccessPostLogin>(`${environment.API_URL}${environment.RENEW_PASSWD}`, body)
         .pipe(
-          catchError(async ({error}) => {
-            if (error.status === 401) {
-              const source$ = this.#dialog.open({title: 'Alerta', message: 'Credenciais inválidas', actions: false}).afterClosed()
+          catchError(async ({ error: object }) => {
+            if (object.status === 401) {
+              const source$ = this.#dialog.open({title: 'Alerta', message: object.error, actions: false}).afterClosed()
               await firstValueFrom(source$)
             }
-            return error as ErrorI
+            return object as ErrorI
           })
         )
     )
@@ -47,12 +47,18 @@ export class FetchLoginService {
     return await firstValueFrom(
       this.#http.post<SuccessPostLogin>(`${environment.API_URL}${environment.RESET_PASSWD}`, body)
         .pipe(
-          catchError(async ({error}) => {
-            if (error.status === 401) {
-              const source$ = this.#dialog.open({title: 'Alerta', message: 'Credenciais inválidas', actions: false}).afterClosed()
-              await firstValueFrom(source$)
+          tap(async ({ message }) => {
+            await firstValueFrom(
+              this.#dialog.open({ title: 'Alerta', message, actions: false }).afterClosed()
+            )
+          }),
+          catchError(async ({ error: object }) => {
+            if (object.status === 401) {
+              await firstValueFrom(
+                this.#dialog.open({ title: 'Alerta', message: object.error, actions: false }).afterClosed()
+              )
             }
-            return error as ErrorI
+            return object as ErrorI
           })
         )
     )
