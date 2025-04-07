@@ -80,7 +80,7 @@ export class ImportDataComponent implements OnInit {
           clientName: el[1].trim(),
           clientPhone: el[2].trim(),
           saleDate: el[3].trim(),
-          saleValue: el[4].trim(),
+          saleValue: el[4].trim().replace(',', '.'),
           cashback: Number(this.defaultCashBack),
           defaultExpiration: Number(this.defaultExpiration)
         })
