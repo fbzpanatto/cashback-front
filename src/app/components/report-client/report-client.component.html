@@ -7,7 +7,6 @@
         <tr>
           <th class="sticky-left">Nome</th>
           <th class="center">Data Expiração</th>
-          <th>Valor</th>
           <th>Valor CashBack</th>
           <th>Data Utilização</th>
         </tr>
@@ -17,14 +16,12 @@
           <tr>
             <td class="sticky-left">{{ row.clientName | slice: 0: 18 }}</td>
             <td class="center">{{ row.cashbackExpiration }}</td>
-            <td class="center">{{ row.saleValue | currency: 'BRL' }}</td>
-            <td class="center">{{ row.saleValue | cashBack: row.cashback | currency: 'BRL' }}</td>
+            <td class="center">{{ row.cashback | currency: 'BRL' }}</td>
             <td #cashBackStatus [id]="row.saleId" class="center">{{ row.withdrawnDate | cashBackStatus: currentDate: row.cashbackExpiration }}</td>
           </tr>
         }
         <tr class="total-line">
           <td class="sticky-left center">-</td>
-          <td class="center">{{ data | totalSells | currency: 'BRL' }}</td>
           <td class="center">-</td>
           <td class="center">{{ data | totalCashBacks | currency: 'BRL' }}</td>
           <td class="center">-</td>
