@@ -1,9 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CashBackPipe } from "../../pipes/cash-back.pipe";
 import { CashBackStatusPipe } from "../../pipes/cash-back-status.pipe";
-import {CurrencyPipe, SlicePipe} from "@angular/common";
+import { CurrencyPipe, SlicePipe } from "@angular/common";
 import { TotalCashBacksPipe } from "../../pipes/total-cash-backs.pipe";
-import { TotalSellsPipe } from "../../pipes/total-sells.pipe";
 import { currentDateFn } from "../../utils/utils";
 import { FetchSaleService } from "../../services/fetch-sale.service";
 import { ActivatedRoute } from "@angular/router";
@@ -15,11 +13,9 @@ import { TopBarComponent } from "../top-bar/top-bar.component";
 @Component({
   selector: 'app-report-client',
   imports: [
-    CashBackPipe,
     CashBackStatusPipe,
     CurrencyPipe,
     TotalCashBacksPipe,
-    TotalSellsPipe,
     TopBarComponent,
     SlicePipe
   ],
