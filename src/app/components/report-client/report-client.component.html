@@ -1,32 +1,48 @@
 <app-top-bar></app-top-bar>
 
 <div class="report-wrapper">
-  <div class="table-content">
-    <table>
-      <thead>
-        <tr>
-          <th class="sticky-left">Nome</th>
-          <th class="center">Data Expiração</th>
-          <th>Valor CashBack</th>
-          <th>Data Utilização</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for(row of data; track $index) {
-          <tr>
-            <td class="sticky-left">{{ row.clientName | slice: 0: 18 }}</td>
-            <td class="center">{{ row.cashbackExpiration }}</td>
-            <td class="center">{{ row.cashback | currency: 'BRL' }}</td>
-            <td #cashBackStatus [id]="row.saleId" class="center">{{ row.withdrawnDate | cashBackStatus: currentDate: row.cashbackExpiration }}</td>
-          </tr>
-        }
-        <tr class="total-line">
-          <td class="sticky-left center">-</td>
-          <td class="center">-</td>
-          <td class="center">{{ data | totalCashBacks | currency: 'BRL' }}</td>
-          <td class="center">-</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="cashbacks">
+
+    <div class="cashback total">
+      <mat-icon svgIcon="exchange"></mat-icon>
+      <div class="paragraphs">
+        <p class="value">Total disponível</p>
+        <p class="value">{{ data | totalCashBacks | currency: 'BRL' }}</p>
+      </div>
+    </div>
+
+    @for(row of data; track $index) {
+      <div class="cashback item">
+        <mat-icon svgIcon="shopping"></mat-icon>
+        <div class="paragraphs">
+          <p class="center">Expira: {{ row.cashbackExpiration }}</p>
+          <p class="center">Valor: {{ row.saleValue | cashBack: row.cashback | currency: 'BRL' }}</p>
+          <p>Status: {{ row.withdrawnDate | cashBackStatus: currentDate: row.cashbackExpiration }} </p>
+        </div>
+      </div>
+    }
+
+  </div>
+  <div class="marketing">
+    <div class="paragraphs">
+      <p>
+        ✨ E aproveita pra ficar por dentro das novidades, looks e promoções:
+      </p>
+      <p></p>
+      <p>
+        🌐 Nosso site: www.modamaniafashion.com.br
+      </p>
+      <p>
+        📸 Instagram: &#64;modamaniafashion
+      </p>
+      <p></p>
+      <p>
+        💖 Te esperamos lá!
+      </p>
+      <p></p>
+      <p>
+        #ModaMania #Cashback #ModaFeminina #VemSerFashion
+      </p>
+    </div>
   </div>
 </div>

@@ -1,6 +1,81 @@
 @use "../../styles/variables.scss" as *;
 
+.report-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - $topBarHeight);
+  overflow: auto;
+  position: relative;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
 
+  .cashbacks {
+    display: flex;
+    flex-direction: column;
+    padding-top: 36px;
+
+    gap: 16px;
+
+    .cashback {
+
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      width: 85vw;
+      color: #ffffff;
+      padding: 16px;
+      border-radius: 8px;
+
+      &.total {
+        background: linear-gradient(135deg, #3eab44, #66bb6a);
+      }
+
+      &.item {
+        color: #444;
+        background: #eeeeee;
+      }
+
+      mat-icon {
+        height: 48px;
+        width: 48px;
+        font-size: 48px;
+      }
+
+      p {
+        font-size: 14px;
+        line-height: 24px;
+
+        &.value {
+          padding-top: 16px;
+          font-size: 16px;
+          font-weight: bolder;
+        }
+      }
+    }
+  }
+
+  .marketing {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-radius: 8px;
+    color: #333;
+    width: 85vw;
+    padding: 16px 0 48px;
+
+    .paragraphs {
+      border-radius: 16px;
+      background: #d1f5fc;
+      padding: 16px;
+      p {
+        font-size: 12px;
+        line-height: 24px;
+      }
+    }
+  }
+}
 
 @media (max-width: 400px) {
   .report-wrapper {
@@ -26,6 +101,10 @@
           }
         }
       }
+    }
+
+    .marketing {
+      border-radius: 0;
     }
   }
 }

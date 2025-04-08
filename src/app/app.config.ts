@@ -69,7 +69,9 @@ class Initializers {
       'visibility',
       'visibility_off',
       'path1',
-      'path2'
+      'path2',
+      'shopping',
+      'exchange'
     ]
   }
 

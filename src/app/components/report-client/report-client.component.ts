@@ -9,6 +9,8 @@ import { firstValueFrom } from "rxjs";
 import { Sale, SuccessGetSaleI } from "../../interfaces/interfaces";
 import { ToolbarTitleService } from "../../services/toolbar-title.service";
 import { TopBarComponent } from "../top-bar/top-bar.component";
+import { MatIcon } from "@angular/material/icon";
+import {CashBackPipe} from "../../pipes/cash-back.pipe";
 
 @Component({
   selector: 'app-report-client',
@@ -17,9 +19,12 @@ import { TopBarComponent } from "../top-bar/top-bar.component";
     CurrencyPipe,
     TotalCashBacksPipe,
     TopBarComponent,
-    SlicePipe
+    SlicePipe,
+    MatIcon,
+    CashBackPipe
   ],
   templateUrl: './report-client.component.html',
+  standalone: true,
   styleUrls: ['../report/report.component.scss', '../../styles/table.scss', '../../styles/input.scss', './report-client.component.scss']
 })
 export class ReportClientComponent implements OnInit {
