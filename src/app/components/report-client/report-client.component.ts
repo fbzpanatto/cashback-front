@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CashBackStatusPipe } from "../../pipes/cash-back-status.pipe";
-import { CurrencyPipe, SlicePipe } from "@angular/common";
+import { CurrencyPipe } from "@angular/common";
 import { TotalCashBacksPipe } from "../../pipes/total-cash-backs.pipe";
 import { currentDateFn } from "../../utils/utils";
 import { FetchSaleService } from "../../services/fetch-sale.service";
@@ -10,7 +10,7 @@ import { Sale, SuccessGetSaleI } from "../../interfaces/interfaces";
 import { ToolbarTitleService } from "../../services/toolbar-title.service";
 import { TopBarComponent } from "../top-bar/top-bar.component";
 import { MatIcon } from "@angular/material/icon";
-import {CashBackPipe} from "../../pipes/cash-back.pipe";
+import { CashBackPipe } from "../../pipes/cash-back.pipe";
 
 @Component({
   selector: 'app-report-client',
@@ -19,7 +19,6 @@ import {CashBackPipe} from "../../pipes/cash-back.pipe";
     CurrencyPipe,
     TotalCashBacksPipe,
     TopBarComponent,
-    SlicePipe,
     MatIcon,
     CashBackPipe
   ],
