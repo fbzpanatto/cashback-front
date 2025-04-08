@@ -56,6 +56,10 @@ export class ImportDataComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
+      if (file.type !== 'text/csv') {
+        alert('Por favor, selecione um arquivo .csv');
+        return;
+      }
       this.readFile(file);
     }
   }
@@ -74,13 +78,13 @@ export class ImportDataComponent implements OnInit {
       .split('\n')
       .filter(row => row.trim() !== '')
       .reduce((acc: Sale[], prev) => {
-        const el = prev.split(';')
+        const el = prev.split(',')
         acc.push({
           saleId: el[0].trim(),
           clientName: el[1].trim(),
           clientPhone: el[2].trim(),
           saleDate: el[3].trim(),
-          saleValue: el[4].trim().replace(',', '.'),
+          saleValue: el[4].trim(),
           cashback: Number(this.defaultCashBack),
           defaultExpiration: Number(this.defaultExpiration)
         })
