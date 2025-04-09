@@ -10,16 +10,17 @@
   table {
     width: 100%;
     background: #f9faff;
-
     border-collapse: separate;
     border-spacing: 0;
+    overflow: auto;
 
     thead {
+      border-top: 1px solid black;
       position: sticky;
       top: 0;
       left: 0;
       background: #0a6bc4;
-      z-index: 1;
+      z-index: 4;
       font-size: 12pt;
 
       tr {
@@ -27,10 +28,11 @@
           color: #fff;
           padding: 8px;
           white-space: nowrap;
+          overflow: hidden;
           text-overflow: ellipsis;
-
-          border-top: 1px solid #bdcede;
           border-left: 1px solid #bdcede;
+
+          z-index: 4;
 
           &:nth-child(2) {
             border-left: none;
@@ -41,7 +43,7 @@
             left: 0;
             background: #0a6bc4;
             border-right: 1px solid #bdcede;
-            z-index: 3;
+            z-index: 4;
           }
           &.fixed-width {
             width: 100px;
@@ -53,14 +55,18 @@
       tr {
         td {
           font-weight: lighter;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          color: #444;
+          color: #333;
           font-size: 10pt;
           padding: 10px;
+          z-index: 1;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          border-bottom: 1px solid #bdcede;
 
-          border-top: 1px solid #bdcede;
-          border-left: 1px solid #bdcede;
+          &:not(:first-of-type) {
+            border-left: 1px solid #bdcede;
+          }
 
           .status {
             display: flex;
@@ -85,6 +91,7 @@
             mat-icon {
               position: absolute;
               top: 5px;
+
               &:hover {
                 cursor: pointer;
               }
@@ -106,6 +113,8 @@
             left: 0;
             background: #f9faff;
             border-right: 1px solid #bdcede;
+            border-bottom: 1px solid #bdcede;
+            z-index: 3;
           }
 
           &.center {

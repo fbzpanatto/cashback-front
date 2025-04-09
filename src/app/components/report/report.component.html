@@ -8,9 +8,9 @@
       <mat-icon class="search" svgIcon="search"></mat-icon>
       <mat-icon class="backspace" svgIcon="backspace" (click)="clearSearch()"></mat-icon>
     </div>
-    <button mat-icon-button (click)="reload()">
-      <mat-icon svgIcon="sync"></mat-icon>
-    </button>
+<!--    <button mat-icon-button (click)="reload()">-->
+<!--      <mat-icon svgIcon="sync"></mat-icon>-->
+<!--    </button>-->
   </div>
 
   <div class="table-content">
@@ -18,22 +18,18 @@
       <thead>
         <tr>
           <th class="sticky-left fixed-width">Nome</th>
-          <th>Tel</th>
-          <th class="center">Data Expiração</th>
-          <th>Valor</th>
-          <th>Valor CashBack</th>
-          <th>Data Utilização</th>
+          <th>Utilizado</th>
+          <th>CashBack</th>
+          <th class="center">Expira em</th>
+          <th>Celular</th>
+          <th>Compra</th>
           <th>Deletar</th>
         </tr>
       </thead>
       <tbody>
         @for(row of filtered(); track $index) {
           <tr>
-            <td class="sticky-left">{{ row.clientName | slice: 0: 15 }}</td>
-            <td class="center">{{ row.clientPhone }}</td>
-            <td class="center">{{ row.cashbackExpiration }}</td>
-            <td class="center">{{ row.saleValue | currency: 'BRL' }}</td>
-            <td class="center">{{ row.saleValue | cashBack: row.cashback | currency: 'BRL' }}</td>
+            <td class="sticky-left">{{ row.clientName | slice: 0: 13 }}</td>
             <td
               [ngClass]="{'valid': (row.withdrawnDate | cashBackStatus: currentDate : row.cashbackExpiration) === 'Válido'}"
               #cashBackStatus [id]="row.saleId" class="center pointer" (click)="setWithdrawnDate(row)">
@@ -50,6 +46,10 @@
                 {{ row.withdrawnDate | cashBackStatus: currentDate: row.cashbackExpiration }}
               }
             </td>
+            <td class="center">{{ row.saleValue | cashBack: row.cashback | currency: 'BRL' }}</td>
+            <td class="center">{{ row.cashbackExpiration }}</td>
+            <td class="center">{{ row.clientPhone }}</td>
+            <td class="center">{{ row.saleValue | currency: 'BRL' }}</td>
             <td>
               <mat-icon (click)="deleteSale(row, cashBackStatus)" style="color: #ff0099" svgIcon="delete"></mat-icon>
             </td>
@@ -57,10 +57,10 @@
         }
       <tr class="total-line">
         <td class="sticky-left center">-</td>
+        <td class="center" colspan="2">CASHBACKS VÁLIDOS: {{ filtered() | totalCashBacks | currency: 'BRL' }}</td>
         <td class="center">-</td>
         <td class="center">-</td>
         <td class="center">{{ filtered() | totalSells | currency: 'BRL' }}</td>
-        <td class="center" colspan="2">CASHBACKS VÁLIDOS: {{ filtered() | totalCashBacks | currency: 'BRL' }}</td>
         <td class="center">-</td>
       </tr>
       </tbody>
