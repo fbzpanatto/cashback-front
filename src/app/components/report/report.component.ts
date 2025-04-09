@@ -5,7 +5,7 @@ import { CashBackPipe } from "../../pipes/cash-back.pipe";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { TotalCashBacksPipe } from "../../pipes/total-cash-backs.pipe";
 import { TotalSellsPipe } from "../../pipes/total-sells.pipe";
-import { CurrencyPipe } from "@angular/common";
+import {CommonModule, CurrencyPipe, SlicePipe} from "@angular/common";
 import { MatIcon } from "@angular/material/icon";
 import { CashBackStatusPipe } from "../../pipes/cash-back-status.pipe";
 import { CashBackStatus } from "../../enum/enum";
@@ -21,7 +21,7 @@ import { TopBarComponent } from "../top-bar/top-bar.component";
 @Component({
   selector: 'app-report',
   standalone: true,
-  imports: [CashBackPipe, ReactiveFormsModule, TotalCashBacksPipe, TotalSellsPipe, CurrencyPipe, MatIcon, CashBackStatusPipe, MatIconButton, TopBarComponent],
+  imports: [CashBackPipe, ReactiveFormsModule, TotalCashBacksPipe, TotalSellsPipe, CurrencyPipe, MatIcon, CashBackStatusPipe, MatIconButton, TopBarComponent, SlicePipe, CommonModule],
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss', '../../styles/table.scss', '../../styles/input.scss']
 })
@@ -88,9 +88,7 @@ export class ReportComponent implements OnInit {
     }))
   }
 
-  get title() {
-    return 'Relatório'
-  }
+  get title() { return 'Relatório' }
 
   get search() { return this.#search }
 

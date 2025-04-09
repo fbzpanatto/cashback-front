@@ -36,6 +36,11 @@
             td {
               color: black;
               font-style: italic;
+
+              &.valid {
+                background: #bdcede;
+              }
+
               &.sticky-left {
                 background: #bdcede;
               }

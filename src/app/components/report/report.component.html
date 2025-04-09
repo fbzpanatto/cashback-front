@@ -17,13 +17,10 @@
     <table>
       <thead>
         <tr>
-          <th class="sticky-left"> Id</th>
-          <th>Nome</th>
+          <th class="sticky-left fixed-width">Nome</th>
           <th>Tel</th>
-          <th>Data Venda</th>
           <th class="center">Data Expiração</th>
           <th>Valor</th>
-          <th class="fixed-width">CashBack (%)</th>
           <th>Valor CashBack</th>
           <th>Data Utilização</th>
           <th>Deletar</th>
@@ -32,15 +29,27 @@
       <tbody>
         @for(row of filtered(); track $index) {
           <tr>
-            <td class="sticky-left">{{ row.saleId }}</td>
-            <td>{{ row.clientName }}</td>
+            <td class="sticky-left">{{ row.clientName | slice: 0: 15 }}</td>
             <td class="center">{{ row.clientPhone }}</td>
-            <td class="center">{{ row.saleDate }}</td>
             <td class="center">{{ row.cashbackExpiration }}</td>
             <td class="center">{{ row.saleValue | currency: 'BRL' }}</td>
-            <td class="center">{{ row.cashback }}</td>
             <td class="center">{{ row.saleValue | cashBack: row.cashback | currency: 'BRL' }}</td>
-            <td #cashBackStatus [id]="row.saleId" class="center pointer" (click)="setWithdrawnDate(row)">{{ row.withdrawnDate | cashBackStatus: currentDate: row.cashbackExpiration }}</td>
+            <td
+              [ngClass]="{'valid': (row.withdrawnDate | cashBackStatus: currentDate : row.cashbackExpiration) === 'Válido'}"
+              #cashBackStatus [id]="row.saleId" class="center pointer" (click)="setWithdrawnDate(row)">
+              @if((row.withdrawnDate | cashBackStatus: currentDate : row.cashbackExpiration) === 'Válido'){
+                <div class="status">
+                  <div>
+                    <mat-icon svgIcon="info"></mat-icon>
+                  </div>
+                  <div>
+                    <span>{{ row.withdrawnDate | cashBackStatus: currentDate: row.cashbackExpiration }}</span>
+                  </div>
+                </div>
+              } @else {
+                {{ row.withdrawnDate | cashBackStatus: currentDate: row.cashbackExpiration }}
+              }
+            </td>
             <td>
               <mat-icon (click)="deleteSale(row, cashBackStatus)" style="color: #ff0099" svgIcon="delete"></mat-icon>
             </td>
@@ -50,10 +59,7 @@
         <td class="sticky-left center">-</td>
         <td class="center">-</td>
         <td class="center">-</td>
-        <td class="center">-</td>
-        <td class="center">-</td>
         <td class="center">{{ filtered() | totalSells | currency: 'BRL' }}</td>
-        <td class="center">-</td>
         <td class="center" colspan="2">CASHBACKS VÁLIDOS: {{ filtered() | totalCashBacks | currency: 'BRL' }}</td>
         <td class="center">-</td>
       </tr>
