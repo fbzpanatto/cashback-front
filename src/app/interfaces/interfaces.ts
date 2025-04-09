@@ -14,9 +14,9 @@ export interface Sale {
 export interface Action {
   id: number,
   day: number,
-  active: number,
-  createdAt: string,
-  updatedAt: string,
+  active?: number,
+  createdAt?: string,
+  updatedAt?: string,
 }
 
 export interface Parameter {

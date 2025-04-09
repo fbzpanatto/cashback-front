@@ -5,7 +5,7 @@ import { CashBackPipe } from "../../pipes/cash-back.pipe";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { TotalCashBacksPipe } from "../../pipes/total-cash-backs.pipe";
 import { TotalSellsPipe } from "../../pipes/total-sells.pipe";
-import {CommonModule, CurrencyPipe, SlicePipe} from "@angular/common";
+import { CommonModule, CurrencyPipe, SlicePipe } from "@angular/common";
 import { MatIcon } from "@angular/material/icon";
 import { CashBackStatusPipe } from "../../pipes/cash-back-status.pipe";
 import { CashBackStatus } from "../../enum/enum";
@@ -13,7 +13,6 @@ import { toSignal } from "@angular/core/rxjs-interop";
 import { debounceTime, distinctUntilChanged, firstValueFrom, startWith } from "rxjs";
 import { SalesSignalService } from "../../services/sales-signal.service";
 import { currentDateFn } from "../../utils/utils";
-import { MatIconButton } from "@angular/material/button";
 import { ToolbarTitleService } from "../../services/toolbar-title.service";
 import { DialogService } from "../../services/dialog.service";
 import { TopBarComponent } from "../top-bar/top-bar.component";
@@ -21,7 +20,7 @@ import { TopBarComponent } from "../top-bar/top-bar.component";
 @Component({
   selector: 'app-report',
   standalone: true,
-  imports: [CashBackPipe, ReactiveFormsModule, TotalCashBacksPipe, TotalSellsPipe, CurrencyPipe, MatIcon, CashBackStatusPipe, MatIconButton, TopBarComponent, SlicePipe, CommonModule],
+  imports: [CashBackPipe, ReactiveFormsModule, TotalCashBacksPipe, TotalSellsPipe, CurrencyPipe, MatIcon, CashBackStatusPipe, TopBarComponent, SlicePipe, CommonModule],
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss', '../../styles/table.scss', '../../styles/input.scss']
 })

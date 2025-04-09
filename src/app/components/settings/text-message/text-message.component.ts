@@ -3,8 +3,10 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from "@angu
 import { MatFormField, MatInput } from "@angular/material/input";
 import { MatIcon } from "@angular/material/icon";
 import { MatButton } from "@angular/material/button";
-import { SuccessGetTxtMessageI, TextMessage } from "../../../interfaces/interfaces";
+import { Action, SuccessGetActionI, SuccessGetTxtMessageI, TextMessage } from "../../../interfaces/interfaces";
 import { FetchTxtMessageService } from "../../../services/fetch-txt-message.service";
+import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
+import { FetchActionService } from "../../../services/fetch-action.service";
 
 @Component({
   selector: 'app-text-message',
@@ -14,7 +16,10 @@ import { FetchTxtMessageService } from "../../../services/fetch-txt-message.serv
     MatFormField,
     MatIcon,
     MatInput,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatMenu,
+    MatMenuItem,
+    MatMenuTrigger
   ],
   templateUrl: './text-message.component.html',
   styleUrls: ['./text-message.component.scss', '../../../styles/input.scss', '../../../styles/form.scss']
@@ -23,9 +28,16 @@ export class TextMessageComponent implements OnInit {
 
   #messageId?: number;
 
+  #fetchAction = inject(FetchActionService)
   #txtService = inject(FetchTxtMessageService);
 
   #original?: TextMessage
+
+  currentDay?: Action
+
+  days: Action[] = []
+
+  isMenuOpen = false
 
   #fb = inject(FormBuilder);
 
@@ -36,7 +48,20 @@ export class TextMessageComponent implements OnInit {
   })
 
   async ngOnInit() {
-    const response = await this.#txtService.getMessage()
+
+    const actionsResponse = await this.#fetchAction.getActions()
+
+    if((actionsResponse as SuccessGetActionI).data) {
+      this.days = ((actionsResponse as SuccessGetActionI).data).filter(el => el.active)
+      this.currentDay = this.days.find(el => el.active)
+      await this.getMessage(this.currentDay?.day)
+    }
+  }
+
+  async getMessage(actionDay: number = 1) {
+    const response = await this.#txtService.getMessage(actionDay)
+
+    this.form.reset()
 
     if((response as SuccessGetTxtMessageI).data) {
 
@@ -48,12 +73,18 @@ export class TextMessageComponent implements OnInit {
     }
   }
 
+  async setYear(day: Action) {
+    this.currentDay = day
+    await this.getMessage(this.currentDay.day)
+  }
+
   async onSubmit() {
     const data = this.form.value
 
     const body = {
       id: Number(this.messageId),
-      text: data.message
+      text: data.message,
+      actionId: this.currentDay?.day
     }
 
     await this.#txtService.putMessage(body)

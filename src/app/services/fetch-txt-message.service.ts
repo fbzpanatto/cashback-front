@@ -13,9 +13,9 @@ export class FetchTxtMessageService {
   #http = inject(HttpClient)
   #errorHandler = inject(ErrorHandlerService);
 
-  async getMessage() {
+  async getMessage(actionDay: number) {
     return await firstValueFrom(
-      this.#http.get<SuccessGetTxtMessageI | ErrorI>(`${environment.API_URL}${environment.MESSAGE}`)
+      this.#http.get<SuccessGetTxtMessageI | ErrorI>(`${environment.API_URL}${environment.MESSAGE}?actionDay=${actionDay}`)
         .pipe(
           catchError(async ({error}) => await this.#errorHandler.handler(error))
         )

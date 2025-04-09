@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
-import {Action, SuccessGetActionI} from "../../../interfaces/interfaces";
+import { Action, SuccessGetActionI } from "../../../interfaces/interfaces";
 import { MatButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
 import { MatCheckbox } from "@angular/material/checkbox";
@@ -36,7 +36,7 @@ export class ActionComponent implements OnInit {
       this.data = (response as SuccessGetActionI).data
 
       for(let item of this.data) {
-        this.form?.addControl(String(item.day), new FormControl<number>(item.active))
+        this.form?.addControl(String(item.day), new FormControl<number>(item.active as number))
       }
 
       this.#original = this.data

@@ -1,0 +1,28 @@
+.selector {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  background: #444;
+  margin-bottom: 16px;
+  border-radius: 6px;
+  padding: 0 16px;
+  border: 1px solid #444;
+
+  h1 {
+    font-size: 18px;
+    color: #fff;
+  }
+
+  .btn-menu {
+    border-radius: 0;
+    background: #eff4ff;
+    color:#444;
+  }
+}
+
+@media (max-width: 400px) {
+  .selector {
+    justify-content: space-between;
+  }
+}
