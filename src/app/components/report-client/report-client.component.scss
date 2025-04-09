@@ -13,9 +13,14 @@
   .cashbacks {
     display: flex;
     flex-direction: column;
-    padding-top: 36px;
 
-    gap: 16px;
+    &.first {
+      padding-top: 32px;
+    }
+
+    &.generic {
+      padding-bottom: 32px;
+    }
 
     .cashback {
 
@@ -33,24 +38,67 @@
       }
 
       &.item {
+        position: relative;
         color: #444;
-        background: #eeeeee;
+        background: #f3f3f3;
+        padding: 8px 16px;
+        border-radius: 0;
+
+        &:first-of-type {
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+        }
+
+        &:last-of-type {
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+        }
+
+        &:not(:first-of-type) {
+          &::after {
+            position: absolute;
+            top: 0;
+            content: "";
+            height: 1px;
+            width: calc(100% - 32px);
+            background: #dddddd;
+          }
+        }
+
+        &:last-of-type {
+          border-bottom: 0;
+        }
       }
 
-      mat-icon {
+      mat-icon[svgIcon="exchange"] {
         height: 48px;
         width: 48px;
         font-size: 48px;
+      }
+
+      mat-icon[svgIcon="shopping"] {
+        height: 24px;
+        width: 24px;
+        font-size: 24px;
       }
 
       p {
         font-size: 14px;
         line-height: 24px;
 
+        &.status {
+          font-weight: lighter;
+          color: #333;
+        }
+
         &.value {
-          padding-top: 16px;
           font-size: 16px;
           font-weight: bolder;
+        }
+
+        &.total {
+          padding-top: 16px;
+          font-size: 24px;
         }
       }
     }
@@ -63,14 +111,19 @@
     border-radius: 8px;
     color: #333;
     width: 85vw;
-    padding: 16px 0 48px;
+
+    padding: 16px 0;
 
     .paragraphs {
       border-radius: 16px;
       background: #d1f5fc;
       padding: 16px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+
       p {
-        font-size: 12px;
+        font-family: Arial, Helvetica, sans-serif;
+        letter-spacing: 0.02rem;
+        font-size: 14px;
         line-height: 24px;
       }
     }

@@ -11,6 +11,7 @@ import { ToolbarTitleService } from "../../services/toolbar-title.service";
 import { TopBarComponent } from "../top-bar/top-bar.component";
 import { MatIcon } from "@angular/material/icon";
 import { CashBackPipe } from "../../pipes/cash-back.pipe";
+import {CashBackClientStatusPipe} from "../../pipes/cash-back-client-status.pipe";
 
 @Component({
   selector: 'app-report-client',
@@ -20,7 +21,8 @@ import { CashBackPipe } from "../../pipes/cash-back.pipe";
     TotalCashBacksPipe,
     TopBarComponent,
     MatIcon,
-    CashBackPipe
+    CashBackPipe,
+    CashBackClientStatusPipe
   ],
   templateUrl: './report-client.component.html',
   standalone: true,

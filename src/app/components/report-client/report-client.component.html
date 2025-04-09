@@ -1,28 +1,18 @@
 <app-top-bar></app-top-bar>
 
 <div class="report-wrapper">
-  <div class="cashbacks">
+  <div class="cashbacks first">
 
     <div class="cashback total">
       <mat-icon svgIcon="exchange"></mat-icon>
       <div class="paragraphs">
         <p class="value">Total disponível</p>
-        <p class="value">{{ data | totalCashBacks | currency: 'BRL' }}</p>
+        <p class="value total">{{ data | totalCashBacks | currency: 'BRL' }}</p>
       </div>
     </div>
 
-    @for(row of data; track $index) {
-      <div class="cashback item">
-        <mat-icon svgIcon="shopping"></mat-icon>
-        <div class="paragraphs">
-          <p class="center">Expira: {{ row.cashbackExpiration }}</p>
-          <p class="center">Valor: {{ row.saleValue | cashBack: row.cashback | currency: 'BRL' }}</p>
-          <p>Status: {{ row.withdrawnDate | cashBackStatus: currentDate: row.cashbackExpiration }} </p>
-        </div>
-      </div>
-    }
-
   </div>
+
   <div class="marketing">
     <div class="paragraphs">
       <p>
@@ -30,7 +20,7 @@
       </p>
       <p></p>
       <p>
-        🌐 Nosso site: www.modamaniafashion.com.br
+        🌐 Nosso site: <a target="_blank" href="https://www.modamaniafashion.com.br/">modamaniafashion.com.br</a>
       </p>
       <p>
         📸 Instagram: &#64;modamaniafashion
@@ -45,4 +35,17 @@
       </p>
     </div>
   </div>
+
+  <div class="cashbacks generic">
+    @for(row of data; track $index) {
+      <div class="cashback item">
+        <mat-icon svgIcon="shopping"></mat-icon>
+        <div class="paragraphs">
+          <p class="center status">Valor: {{ row.saleValue | cashBack: row.cashback | currency: 'BRL' }}</p>
+          <p>{{ row.withdrawnDate | cashBackClientStatus: currentDate: row.cashbackExpiration }} </p>
+        </div>
+      </div>
+    }
+  </div>
+
 </div>
