@@ -44,7 +44,7 @@ export class ReportClientComponent implements OnInit {
     const source$ = this.#route.params
     const params = await firstValueFrom(source$)
 
-    const response = await this.#fetch.getSalesByClient(params['id'])
+    const response = await firstValueFrom(this.#fetch.getSalesByClient(params['id']))
 
     if((response as SuccessGetSaleI).data) {
       this.data = (response as SuccessGetSaleI).data

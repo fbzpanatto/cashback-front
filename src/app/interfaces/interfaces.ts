@@ -27,7 +27,8 @@ export interface Parameter {
 
 export interface TextMessage {
   id: number,
-  text: string | null | undefined,
+  text?: string | null,
+  actionId?: number | string,
 }
 
 export interface Payload { token: string, expiresIn: string, admin: boolean  }

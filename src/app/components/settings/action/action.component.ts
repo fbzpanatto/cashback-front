@@ -5,6 +5,7 @@ import { MatButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
 import { MatCheckbox } from "@angular/material/checkbox";
 import { FetchActionService } from "../../../services/fetch-action.service";
+import {firstValueFrom} from "rxjs";
 
 @Component({
   selector: 'app-action',
@@ -31,7 +32,7 @@ export class ActionComponent implements OnInit {
   form: FormGroup = this.#fb.group({})
 
   async ngOnInit() {
-    const response = await this.#fetchAction.getActions()
+    const response = await firstValueFrom(this.#fetchAction.getActions())
 
     if((response as SuccessGetActionI).data) {
       this.data = (response as SuccessGetActionI).data

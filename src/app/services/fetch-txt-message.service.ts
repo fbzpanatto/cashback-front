@@ -1,33 +1,39 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { catchError, firstValueFrom } from "rxjs";
+import { catchError, takeUntil } from "rxjs";
 import { ErrorI, SuccessGetTxtMessageI, SuccessPutI, TextMessage } from "../interfaces/interfaces";
 import { environment } from "../../environments/environment";
 import { ErrorHandlerService } from "./error-handler.service";
+import { AuthService } from "./auth.service";
+import { LoadingService } from "./loading.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FetchTxtMessageService {
 
-  #http = inject(HttpClient)
-  #errorHandler = inject(ErrorHandlerService);
+  #http = inject(HttpClient);
+  #errorService = inject(ErrorHandlerService);
+  #authService = inject(AuthService);
+  #loading = inject(LoadingService);
 
-  async getMessage(actionDay: number) {
-    return await firstValueFrom(
-      this.#http.get<SuccessGetTxtMessageI | ErrorI>(`${environment.API_URL}${environment.MESSAGE}?actionDay=${actionDay}`)
-        .pipe(
-          catchError(async ({error}) => await this.#errorHandler.handler(error))
-        )
-    )
+  getMessage(actionDay: number) {
+
+    const observable$ = this.#http.get<SuccessGetTxtMessageI | ErrorI>(`${environment.API_URL}${environment.MESSAGE}/${ actionDay }`)
+      .pipe(
+        takeUntil(this.#authService.unsubscribeSubject),
+        catchError((error) => this.#errorService.errorHandler(error))
+      )
+    return this.#loading.showLoaderUntilCompleted(observable$)
   }
 
-  async putMessage(message: TextMessage) {
-    return await firstValueFrom(
-      this.#http.put<SuccessPutI | ErrorI>(`${environment.API_URL}${environment.MESSAGE}`, message)
-        .pipe(
-          catchError(async ({error}) => await this.#errorHandler.handler(error))
-        )
-    )
+  putMessage(message: TextMessage) {
+
+    const observable$ = this.#http.put<SuccessPutI | ErrorI>(`${environment.API_URL}${environment.MESSAGE}/${ message.id }`, message)
+      .pipe(
+        takeUntil(this.#authService.unsubscribeSubject),
+        catchError((error) => this.#errorService.errorHandler(error))
+      )
+    return this.#loading.showLoaderUntilCompleted(observable$)
   }
 }

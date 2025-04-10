@@ -6,6 +6,7 @@ import { FetchParameterService } from "../../../services/fetch-parameter.service
 import {Parameter, SuccessGetParameterI} from "../../../interfaces/interfaces";
 import { MatButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
+import {firstValueFrom} from "rxjs";
 
 @Component({
   selector: 'app-cashback',
@@ -41,7 +42,7 @@ export class CashbackComponent implements OnInit {
   })
 
   async ngOnInit() {
-    const response = await this.#parameterFetchService.getParameter()
+    const response = await firstValueFrom(this.#parameterFetchService.getParameter())
 
     if((response as SuccessGetParameterI).data) {
       const { id, cashback, expiration_day } = (response as SuccessGetParameterI).data

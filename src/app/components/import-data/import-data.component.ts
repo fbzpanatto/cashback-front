@@ -9,6 +9,7 @@ import { ToolbarTitleService } from "../../services/toolbar-title.service";
 import { FetchParameterService } from "../../services/fetch-parameter.service";
 import { TotalSellsPipe } from "../../pipes/total-sells.pipe";
 import { TopBarComponent } from "../top-bar/top-bar.component";
+import {firstValueFrom} from "rxjs";
 
   @Component({
   selector: 'app-import-data',
@@ -39,7 +40,7 @@ export class ImportDataComponent implements OnInit {
   }
 
   async ngOnInit() {
-    const response = await this.#parameterFetchService.getParameter()
+    const response = await firstValueFrom(this.#parameterFetchService.getParameter())
 
     if((response as SuccessGetParameterI).data) {
       const { cashback, expiration_day } = (response as SuccessGetParameterI).data

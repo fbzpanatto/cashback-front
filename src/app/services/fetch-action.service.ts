@@ -1,9 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { catchError, firstValueFrom } from "rxjs";
+import { catchError, takeUntil } from "rxjs";
 import { environment } from "../../environments/environment";
 import { Action, ErrorI, SuccessGetActionI, SuccessPutI } from "../interfaces/interfaces";
 import { ErrorHandlerService } from "./error-handler.service";
+import { AuthService } from "./auth.service";
+import { LoadingService } from "./loading.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,23 +13,25 @@ import { ErrorHandlerService } from "./error-handler.service";
 export class FetchActionService {
 
   #http = inject(HttpClient)
-  #errorHandler = inject(ErrorHandlerService)
+  #errorService = inject(ErrorHandlerService);
+  #authService = inject(AuthService);
+  #loading = inject(LoadingService);
 
-  async getActions() {
-    return await firstValueFrom(
-      this.#http.get<SuccessGetActionI | ErrorI>(`${environment.API_URL}${environment.ACTION}`)
-        .pipe(
-          catchError(async ({ error }) => await this.#errorHandler.handler(error))
-        )
-    )
+  getActions() {
+    const observable$ = this.#http.get<SuccessGetActionI | ErrorI>(`${environment.API_URL}${environment.ACTION}`)
+      .pipe(
+        takeUntil(this.#authService.unsubscribeSubject),
+        catchError((error) => this.#errorService.errorHandler(error))
+      )
+    return this.#loading.showLoaderUntilCompleted(observable$)
   }
 
   async putAction(body: { data: Action[] }) {
-    await firstValueFrom(
-      this.#http.put<SuccessPutI | ErrorI>(`${environment.API_URL}${environment.ACTION}`, body)
-        .pipe(
-          catchError(async ({ error }) => await this.#errorHandler.handler(error))
-        )
-    )
+    const observable$ = this.#http.put<SuccessPutI | ErrorI>(`${environment.API_URL}${environment.ACTION}`, body)
+      .pipe(
+        takeUntil(this.#authService.unsubscribeSubject),
+        catchError((error) => this.#errorService.errorHandler(error))
+      )
+    return this.#loading.showLoaderUntilCompleted(observable$)
   }
 }

@@ -1,6 +1,6 @@
 import { Component, computed, ElementRef, inject, OnInit, viewChildren } from '@angular/core';
 import { FetchSaleService } from "../../services/fetch-sale.service";
-import { Sale } from "../../interfaces/interfaces";
+import {Sale, SuccessGetSaleI} from "../../interfaces/interfaces";
 import { CashBackPipe } from "../../pipes/cash-back.pipe";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { TotalCashBacksPipe } from "../../pipes/total-cash-backs.pipe";
@@ -42,7 +42,10 @@ export class ReportComponent implements OnInit {
     this.#toolBar.updateLogout(true)
   }
 
-  async ngOnInit() { await this.#fetch.get() }
+  async ngOnInit() {
+    const response = await firstValueFrom(this.#fetch.get())
+    if((response as SuccessGetSaleI).data){ this.#sales.updateSignal((response as SuccessGetSaleI).data) }
+  }
 
   async setWithdrawnDate(sale: Sale) {
 
@@ -56,7 +59,7 @@ export class ReportComponent implements OnInit {
       if(!result) { return }
 
       await this.#sales.updateSale(sale.saleId, { withdrawnDate: this.currentDate })
-      await this.#fetch.put(sale.saleId, { withdrawnDate: this.currentDate })
+      await firstValueFrom(this.#fetch.put(sale.saleId, { withdrawnDate: this.currentDate }))
       return
     }
   }
@@ -71,10 +74,8 @@ export class ReportComponent implements OnInit {
     if(!result) { return }
 
     await this.#sales.deleteSale(sale.saleId)
-    await this.#fetch.delete(sale.saleId)
+    await firstValueFrom(this.#fetch.delete(sale.saleId))
   }
-
-  async reload() { await this.#fetch.get() }
 
   clearSearch(): void { this.#search.patchValue('') }
 

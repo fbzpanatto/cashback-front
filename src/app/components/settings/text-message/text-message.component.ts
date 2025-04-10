@@ -51,7 +51,7 @@ export class TextMessageComponent implements OnInit {
 
   async ngOnInit() {
 
-    const actionsResponse = await this.#fetchAction.getActions()
+    const actionsResponse = await firstValueFrom(this.#fetchAction.getActions())
 
     if((actionsResponse as SuccessGetActionI).data) {
       const preResult = (actionsResponse as SuccessGetActionI).data
@@ -62,7 +62,7 @@ export class TextMessageComponent implements OnInit {
   }
 
   async getMessage(actionDay: number) {
-    const response = await this.#txtService.getMessage(actionDay)
+    const response = await firstValueFrom(this.#txtService.getMessage(actionDay))
 
     if((response as SuccessGetTxtMessageI).data) {
 
@@ -84,7 +84,7 @@ export class TextMessageComponent implements OnInit {
 
     const body = { id: Number(this.messageId), text: data.message, actionId: this.currentDay?.id }
 
-    const response = await this.#txtService.putMessage(body)
+    const response = await firstValueFrom(this.#txtService.putMessage(body as TextMessage))
 
     if((response as SuccessPutI).message) {
 
