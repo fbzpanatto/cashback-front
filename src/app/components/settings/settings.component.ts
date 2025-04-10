@@ -6,6 +6,7 @@ import { ActionComponent } from "./action/action.component";
 import { TextMessageComponent } from "./text-message/text-message.component";
 import { MatRipple } from "@angular/material/core";
 import {TopBarComponent} from "../top-bar/top-bar.component";
+import {MarketingComponent} from "./marketing/marketing.component";
 
 @Component({
   selector: 'app-settings',
@@ -16,6 +17,7 @@ import {TopBarComponent} from "../top-bar/top-bar.component";
     TextMessageComponent,
     MatButton,
     TopBarComponent,
+    MarketingComponent,
   ],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']

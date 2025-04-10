@@ -5,6 +5,8 @@ export const ENVIRONMENT_COMMON = {
   PARAMETER: "parameter",
   ACTION: "action",
   MESSAGE: "message",
+  MARKETING: "marketing",
+  MMARKETING_MESSAGE_ID: 1,
   LOGIN: "login",
   RESET_PASSWD: "reset-password",
   RENEW_PASSWD: "renew-password",

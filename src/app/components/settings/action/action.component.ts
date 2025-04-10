@@ -5,7 +5,7 @@ import { MatButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
 import { MatCheckbox } from "@angular/material/checkbox";
 import { FetchActionService } from "../../../services/fetch-action.service";
-import {firstValueFrom} from "rxjs";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   selector: 'app-action',

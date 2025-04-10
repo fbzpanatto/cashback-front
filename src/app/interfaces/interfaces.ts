@@ -31,6 +31,11 @@ export interface TextMessage {
   actionId?: number | string,
 }
 
+export interface MarketingMessage {
+  id: number,
+  message: string
+}
+
 export interface Payload { token: string, expiresIn: string, admin: boolean  }
 
 export interface Credentials { email?: string | null, password?: string | null, token?: string | null }
@@ -39,6 +44,7 @@ export interface SuccessGetSaleI { status: number, data: Sale[] }
 export interface SuccessGetActionI { status: number, data: Action[] }
 export interface SuccessGetParameterI { status: number, data: Parameter }
 export interface SuccessGetTxtMessageI { status: number, data: TextMessage }
+export interface SuccessGetMarketingI { status: number, data: MarketingMessage }
 export interface SuccessPostI { status: number, message: string }
 export interface SuccessPostLogin { status: number, data: Payload, message: string }
 export interface SuccessPutI { status: number, message: string }
