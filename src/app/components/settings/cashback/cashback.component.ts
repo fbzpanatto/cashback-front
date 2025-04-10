@@ -19,7 +19,8 @@ import { MatIcon } from "@angular/material/icon";
     MatInput,
   ],
   templateUrl: './cashback.component.html',
-  styleUrls: ['./cashback.component.scss', '../../../styles/input.scss', '../../../styles/form.scss'],
+  styleUrls: ['../../../styles/input.scss', '../../../styles/form.scss'],
+  standalone: true
 })
 export class CashbackComponent implements OnInit {
 

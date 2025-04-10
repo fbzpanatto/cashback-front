@@ -54,7 +54,7 @@ export class HomeComponent {
         id: 3,
         title: 'Whatsapp',
         backgroundColor: 'transparent',
-        icon: 'person',
+        icon: 'account_circle',
         style: { backgroundColor: '#37c53a', color: '#fff', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'},
         link: '/whatsapp'
       },

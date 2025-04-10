@@ -1,10 +1,36 @@
+.form-title {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  padding: 0 16px;
+  border-bottom: none;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  height: 42px;
+  background: #eff4ff;
+
+  h1 {
+    font-size: 18px;
+    color: #333;
+    font-weight: lighter;
+    letter-spacing: 0.02rem;
+  }
+
+  .btn-menu {
+    border-radius: 0;
+    background: #eff4ff;
+    color:#444;
+  }
+}
+
 form {
   padding: 4vmin;
   display: flex;
   flex-direction: column;
-  border-radius: 4px;
-  border: 1px solid #bbbbbb;
   background: #eff4ff;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 
   z-index: 0;
 

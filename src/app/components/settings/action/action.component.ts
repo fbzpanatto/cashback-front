@@ -16,7 +16,8 @@ import { FetchActionService } from "../../../services/fetch-action.service";
     MatCheckbox
   ],
   templateUrl: './action.component.html',
-  styleUrls: ['./action.component.scss', '../../../styles/input.scss', '../../../styles/form.scss']
+  standalone: true,
+  styleUrls: ['../../../styles/input.scss', '../../../styles/form.scss']
 })
 export class ActionComponent implements OnInit {
 

@@ -2,12 +2,12 @@
 
 <div class="settings-wrapper">
   <div class="container">
-
-    <div class="form-selector">
-      @for(item of formSelector; track  item.id) {
-        <button mat-ripple mat-flat-button (click)="setForm(item)">{{item.title}}</button>
-      }
-    </div>
+    <div class="content">
+      <div class="form-selector">
+        @for(item of formSelector; track  item.id) {
+          <button mat-stroked-button (click)="setForm(item)">{{item.title}}</button>
+        }
+      </div>
       @switch (selectedOption) {
         @case(1) {
           <app-cashback></app-cashback>
@@ -21,5 +21,6 @@
           <app-text-message></app-text-message>
         }
       }
+    </div>
   </div>
 </div>

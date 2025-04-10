@@ -22,7 +22,8 @@ import { FetchActionService } from "../../../services/fetch-action.service";
     MatMenuTrigger
   ],
   templateUrl: './text-message.component.html',
-  styleUrls: ['../../../styles/input.scss', '../../../styles/form.scss', './text-message.component.scss']
+  standalone: true,
+  styleUrls: ['../../../styles/input.scss', '../../../styles/form.scss']
 })
 export class TextMessageComponent implements OnInit {
 

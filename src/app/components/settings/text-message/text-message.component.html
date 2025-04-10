@@ -1,4 +1,5 @@
-<div class="selector">
+<div class="form-title">
+  <mat-icon svgIcon="email"></mat-icon>
   <h1>Mensagem do dia: </h1>
   <button type="button" class="btn-menu" mat-flat-button [matMenuTriggerFor]="menu" (menuOpened)="isMenuOpen = true" (menuClosed)="isMenuOpen = false">
     <mat-icon [svgIcon]="isMenuOpen ? 'calendar_today' : 'today'"></mat-icon>
@@ -17,7 +18,7 @@
 
       <div class="input-container">
         <mat-form-field>
-          <textarea formControlName="message" matInput placeholder="Mesangem que será enviada para seus clientes..."></textarea>
+          <textarea style="height: 30vh" formControlName="message" matInput placeholder="Mesangem que será enviada para seus clientes..."></textarea>
         </mat-form-field>
       </div>
     </div>

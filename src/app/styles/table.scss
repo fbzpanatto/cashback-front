@@ -26,12 +26,14 @@
       tr {
         th {
           color: #fff;
-          padding: 8px;
+          padding: 12px 8px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
           border-left: 1px solid #bdcede;
-
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          font-size: 10pt;
           z-index: 4;
 
           &:nth-child(2) {
@@ -144,10 +146,22 @@
         }
 
         &.total-line {
+          position: sticky;
+          bottom: 0;
+          z-index: 3;
           td {
-            font-weight: bold;
             background: #dee7ff;
             border-bottom: 1px solid #bdcede;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 10pt;
+            border-top: 1px solid #bdcede;
+          }
+        }
+
+        &:nth-last-child(2) {
+          td {
+            border-bottom: none;
           }
         }
       }

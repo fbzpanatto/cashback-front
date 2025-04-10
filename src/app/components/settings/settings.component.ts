@@ -15,7 +15,6 @@ import {TopBarComponent} from "../top-bar/top-bar.component";
     ActionComponent,
     TextMessageComponent,
     MatButton,
-    MatRipple,
     TopBarComponent,
   ],
   templateUrl: './settings.component.html',
@@ -42,6 +41,7 @@ export class SettingsComponent {
       { id: 1, title: 'Cashback', selected: true },
       { id: 2, title: 'Ação', selected: false },
       { id: 3, title: 'Texto', selected: false },
+      { id: 4, title: 'Marketing', selected: false },
     ]
   }
 

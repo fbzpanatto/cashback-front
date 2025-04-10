@@ -24,7 +24,7 @@ export class FetchTxtMessageService {
 
   async putMessage(message: TextMessage) {
     await firstValueFrom(
-      this.#http.put<SuccessPutI | ErrorI>(`${environment.API_URL}${environment.MESSAGE}/${message.id}`, message)
+      this.#http.put<SuccessPutI | ErrorI>(`${environment.API_URL}${environment.MESSAGE}`, message)
         .pipe(
           catchError(async ({error}) => await this.#errorHandler.handler(error))
         )
