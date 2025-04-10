@@ -1,16 +1,17 @@
+<div class="selector">
+  <h1>Mensagem do dia: </h1>
+  <button type="button" class="btn-menu" mat-flat-button [matMenuTriggerFor]="menu" (menuOpened)="isMenuOpen = true" (menuClosed)="isMenuOpen = false">
+    <mat-icon [svgIcon]="isMenuOpen ? 'calendar_today' : 'today'"></mat-icon>
+    <span>{{ currentDay?.day }}</span>
+  </button>
+  <mat-menu #menu="matMenu">
+    @for (btn of days; track $index) {
+      <button type="button" mat-menu-item (click)="setYear(btn)">{{ btn['day'] }}</button>
+    }
+  </mat-menu>
+</div>
+
 <form [formGroup]="form" (submit)="onSubmit()">
-  <div class="selector">
-    <h1>Mensagem do dia: </h1>
-    <button type="button" class="btn-menu" mat-flat-button [matMenuTriggerFor]="menu" (menuOpened)="isMenuOpen = true" (menuClosed)="isMenuOpen = false">
-      <mat-icon [svgIcon]="isMenuOpen ? 'calendar_today' : 'today'"></mat-icon>
-      <span>{{ currentDay?.day }}</span>
-    </button>
-    <mat-menu #menu="matMenu">
-      @for (btn of days; track $index) {
-        <button type="button" mat-menu-item (click)="setYear(btn)">{{ btn['day'] }}</button>
-      }
-    </mat-menu>
-  </div>
   <fieldset>
     <div class="inputs-container">
 
