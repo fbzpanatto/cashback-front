@@ -5,12 +5,14 @@ import { currentDateFn } from "../../utils/utils";
 import { FetchSaleService } from "../../services/fetch-sale.service";
 import { ActivatedRoute } from "@angular/router";
 import { firstValueFrom } from "rxjs";
-import { Sale, SuccessGetSaleI } from "../../interfaces/interfaces";
+import { Sale, SuccessGetMarketingI, SuccessGetSaleI } from "../../interfaces/interfaces";
 import { ToolbarTitleService } from "../../services/toolbar-title.service";
 import { TopBarComponent } from "../top-bar/top-bar.component";
 import { MatIcon } from "@angular/material/icon";
 import { CashBackPipe } from "../../pipes/cash-back.pipe";
 import { CashBackClientStatusPipe } from "../../pipes/cash-back-client-status.pipe";
+import { FetchMarketingService } from "../../services/fetch-marketing.service";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: 'app-report-client',
@@ -32,6 +34,8 @@ export class ReportClientComponent implements OnInit {
   #fetch = inject(FetchSaleService)
   #route = inject(ActivatedRoute)
   #toolBar = inject(ToolbarTitleService)
+  #marketing = inject(FetchMarketingService)
+  #message?: string
 
   constructor() {
     this.#toolBar.updateTitle(this.title)
@@ -45,9 +49,15 @@ export class ReportClientComponent implements OnInit {
     const params = await firstValueFrom(source$)
 
     const response = await firstValueFrom(this.#fetch.getSalesByClient(params['id']))
+    const marketingResult = await firstValueFrom(this.#marketing.getMessage(environment.MMARKETING_MESSAGE_ID))
 
     if((response as SuccessGetSaleI).data) {
       this.data = (response as SuccessGetSaleI).data
+    }
+
+    if((marketingResult as SuccessGetMarketingI).data) {
+      const { id, message } = (marketingResult as SuccessGetMarketingI).data
+      this.message = message
     }
   }
 
@@ -60,4 +70,7 @@ export class ReportClientComponent implements OnInit {
   get title() {
     return 'Meus Cashbacks'
   }
+
+  get message() { return this.#message }
+  set message(value) { this.#message = value }
 }

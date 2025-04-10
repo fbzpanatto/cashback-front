@@ -4,6 +4,7 @@ import { DATE_REGEX, dateTime } from "../utils/utils";
 type TypesForDate = Date | string | null | undefined
 
 @Pipe({
+  standalone: true,
   name: 'cashBackClientStatus'
 })
 export class CashBackClientStatusPipe implements PipeTransform {
