@@ -52,16 +52,15 @@ export class TextMessageComponent implements OnInit {
     const actionsResponse = await this.#fetchAction.getActions()
 
     if((actionsResponse as SuccessGetActionI).data) {
-      this.days = ((actionsResponse as SuccessGetActionI).data).filter(el => el.active)
-      this.currentDay = this.days.find(el => el.active)
+      const preResult = (actionsResponse as SuccessGetActionI).data
+      this.days = preResult.filter(el => el.active)
+      this.currentDay = this.days[0]
       await this.getMessage(this.currentDay?.day)
     }
   }
 
-  async getMessage(actionDay: number = 1) {
+  async getMessage(actionDay: number) {
     const response = await this.#txtService.getMessage(actionDay)
-
-    this.form.reset()
 
     if((response as SuccessGetTxtMessageI).data) {
 
@@ -84,7 +83,7 @@ export class TextMessageComponent implements OnInit {
     const body = {
       id: Number(this.messageId),
       text: data.message,
-      actionId: this.currentDay?.day
+      actionId: this.currentDay?.id
     }
 
     await this.#txtService.putMessage(body)
