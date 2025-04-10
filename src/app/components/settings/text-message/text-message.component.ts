@@ -103,12 +103,7 @@ export class TextMessageComponent implements OnInit {
     }
   }
 
-  resetValues() {
-    this.form.markAsPristine()
-    this.form.setValue({
-      message: String(this.#original?.text)
-    })
-  }
+  resetValues() { this.form.markAsPristine(); this.form.setValue({ message: String(this.#original?.text)}) }
 
   get formIsValid() { return this.form.valid }
 
