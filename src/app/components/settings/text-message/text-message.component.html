@@ -7,7 +7,7 @@
   </button>
   <mat-menu #menu="matMenu">
     @for (btn of days; track $index) {
-      <button type="button" mat-menu-item (click)="setYear(btn)">{{ btn['day'] }}</button>
+      <button type="button" mat-menu-item (click)="setCurrentDay(btn)">{{ btn['day'] }}</button>
     }
   </mat-menu>
 </div>

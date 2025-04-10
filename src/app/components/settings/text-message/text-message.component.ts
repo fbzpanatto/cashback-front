@@ -3,10 +3,12 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from "@angu
 import { MatFormField, MatInput } from "@angular/material/input";
 import { MatIcon } from "@angular/material/icon";
 import { MatButton } from "@angular/material/button";
-import { Action, SuccessGetActionI, SuccessGetTxtMessageI, TextMessage } from "../../../interfaces/interfaces";
+import { Action, SuccessGetActionI, SuccessGetTxtMessageI, SuccessPutI, TextMessage } from "../../../interfaces/interfaces";
 import { FetchTxtMessageService } from "../../../services/fetch-txt-message.service";
 import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
 import { FetchActionService } from "../../../services/fetch-action.service";
+import { DialogService } from "../../../services/dialog.service";
+import {firstValueFrom, tap} from "rxjs";
 
 @Component({
   selector: 'app-text-message',
@@ -29,8 +31,9 @@ export class TextMessageComponent implements OnInit {
 
   #messageId?: number;
 
-  #fetchAction = inject(FetchActionService)
+  #fetchAction = inject(FetchActionService);
   #txtService = inject(FetchTxtMessageService);
+  #dialog = inject(DialogService);
 
   #original?: TextMessage
 
@@ -73,7 +76,7 @@ export class TextMessageComponent implements OnInit {
     }
   }
 
-  async setYear(day: Action) {
+  async setCurrentDay(day: Action) {
     this.currentDay = day
     await this.getMessage(this.currentDay.day)
   }
@@ -87,10 +90,17 @@ export class TextMessageComponent implements OnInit {
       actionId: this.currentDay?.id
     }
 
-    await this.#txtService.putMessage(body)
+    const response = await this.#txtService.putMessage(body)
 
-    this.#original = body
-    this.form?.markAsPristine()
+    if((response as SuccessPutI).message) {
+
+      const message = (response as SuccessPutI).message
+      await firstValueFrom(
+        this.#dialog.open({ title: 'Alerta', message, actions: false })
+          .afterClosed()
+          .pipe(tap(() => { this.#original = body; this.form?.markAsPristine()}))
+      )
+    }
   }
 
   resetValues() {
