@@ -8,7 +8,7 @@ import { FetchTxtMessageService } from "../../../services/fetch-txt-message.serv
 import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
 import { FetchActionService } from "../../../services/fetch-action.service";
 import { DialogService } from "../../../services/dialog.service";
-import {firstValueFrom, tap} from "rxjs";
+import { firstValueFrom, tap } from "rxjs";
 
 @Component({
   selector: 'app-text-message',
@@ -46,9 +46,7 @@ export class TextMessageComponent implements OnInit {
   #fb = inject(FormBuilder);
 
   form = this.#fb.group({
-    message: ['', {
-      validators: [Validators.required]
-    }],
+    message: ['', { validators: [Validators.required] }],
   })
 
   async ngOnInit() {
@@ -84,11 +82,7 @@ export class TextMessageComponent implements OnInit {
   async onSubmit() {
     const data = this.form.value
 
-    const body = {
-      id: Number(this.messageId),
-      text: data.message,
-      actionId: this.currentDay?.id
-    }
+    const body = { id: Number(this.messageId), text: data.message, actionId: this.currentDay?.id }
 
     const response = await this.#txtService.putMessage(body)
 
