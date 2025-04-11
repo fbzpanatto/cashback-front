@@ -13,7 +13,7 @@ import { CashBackPipe } from "../../pipes/cash-back.pipe";
 import { CashBackClientStatusPipe } from "../../pipes/cash-back-client-status.pipe";
 import { FetchMarketingService } from "../../services/fetch-marketing.service";
 import { environment } from "../../../environments/environment";
-import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
+import { DomSanitizer, SafeHtml, SafeResourceUrl } from "@angular/platform-browser";
 
 @Component({
   selector: 'app-report-client',
@@ -38,7 +38,7 @@ export class ReportClientComponent implements OnInit {
   #marketing = inject(FetchMarketingService)
   #sanitizer = inject(DomSanitizer)
 
-  message: { text: string, link: string }[] = []
+  message: { text: string, link: SafeResourceUrl | null }[] = []
 
   constructor() {
     this.#toolBar.updateTitle(this.title)
@@ -69,7 +69,9 @@ export class ReportClientComponent implements OnInit {
         const slices = item.trim().split(regex);
 
         const text = slices[0]?.trim();
-        const link = slices[1]?.trim();
+        const rawLink = slices[1]?.trim();
+
+        const link = rawLink ? this.#sanitizer.bypassSecurityTrustResourceUrl(rawLink) : null;
 
         this.message?.push({ text, link })
       }
