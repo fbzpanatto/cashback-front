@@ -22,7 +22,7 @@ export class FetchTxtMessageService {
     const observable$ = this.#http.get<SuccessGetTxtMessageI | ErrorI>(`${environment.API_URL}${environment.MESSAGE}/${ actionDay }`)
       .pipe(
         takeUntil(this.#authService.unsubscribeSubject),
-        catchError((error) => this.#errorService.errorHandler(error))
+        catchError(({ error }) => this.#errorService.errorHandler(error))
       )
     return this.#loading.showLoaderUntilCompleted(observable$)
   }
@@ -32,7 +32,7 @@ export class FetchTxtMessageService {
     const observable$ = this.#http.put<SuccessPutI | ErrorI>(`${environment.API_URL}${environment.MESSAGE}/${ message.id }`, message)
       .pipe(
         takeUntil(this.#authService.unsubscribeSubject),
-        catchError((error) => this.#errorService.errorHandler(error))
+        catchError(({ error }) => this.#errorService.errorHandler(error))
       )
     return this.#loading.showLoaderUntilCompleted(observable$)
   }

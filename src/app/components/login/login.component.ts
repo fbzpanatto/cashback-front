@@ -3,7 +3,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { MatIconModule} from "@angular/material/icon";
 import { AuthService } from "../../services/auth.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { filter, map, Observable, tap } from "rxjs";
+import {filter, firstValueFrom, map, Observable, tap} from "rxjs";
 import { confirmPassValidation, passwordStrengthValidator } from "../../utils/validators";
 import { Credentials, ErrorI, SuccessPostLogin } from "../../interfaces/interfaces";
 import { FetchLoginService } from "../../services/fetch-login.service";
@@ -61,19 +61,19 @@ export class LoginComponent implements OnInit {
   }
 
   async doLogin(body: Credentials) {
-    const response = await this.#fetch.postLogin(body)
+    const response = await firstValueFrom(this.#fetch.postLogin(body))
     if ((response as SuccessPostLogin).data?.token) {
       this.#authService.completeLogin((response as SuccessPostLogin).data)
     }
   }
 
   async confirmNewPassword() {
-    const response = await this.#fetch.renewPassword({token: this.resetToken, password: this.resetPasswordForm.value.confirmPassword})
+    const response = await firstValueFrom(this.#fetch.renewPassword({token: this.resetToken, password: this.resetPasswordForm.value.confirmPassword}))
     if (!(response as ErrorI).error) { this.#authService.completeLogin((response as SuccessPostLogin).data) }
   }
 
   async resetPassword() {
-    await this.#fetch.resetPassword({ email: this.loginForm.value.email });
+    await firstValueFrom(this.#fetch.resetPassword({ email: this.loginForm.value.email }))
   }
 
   get resetToken(){ return this.#resetToken }

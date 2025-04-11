@@ -22,7 +22,7 @@ export class FetchMarketingService {
     const observable$ = this.#http.get<SuccessGetMarketingI | ErrorI>(`${environment.API_URL}${environment.MARKETING}/${ id }`)
       .pipe(
         takeUntil(this.#authService.unsubscribeSubject),
-        catchError((error) => this.#errorService.errorHandler(error))
+        catchError(({ error }) => this.#errorService.errorHandler(error))
       )
     return this.#loading.showLoaderUntilCompleted(observable$)
   }
@@ -32,7 +32,7 @@ export class FetchMarketingService {
     const observable$ = this.#http.put<SuccessPutI | ErrorI>(`${environment.API_URL}${environment.MARKETING}/${ message.id }`, message)
       .pipe(
         takeUntil(this.#authService.unsubscribeSubject),
-        catchError((error) => this.#errorService.errorHandler(error))
+        catchError(({ error }) => this.#errorService.errorHandler(error))
       )
     return this.#loading.showLoaderUntilCompleted(observable$)
   }

@@ -23,7 +23,7 @@ export class FetchSaleService {
     const observable$ = this.#http.get<SuccessGetSaleI | ErrorI>(`${environment.API_URL}${environment.SALE}`)
       .pipe(
         takeUntil(this.#authService.unsubscribeSubject),
-        catchError((error) => this.#errorService.errorHandler(error))
+        catchError(({ error }) => this.#errorService.errorHandler(error))
       )
     return this.#loading.showLoaderUntilCompleted(observable$)
   }
@@ -32,7 +32,7 @@ export class FetchSaleService {
     const observable$ = this.#http.get<SuccessGetSaleI | ErrorI>(`${environment.API_URL}${environment.REPORT_CLIENT}/${ clientId }`)
       .pipe(
         takeUntil(this.#authService.unsubscribeSubject),
-        catchError((error) => this.#errorService.errorHandler(error))
+        catchError(({ error }) => this.#errorService.errorHandler(error))
       )
     return this.#loading.showLoaderUntilCompleted(observable$)
   }
@@ -41,7 +41,7 @@ export class FetchSaleService {
     const observable$ = this.#http.post<SuccessPostI | ErrorI>(`${environment.API_URL}${environment.SALE}`, data)
       .pipe(
         takeUntil(this.#authService.unsubscribeSubject),
-        catchError((error) => this.#errorService.errorHandler(error))
+        catchError(({ error }) => this.#errorService.errorHandler(error))
       )
     return this.#loading.showLoaderUntilCompleted(observable$)
   }
@@ -50,7 +50,7 @@ export class FetchSaleService {
     const observable$ = this.#http.put<SuccessPutI | ErrorI>(`${environment.API_URL}${environment.SALE}/${ saleId }`, data)
       .pipe(
         takeUntil(this.#authService.unsubscribeSubject),
-        catchError((error) => this.#errorService.errorHandler(error))
+        catchError(({ error }) => this.#errorService.errorHandler(error))
       )
     return this.#loading.showLoaderUntilCompleted(observable$)
   }
@@ -59,7 +59,7 @@ export class FetchSaleService {
     const observable$ = this.#http.delete<SuccessDeleteI | ErrorI>(`${environment.API_URL}${environment.SALE}/${ saleId }`)
       .pipe(
         takeUntil(this.#authService.unsubscribeSubject),
-        catchError((error) => this.#errorService.errorHandler(error))
+        catchError(({ error }) => this.#errorService.errorHandler(error))
       )
     return this.#loading.showLoaderUntilCompleted(observable$)
   }

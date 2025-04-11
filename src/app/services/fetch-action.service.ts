@@ -21,16 +21,16 @@ export class FetchActionService {
     const observable$ = this.#http.get<SuccessGetActionI | ErrorI>(`${environment.API_URL}${environment.ACTION}`)
       .pipe(
         takeUntil(this.#authService.unsubscribeSubject),
-        catchError((error) => this.#errorService.errorHandler(error))
+        catchError(({ error }) => this.#errorService.errorHandler(error))
       )
     return this.#loading.showLoaderUntilCompleted(observable$)
   }
 
-  async putAction(body: { data: Action[] }) {
+  putAction(body: { data: Action[] }) {
     const observable$ = this.#http.put<SuccessPutI | ErrorI>(`${environment.API_URL}${environment.ACTION}`, body)
       .pipe(
         takeUntil(this.#authService.unsubscribeSubject),
-        catchError((error) => this.#errorService.errorHandler(error))
+        catchError(({ error }) => this.#errorService.errorHandler(error))
       )
     return this.#loading.showLoaderUntilCompleted(observable$)
   }

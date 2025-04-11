@@ -47,7 +47,7 @@ export class ActionComponent implements OnInit {
 
   async onSubmit() {
     const diff = this.getDiff()
-    await this.#fetchAction.putAction({ data: this.getDiff() })
+    await firstValueFrom(this.#fetchAction.putAction({ data: this.getDiff() }))
 
     for(let item of diff) {
       this.form.get(String(item.day))?.patchValue(item.active)

@@ -3,13 +3,14 @@ import { CommonModule } from "@angular/common";
 import { MatButton, MatFabButton } from "@angular/material/button";
 import { Router } from "@angular/router";
 import { FetchSaleService } from "../../services/fetch-sale.service";
-import { Sale, SuccessGetParameterI } from "../../interfaces/interfaces";
+import { Sale, SuccessGetParameterI, SuccessPostI } from "../../interfaces/interfaces";
 import { MatIcon } from "@angular/material/icon";
 import { ToolbarTitleService } from "../../services/toolbar-title.service";
 import { FetchParameterService } from "../../services/fetch-parameter.service";
 import { TotalSellsPipe } from "../../pipes/total-sells.pipe";
 import { TopBarComponent } from "../top-bar/top-bar.component";
-import {firstValueFrom} from "rxjs";
+import { firstValueFrom } from "rxjs";
+import { DialogService } from "../../services/dialog.service";
 
   @Component({
   selector: 'app-import-data',
@@ -29,6 +30,8 @@ export class ImportDataComponent implements OnInit {
   #parameterFetchService = inject(FetchParameterService);
 
   #toolBar = inject(ToolbarTitleService)
+
+  #dialog = inject(DialogService);
 
   #router = inject(Router);
   #fetch = inject(FetchSaleService)
@@ -105,7 +108,13 @@ export class ImportDataComponent implements OnInit {
 
   async importData() {
     const dataToPost = this.formatData(this.tableData)
-    await this.#fetch.post(dataToPost)
+    const response = await firstValueFrom(this.#fetch.post(dataToPost))
+
+    if((response as SuccessPostI).message) {
+      const message = (response as SuccessPostI).message
+      this.#dialog.open({ title: 'Alerta', message })
+    }
+
     await this.#router.navigate(['/home'])
   }
 

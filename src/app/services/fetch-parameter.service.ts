@@ -21,7 +21,7 @@ export class FetchParameterService {
     const observable$ = this.#http.get<SuccessGetParameterI | ErrorI>(`${environment.API_URL}${environment.PARAMETER}`)
       .pipe(
         takeUntil(this.#authService.unsubscribeSubject),
-        catchError((error) => this.#errorService.errorHandler(error))
+        catchError(({ error }) => this.#errorService.errorHandler(error))
       )
     return this.#loading.showLoaderUntilCompleted(observable$)
   }
@@ -30,7 +30,7 @@ export class FetchParameterService {
     const observable$ = this.#http.put<SuccessPutI | ErrorI>(`${environment.API_URL}${environment.PARAMETER}/${parameter.id}`, parameter)
       .pipe(
         takeUntil(this.#authService.unsubscribeSubject),
-        catchError((error) => this.#errorService.errorHandler(error))
+        catchError(({ error }) => this.#errorService.errorHandler(error))
       )
     return this.#loading.showLoaderUntilCompleted(observable$)
   }
