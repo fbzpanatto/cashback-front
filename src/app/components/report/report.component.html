@@ -40,7 +40,9 @@
                   </div>
                 </div>
               } @else {
-                {{ row.withdrawnDate | cashBackStatus: currentDate: row.cashbackExpiration }}
+                <div>
+                  {{ row.withdrawnDate | cashBackStatus: currentDate: row.cashbackExpiration }}
+                </div>
               }
             </td>
             <td class="center">{{ row.saleValue | cashBack: row.cashback | currency: 'BRL' }}</td>

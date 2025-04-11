@@ -39,6 +39,9 @@
 
               &.valid {
                 background: #bdcede;
+                .status {
+                  color: black;
+                }
               }
 
               &.sticky-left {

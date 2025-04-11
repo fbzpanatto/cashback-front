@@ -8,7 +8,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 2rem;
-    padding: 2rem 4rem;
+    padding: 4rem;
 
     .option {
       display: flex;
@@ -19,6 +19,7 @@
       border-radius: 20px;
       text-align: center;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 
       &:hover {
         transform: translateY(-4px);

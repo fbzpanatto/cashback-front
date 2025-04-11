@@ -3,12 +3,11 @@
   align-items: center;
   justify-content: flex-start;
   gap: 1rem;
-  padding: 0 16px;
+  padding: 16px 16px 0 16px;
   border-bottom: none;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   height: 42px;
-  background: #eff4ff;
 
   h1 {
     font-size: 18px;
@@ -19,16 +18,15 @@
 
   .btn-menu {
     border-radius: 0;
-    background: #eff4ff;
+    background-color: #f5f6fa;
     color:#444;
   }
 }
 
 form {
-  padding: 4vmin;
+  padding: 16px 4vmin 4vmin 4vmin;
   display: flex;
   flex-direction: column;
-  background: #eff4ff;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 
@@ -61,6 +59,12 @@ form {
       padding-top: 16px;
       display: flex;
       gap: 16px;
+
+      button {
+        &:nth-of-type(1) {
+          color: #444;
+        }
+      }
     }
   }
 }

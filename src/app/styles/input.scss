@@ -32,9 +32,10 @@ mat-icon[svgIcon="edit"] {
     color: #444;
     letter-spacing: .08rem;
     font-weight: lighter;
-    border-bottom: 1px solid #bdcede;
-    background: #f8f8f8;
+    border: 1px solid #bdcede;
+    background-color: #ffffff;
     transition: 180ms ease-out;
+    border-radius: 6px;
 
     &::placeholder {
       color: #a1a1a1;
@@ -42,12 +43,17 @@ mat-icon[svgIcon="edit"] {
 
     &:hover {
       transition: 180ms ease-in;
-      border-bottom: 1px solid #2880d3;
+      border: 1px solid #2880d3;
     }
   }
 
+  mat-icon[svgIcon="search"] {
+    top: 6px;
+
+  }
+
   mat-icon[svgIcon="backspace"] {
-    top: 8px;
+    top: 6px;
     right: 8px;
     position: absolute;
     color: #ff0099;
