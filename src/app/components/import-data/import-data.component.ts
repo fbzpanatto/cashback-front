@@ -15,7 +15,7 @@ import { DialogService } from "../../services/dialog.service";
   @Component({
   selector: 'app-import-data',
   standalone: true,
-    imports: [CommonModule, MatButton, MatFabButton, MatIcon, TotalSellsPipe, TopBarComponent],
+    imports: [CommonModule, MatFabButton, MatIcon, TotalSellsPipe, TopBarComponent],
   templateUrl: './import-data.component.html',
   styleUrls: ['./import-data.component.scss', '../../styles/table.scss']
 })

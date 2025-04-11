@@ -7,6 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #f5f6fa;
 
   .import-file-content {
     display: flex;
@@ -19,15 +20,45 @@
     width: calc(85vw);
     overflow: auto;
 
-    button {
+    .button {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      border-radius: 20px;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      background: #0a6bc4;
+      color: #fff;
       width: 80%;
-      height: 20%;
-      border-radius: 8px;
-      span:nth-child(1) {
-        margin-right: 8px;
+
+      &:hover {
+        transform: translateY(-5px);
+        cursor: pointer;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .left-side {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: .8rem;
+
+        mat-icon {
+          font-size: 40px;
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      .right-side {
+        h6 {
+          font-size: 1.1rem;
+          font-weight: 500;
+          margin: 0;
+        }
       }
     }
   }

@@ -3,12 +3,18 @@
 <div class="import-data-wrapper">
 
   @if(!(tableData.length > 0)) {
+
     <div class="import-file-content">
       <input #fileInput type="file" accept=".csv,.txt" (change)="onFileSelected($event)" hidden />
-      <button mat-flat-button (click)="openFileInput()">
-        <mat-icon svgIcon="post_add"></mat-icon>
-        <span>Selecione um arquivo...</span>
-      </button>
+      <div class="button" (click)="openFileInput()">
+        <div class="left-side">
+          <mat-icon svgIcon="add"></mat-icon>
+        </div>
+        <div class="right-side">
+          <h6>Selecione um arquivo...</h6>
+        </div>
+      </div>
+
     </div>
   } @else {
     <div class="table-content">
