@@ -125,6 +125,20 @@
         letter-spacing: 0.02rem;
         font-size: 14px;
         line-height: 24px;
+        padding-bottom: 16px;
+
+        a {
+          text-decoration: none;
+          color: #0a6bc4;
+
+          &:visited {
+            color: #0a6bc4;
+          }
+        }
+
+        &:last-of-type {
+          padding-bottom: 0;
+        }
       }
     }
   }

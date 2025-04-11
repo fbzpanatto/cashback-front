@@ -15,25 +15,15 @@
 
   <div class="marketing">
     <div class="paragraphs">
-      <p>{{ message }}</p>
-<!--      <p>-->
-<!--        ✨ E aproveite pra ficar por dentro das novidades, looks e promoções:-->
-<!--      </p>-->
-<!--      <p></p>-->
-<!--      <p>-->
-<!--        🌐 Nosso site: <a target="_blank" rel="noopener noreferrer" href="https://www.modamaniafashion.com.br/">modamaniafashion.com.br</a>-->
-<!--      </p>-->
-<!--      <p>-->
-<!--        📸 Instagram: <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/modamaniafashion">&#64;modamaniafashion</a>-->
-<!--      </p>-->
-<!--      <p></p>-->
-<!--      <p>-->
-<!--        💖 Te esperamos lá!-->
-<!--      </p>-->
-<!--      <p></p>-->
-<!--      <p>-->
-<!--        #ModaMania #Cashback #ModaFeminina #VemSerFashion-->
-<!--      </p>-->
+      @for(item of message; track $index) {
+        @if(item.link) {
+          <p>
+            <a target="_blank" rel="noopener noreferrer" [href]="item.link">{{ item.text }}</a>
+          </p>
+        } @else {
+          <p [innerHTML]="formatText(item.text)"></p>
+        }
+      }
     </div>
   </div>
 

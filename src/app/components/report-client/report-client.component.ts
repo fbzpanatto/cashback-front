@@ -13,6 +13,7 @@ import { CashBackPipe } from "../../pipes/cash-back.pipe";
 import { CashBackClientStatusPipe } from "../../pipes/cash-back-client-status.pipe";
 import { FetchMarketingService } from "../../services/fetch-marketing.service";
 import { environment } from "../../../environments/environment";
+import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-report-client',
@@ -35,7 +36,9 @@ export class ReportClientComponent implements OnInit {
   #route = inject(ActivatedRoute)
   #toolBar = inject(ToolbarTitleService)
   #marketing = inject(FetchMarketingService)
-  #message?: string
+  #sanitizer = inject(DomSanitizer)
+
+  message: { text: string, link: string }[] = []
 
   constructor() {
     this.#toolBar.updateTitle(this.title)
@@ -56,9 +59,26 @@ export class ReportClientComponent implements OnInit {
     }
 
     if((marketingResult as SuccessGetMarketingI).data) {
-      const { id, message } = (marketingResult as SuccessGetMarketingI).data
-      this.message = message
+      const { message } = (marketingResult as SuccessGetMarketingI).data
+
+      const splitMessage = message.split('\n')
+
+      for(let item of splitMessage) {
+
+        const regex = /(https?:\/\/(?:www\.)?\S+)/;
+        const slices = item.trim().split(regex);
+
+        const text = slices[0]?.trim();
+        const link = slices[1]?.trim();
+
+        this.message?.push({ text, link })
+      }
     }
+  }
+
+  formatText(text: string): SafeHtml {
+    const formatted = text.replace(/\*(.*?)\*/g, '<span style="font-weight: bolder; font-size: 14px">$1</span>');
+    return this.#sanitizer.bypassSecurityTrustHtml(formatted);
   }
 
   get data() { return this.#data }
@@ -67,10 +87,5 @@ export class ReportClientComponent implements OnInit {
 
   get currentDate() { return currentDateFn() }
 
-  get title() {
-    return 'Meus Cashbacks'
-  }
-
-  get message() { return this.#message }
-  set message(value) { this.#message = value }
+  get title() { return 'Meus Cashbacks' }
 }
