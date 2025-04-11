@@ -12,13 +12,12 @@
   h1 {
     font-size: 18px;
     color: #333;
-    font-weight: lighter;
     letter-spacing: 0.02rem;
   }
 
   .btn-menu {
     border-radius: 0;
-    background-color: #f5f6fa;
+    background: none;
     color:#444;
   }
 }
@@ -53,7 +52,6 @@ form {
     display: flex;
     justify-content: flex-end;
     border-top: 1px solid #bbbbbb;
-
 
     .top-pad {
       padding-top: 16px;

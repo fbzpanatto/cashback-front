@@ -4,8 +4,14 @@
   <div class="container">
     <div class="content">
       <div class="form-selector">
-        @for(item of formSelector; track  item.id) {
-          <button mat-stroked-button (click)="setForm(item)">{{item.title}}</button>
+        @for(item of formSelector; track item.id) {
+          <button
+            mat-stroked-button
+            (click)="setForm(item)"
+            [ngClass]="{ 'selected': selectedOption === item.id }"
+          >
+            {{ item.title }}
+          </button>
         }
       </div>
       @switch (selectedOption) {

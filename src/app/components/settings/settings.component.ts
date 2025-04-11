@@ -7,6 +7,7 @@ import { TextMessageComponent } from "./text-message/text-message.component";
 import { MatRipple } from "@angular/material/core";
 import {TopBarComponent} from "../top-bar/top-bar.component";
 import {MarketingComponent} from "./marketing/marketing.component";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-settings',
@@ -18,6 +19,7 @@ import {MarketingComponent} from "./marketing/marketing.component";
     MatButton,
     TopBarComponent,
     MarketingComponent,
+    NgClass,
   ],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
